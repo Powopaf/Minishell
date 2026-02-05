@@ -1,0 +1,89 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokens_lst_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/16 08:05:00 by flomulle          #+#    #+#             */
+/*   Updated: 2026/01/24 15:22:03 by flomulle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "token_utils.h"
+#include "../error/err.h"
+#include <stdlib.h>
+
+static void	token_add_back(t_token **token, t_token *new)
+{
+	t_token	*current;
+
+	if (!new)
+		return ;
+	new->next = NULL;
+	if (!*token)
+	{
+		*token = new;
+		new->prev = NULL;
+		return ;
+	}
+	current = *token;
+	while (current->next)
+		current = current->next;
+	new->prev = current;
+	current->next = new;
+}
+
+static t_token	*create_token(t_shell *sh, char *token_str, t_token_kw token_kw)
+{
+	t_token	*token_struct;
+
+	token_struct = malloc(sizeof(t_token));
+	if (!token_struct)
+	{
+		ft_error(sh, "malloc", MALLOC_ERR, -FAIL);
+		return (NULL);
+	}
+	token_struct->token = NULL;
+	if (token_str)
+	{
+		token_struct->token = ft_strdup(token_str);
+		if (!token_struct->token)
+		{
+			free(token_struct);
+			ft_error(sh, "malloc", MALLOC_ERR, -FAIL);
+			return (NULL);
+		}
+	}
+	token_struct->kw = token_kw;
+	return (token_struct);
+}
+
+int	add_token(t_shell *sh, char *token, t_token_kw kw)
+{
+	t_token	*new_tk;
+
+	new_tk = create_token(sh, token, kw);
+	if (!new_tk)
+		return (0);
+	tokenadd_back(&sh->tokens, new_tk);
+	return (1);
+}
+
+//void	ft_tokens_clear(t_token **token, void (*del)(t_token *))
+//{
+//	t_token	*current;
+//	t_token	*tokenfree;
+
+//	if (!token || !*token)
+//		return ;
+//	current = *token;
+//	while (current)
+//	{
+//		tokenfree = current;
+//		current = current->next;
+//		del(tokenfree);
+//		free(tokenfree);
+//	}
+//	*token = NULL;
+//}

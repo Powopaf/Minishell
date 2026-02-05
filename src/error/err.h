@@ -13,6 +13,13 @@
 # define PROMPT_MES "minishell: "
 # define CMD_NOT_FND 127
 # define CMD_PERM_DND 126
+# define MISUSE 2
+# define PRG_ERR 666
+//# define SIG_BASE 128
+
+//# define ISDIR "Is a directory"
+# define DEBUG "PROGRAM ERROR"
+
 
 
 void	syntax_error(t_shell *sh, t_token_kw kw, int exitno);

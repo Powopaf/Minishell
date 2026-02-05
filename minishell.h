@@ -16,17 +16,11 @@
 ========= MACROS ===============================================================
 */
 
-# define MISUSE 2
-# define PRG_ERR 666
-# define SIG_BASE 128
+# define EXIT_FAILURE 1
+# define EXIT_SUCCESS 0
+//# define PROMPT_HD "> "
 
-# define ISDIR "Is a directory"
-# define DEBUG "PROGRAM ERROR"
-
-# define PROMPT "minishell> "
-# define PROMPT_HD "> "
-
-# define HEREDOC "/tmp/minishell_heredoc"
+//# define HEREDOC "/tmp/minishell_heredoc"
 
 /*
 ========= GLOBAL VARIABLE ======================================================
@@ -38,15 +32,15 @@
 ========= STRUCTURES============================================================
 */
 
-typedef struct s_redir
-{
-	t_token_kw		kw;
-	char			*file;
-	char			*eofkw;
-	int				fd_in;
-	int				fd_out;
-	struct s_redir	*prev;
-	struct s_redir	*next;
-}	t_redir;
+//typedef struct s_redir
+//{
+//	t_token_kw		kw;
+//	char			*file;
+//	char			*eofkw;
+//	int				fd_in;
+//	int				fd_out;
+//	struct s_redir	*prev;
+//	struct s_redir	*next;
+//}	t_redir;
 
 #endif

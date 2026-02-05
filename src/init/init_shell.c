@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
-static void	ft_copy_envp(t_shell *shell, char **envp)
+static void	copy_envp(t_shell *shell, char **envp)
 {
 	if (!envp)
 	{
@@ -31,7 +31,21 @@ static void	ft_copy_envp(t_shell *shell, char **envp)
 		error(shell, "malloc", MALLOC_ERR, FAIL);
 }
 
-void	ft_initialize_shell(t_shell *shell, char **envp)
+static void	get_shell_name(t_shell *shell, char **argv)
+{
+	if (!argv || !*argv)
+	{
+		shell->name = "minishell";
+		return ;
+	}
+	shell->name = ft_strrchr(*argv, '/');
+	if (shell->name)
+		shell->name++;
+	else
+		shell->name = *argv;
+}
+
+void	initialize_shell(t_shell *shell, char **envp, char **argv)
 {
 	ft_copy_envp(shell, envp);
 	shell->status = 0;
@@ -47,6 +61,7 @@ void	ft_initialize_shell(t_shell *shell, char **envp)
 	shell->l = NULL;
 	shell->tokens = NULL;
 	shell->ast = NULL;
+	get_shell_name(shell, argv);
 	//ft_init_terminal(shell);
 	//ft_setup_signals(shell);
 }

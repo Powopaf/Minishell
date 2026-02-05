@@ -55,6 +55,7 @@ typedef struct s_token
 typedef struct s_shell
 {
 	char	**envp;
+	char	*name;
 	int		status;
 	int		stdin_fd;
 	int		stdout_fd;
