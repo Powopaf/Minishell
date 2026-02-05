@@ -10,6 +10,7 @@ SRC = ./minishell.c \
 	  ./src/token/tokens_add.c \
 	  ./src/token/tokens_lst_utils.c \
 	  ./src/token/tokens_utils.c \
+	  ./src/token/syntax/syntax.c \
 
 
 OBJ_DIR = .obj

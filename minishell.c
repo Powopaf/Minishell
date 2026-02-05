@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "struct.h"
 # include <readline/readline.h>
 #include "minishell.h"
 #include "src/init/init_shell.h"
