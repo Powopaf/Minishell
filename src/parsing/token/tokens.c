@@ -12,7 +12,7 @@
 
 #include "tokens.h"
 #include "token_utils.h"
-#include "../error/err.h"
+#include "../../error/err.h"
 #include <stddef.h>
 
 // ssize_t	ft_quotes(t_shell *sh, ssize_t i)
@@ -40,7 +40,7 @@ static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 	{
 		word = ft_substr(sh->l, beginning, i - beginning);
 		if (!word)
-			ft_error(sh, "malloc", MALLOC_ERR, -FAIL);
+			error(sh, "malloc", MALLOC_ERR, -FAIL);
 		add_token(sh, word, WORD);
 		ft_free_str(&word);
 	}
@@ -65,7 +65,7 @@ int	tokenization(t_shell *sh)
 		if (i == -1)
 			return (EXIT_FAILURE);
 	}
-	ft_add_token(sh, NULL, EOFKW);
+	add_token(sh, NULL, EOFKW);
 	return (EXIT_SUCCESS);
 }
 // consider cases:

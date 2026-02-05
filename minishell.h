@@ -12,15 +12,6 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-/*
-========= MACROS ===============================================================
-*/
-
-# define EXIT_FAILURE 1
-# define EXIT_SUCCESS 0
-//# define PROMPT_HD "> "
-
-//# define HEREDOC "/tmp/minishell_heredoc"
 
 /*
 ========= GLOBAL VARIABLE ======================================================

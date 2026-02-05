@@ -12,7 +12,6 @@
 
 #include "ast.h"
 #include "../../error/err.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include "../parser_utils.h"
 
@@ -51,7 +50,7 @@ t_ast	*create_ast_node(t_shell *sh, t_ast_node_type astkw)
 	node = malloc(sizeof(*node));
 	if (!node)
 	{
-		ft_error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", MALLOC_ERR, -FAIL);
 		return (NULL);
 	}
 	node->astkw = astkw;

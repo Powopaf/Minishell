@@ -15,6 +15,35 @@
 #include "ast/ast.h"
 #include "parser_utils.h"
 
+static t_ast	*parse_pipelines(t_shell *sh, t_token **tokens);
+
+static t_ast	*parse_logical_operators(t_shell *sh, t_token **tokens)
+{
+	t_ast	*node;
+	t_ast	*left;
+
+	node = NULL;
+	left = parse_pipelines(sh, tokens);
+	if (!left)
+		return (NULL);
+	while ((*tokens) && ((*tokens)->kw == AND || (*tokens)->kw == OR))
+	{
+		if ((*tokens)->kw == AND)
+			node = create_ast_node(sh, AST_AND);
+		else
+			node = create_ast_node(sh, AST_OR);
+		if (!node)
+			return (NULL);
+		node->left = left;
+		(*tokens) = (*tokens)->next;
+		node->right = parse_pipelines(sh, tokens);
+		if (!node->right)
+			return (NULL);
+		left = node;
+	}
+	return (left);
+}
+
 static t_ast	*parse_subshell(t_shell *sh, t_token **tokens)
 {
 	t_ast	*node;
@@ -80,39 +109,11 @@ static t_ast	*parse_pipelines(t_shell *sh, t_token **tokens)
 	return (left);
 }
 
-static t_ast	*parse_logical_operators(t_shell *sh, t_token **tokens)
-{
-	t_ast	*node;
-	t_ast	*left;
-
-	node = NULL;
-	left = parse_pipelines(sh, tokens);
-	if (!left)
-		return (NULL);
-	while ((*tokens) && ((*tokens)->kw == AND || (*tokens)->kw == OR))
-	{
-		if ((*tokens)->kw == AND)
-			node = create_ast_node(sh, AST_AND);
-		else
-			node = create_ast_node(sh, AST_OR);
-		if (!node)
-			return (NULL);
-		node->left = left;
-		(*tokens) = (*tokens)->next;
-		node->right = parse_pipelines(sh, tokens);
-		if (!node->right)
-			return (NULL);
-		left = node;
-	}
-	return (left);
-}
-
 t_ast	*parser(t_shell *sh, t_token **tokens)
 {
 	t_ast	*node;
 	node = parse_logical_operators(sh, tokens);
 	if (!node || (tokens && (*tokens)->kw != EOFKW))
 		return (NULL);
-	if (node)
-		return (node);
+	return (node);
 }

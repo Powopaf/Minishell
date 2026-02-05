@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #include "token_utils.h"
-#include "../error/err.h"
+#include "../../error/err.h"
 
 static ssize_t	ft_add_key_tokenquad(t_shell *sh, ssize_t i)
 {
 	if (sh->l[i] == '&' && sh->l[i + 1] != '&')
 	{
-		ft_syntax_error(sh, AMPERSAND, -MISUSE);
+		syntax_error(sh, AMPERSAND, -MISUSE);
 		return (-1);
 	}
 	if (sh->l[i] == ';')
 	{
-		ft_syntax_error(sh, SEMICOLON, -MISUSE);
+		syntax_error(sh, SEMICOLON, -MISUSE);
 		return (-1);
 	}
-	ft_error(sh, "token", DEBUG, PRG_ERR);
+	error(sh, "token", DEBUG, PRG_ERR);
 	return (-1);
 }
 
@@ -33,19 +33,19 @@ static ssize_t	ft_add_key_tokenter(t_shell *sh, ssize_t i)
 {
 	if (sh->l[i] == '|')
 	{
-		if (!ft_add_token(sh, "|", PIPE))
+		if (add_token(sh, "|", PIPE))
 			return (-1);
 		return (++i);
 	}
 	if (sh->l[i] == '(')
 	{
-		if (!ft_add_token(sh, "(", L_PARENTH))
+		if (add_token(sh, "(", L_PARENTH))
 			return (-1);
 		return (++i);
 	}
 	if (sh->l[i] == ')')
 	{
-		if (!ft_add_token(sh, ")", R_PARENTH))
+		if (add_token(sh, ")", R_PARENTH))
 			return (-1);
 		return (++i);
 	}
@@ -57,20 +57,20 @@ static ssize_t	ft_add_key_tokenbis(t_shell *sh, ssize_t i)
 {
 	if (sh->l[i] == '>' && sh->l[i + 1] == '>')
 	{
-		if (!ft_add_token(sh, ">>", REDIR_APP))
+		if (add_token(sh, ">>", REDIR_APP))
 			return (-1);
 		i += 2;
 		return (i);
 	}
 	if (sh->l[i] == '<')
 	{
-		if (!ft_add_token(sh, "<", REDIR_IN))
+		if (add_token(sh, "<", REDIR_IN))
 			return (-1);
 		return (++i);
 	}
 	if (sh->l[i] == '>')
 	{
-		if (!ft_add_token(sh, ">", REDIR_OUT))
+		if (add_token(sh, ">", REDIR_OUT))
 			return (-1);
 		return (++i);
 	}
@@ -89,14 +89,14 @@ ssize_t	add_key_token(t_shell *sh, ssize_t i)
 	}
 	if (sh->l[i] == '&' && sh->l[i + 1] == '&')
 	{
-		if (!ft_add_token(sh, "&&", AND))
+		if (add_token(sh, "&&", AND))
 			return (-1);
 		i += 2;
 		return (i);
 	}
 	if (sh->l[i] == '<' && sh->l[i + 1] == '<')
 	{
-		if (!ft_add_token(sh, "<<", REDIR_HD))
+		if (add_token(sh, "<<", REDIR_HD))
 			return (-1);
 		i += 2;
 		return (i);

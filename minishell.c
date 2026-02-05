@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 # include <readline/readline.h>
-#include "minishell.h"
 #include "src/init/init_shell.h"
 #include <readline/history.h>
 #include "src/token/tokens.h"
 #include "src/token/syntax/syntax.h"
+#include <stdio.h>
 
 static int	process_line(t_shell *shell, char *line)
 {
@@ -31,7 +31,7 @@ static int	process_line(t_shell *shell, char *line)
 	if (check_syntax(shell))
 		return (EXIT_FAILURE);
 	tokens = shell->tokens;
-	shell->ast = ft_parse(shell, &tokens);
+	shell->ast = parser(shell, &tokens);
 	if (!shell->ast)
 		return (EXIT_FAILURE);
 	ft_expand_variables(shell, shell->ast);

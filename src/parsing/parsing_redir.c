@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser_utils.h"
-#include "../../error/err.h"
+#include "../error/err.h"
 #include <stdlib.h>
 
 static void	rediradd_back(t_redir **redir, t_redir *newredir)
@@ -39,13 +39,13 @@ static t_redir	*create_redir(t_shell *sh, t_token_kw kw, char *file)
 
 	redir_struct = (t_redir*)malloc(sizeof(t_redir));
 	if (!redir_struct)
-		return (ft_error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
+		return (error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
 	redir_struct->kw = kw;
 	redir_struct->file = ft_strdup(file);
 	if (!redir_struct->file)
 	{
 		free(redir_struct);
-		ft_error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", MALLOC_ERR, -FAIL);
 		return (NULL);
 	}
 	redir_struct->eofkw = NULL;
@@ -84,7 +84,7 @@ int	parse_redir(t_shell *sh, t_ast *ast_node, t_token **token)
 		file = ft_strdup((*token)->next->token);
 		if (!file)
 		{
-			ft_error(sh, "malloc", MALLOC_ERR, -FAIL);
+			error(sh, "malloc", MALLOC_ERR, -FAIL);
 			return (EXIT_FAILURE);
 		}
 		if (add_redir(sh, ast_node, (*token)->kw, file))

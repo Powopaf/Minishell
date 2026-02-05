@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "syntax.h"
-#include "../../error/err.h"
+#include "../../../error/err.h"
 
 static int	redir_syntax(t_shell *sh)
 {
@@ -45,7 +45,7 @@ static int	pipe_syntax(t_shell *sh)
 		{
 			if (!current->prev)
 			{
-				ft_syntax_error(sh, PIPE, -MISUSE);
+				syntax_error(sh, PIPE, -MISUSE);
 				return (EXIT_FAILURE);
 			}
 			if (current->next && current->next->kw == PIPE)
@@ -91,7 +91,7 @@ int	check_syntax(t_shell *sh)
 		return (EXIT_FAILURE);
 	if (pipe_syntax(sh))
 		return (EXIT_FAILURE);
-	if (!ft_parenth_syntax(sh))
+	if (parenth_syntax(sh))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

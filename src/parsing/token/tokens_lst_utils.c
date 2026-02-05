@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "token_utils.h"
-#include "../error/err.h"
+#include "../../error/err.h"
 #include <stdlib.h>
 
 static void	token_add_back(t_token **token, t_token *new)
@@ -41,7 +41,7 @@ static t_token	*create_token(t_shell *sh, char *token_str, t_token_kw token_kw)
 	token_struct = malloc(sizeof(t_token));
 	if (!token_struct)
 	{
-		ft_error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", MALLOC_ERR, -FAIL);
 		return (NULL);
 	}
 	token_struct->token = NULL;
@@ -51,7 +51,7 @@ static t_token	*create_token(t_shell *sh, char *token_str, t_token_kw token_kw)
 		if (!token_struct->token)
 		{
 			free(token_struct);
-			ft_error(sh, "malloc", MALLOC_ERR, -FAIL);
+			error(sh, "malloc", MALLOC_ERR, -FAIL);
 			return (NULL);
 		}
 	}
@@ -65,9 +65,9 @@ int	add_token(t_shell *sh, char *token, t_token_kw kw)
 
 	new_tk = create_token(sh, token, kw);
 	if (!new_tk)
-		return (0);
-	tokenadd_back(&sh->tokens, new_tk);
-	return (1);
+		return (EXIT_FAILURE);
+	token_add_back(&sh->tokens, new_tk);
+	return (EXIT_SUCCESS);
 }
 
 //void	ft_tokens_clear(t_token **token, void (*del)(t_token *))
