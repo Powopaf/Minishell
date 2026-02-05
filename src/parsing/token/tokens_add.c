@@ -15,12 +15,12 @@
 
 static ssize_t	ft_add_key_tokenquad(t_shell *sh, ssize_t i)
 {
-	if (sh->l[i] == '&' && sh->l[i + 1] != '&')
+	if (sh->line[i] == '&' && sh->line[i + 1] != '&')
 	{
 		syntax_error(sh, AMPERSAND, -MISUSE);
 		return (-1);
 	}
-	if (sh->l[i] == ';')
+	if (sh->line[i] == ';')
 	{
 		syntax_error(sh, SEMICOLON, -MISUSE);
 		return (-1);
@@ -31,19 +31,19 @@ static ssize_t	ft_add_key_tokenquad(t_shell *sh, ssize_t i)
 
 static ssize_t	ft_add_key_tokenter(t_shell *sh, ssize_t i)
 {
-	if (sh->l[i] == '|')
+	if (sh->line[i] == '|')
 	{
 		if (add_token(sh, "|", PIPE))
 			return (-1);
 		return (++i);
 	}
-	if (sh->l[i] == '(')
+	if (sh->line[i] == '(')
 	{
 		if (add_token(sh, "(", L_PARENTH))
 			return (-1);
 		return (++i);
 	}
-	if (sh->l[i] == ')')
+	if (sh->line[i] == ')')
 	{
 		if (add_token(sh, ")", R_PARENTH))
 			return (-1);
@@ -55,20 +55,20 @@ static ssize_t	ft_add_key_tokenter(t_shell *sh, ssize_t i)
 
 static ssize_t	ft_add_key_tokenbis(t_shell *sh, ssize_t i)
 {
-	if (sh->l[i] == '>' && sh->l[i + 1] == '>')
+	if (sh->line[i] == '>' && sh->line[i + 1] == '>')
 	{
 		if (add_token(sh, ">>", REDIR_APP))
 			return (-1);
 		i += 2;
 		return (i);
 	}
-	if (sh->l[i] == '<')
+	if (sh->line[i] == '<')
 	{
 		if (add_token(sh, "<", REDIR_IN))
 			return (-1);
 		return (++i);
 	}
-	if (sh->l[i] == '>')
+	if (sh->line[i] == '>')
 	{
 		if (add_token(sh, ">", REDIR_OUT))
 			return (-1);
@@ -80,21 +80,21 @@ static ssize_t	ft_add_key_tokenbis(t_shell *sh, ssize_t i)
 
 ssize_t	add_key_token(t_shell *sh, ssize_t i)
 {
-	if (sh->l[i] == '|' && sh->l[i + 1] == '|')
+	if (sh->line[i] == '|' && sh->line[i + 1] == '|')
 	{
 		if (!add_token(sh, "||", OR))
 			return (-1);
 		i += 2;
 		return (i);
 	}
-	if (sh->l[i] == '&' && sh->l[i + 1] == '&')
+	if (sh->line[i] == '&' && sh->line[i + 1] == '&')
 	{
 		if (add_token(sh, "&&", AND))
 			return (-1);
 		i += 2;
 		return (i);
 	}
-	if (sh->l[i] == '<' && sh->l[i + 1] == '<')
+	if (sh->line[i] == '<' && sh->line[i + 1] == '<')
 	{
 		if (add_token(sh, "<<", REDIR_HD))
 			return (-1);

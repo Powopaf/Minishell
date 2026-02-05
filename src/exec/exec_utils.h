@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens.h                                           :+:      :+:    :+:   */
+/*   exec_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 23:05:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:05:42 by pifourni         ###   ########.fr       */
+/*   Created: 2026/02/05 23:09:07 by pifourni          #+#    #+#             */
+/*   Updated: 2026/02/05 23:09:08 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENS_H
-# define TOKENS_H
+#ifndef EXEC_UTILS_H
+# define EXEC_UTILS_H
 
-#include "../../../struct.h"
-
+#define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
-# define EXIT_SUCCESS 0
+# define SIG_BASE 128
+#define ISDIR "Is a directory"
 
-int	tokenization(t_shell *sh);
+#include "../../struct.h"
+#include "../../redir.h"
+
+int	exec_cmd(t_shell *sh, t_ast *node);
+pid_t	try_fork(t_shell *sh);
+int	redir(t_shell *sh, t_redir *redir);
 
 #endif

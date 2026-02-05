@@ -26,10 +26,10 @@ static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 	char	*word;
 
 	beginning = i;
-	while (sh->l[i] && !isshspace(sh->l[i]) && !isshellkw(sh->l[i])
-		&& !isshbreak(sh->l[i]))
+	while (sh->line[i] && !isshspace(sh->line[i]) && !isshellkw(sh->line[i])
+		&& !isshbreak(sh->line[i]))
 	{
-		// if (sh->l[i] == '\'' || sh->l[i] == '"')
+		// if (sh->line[i] == '\'' || sh->line[i] == '"')
 		// 	i = ft_quotes(sh, i);
 		// if (i == -1)
 		// 	return (i);
@@ -38,7 +38,7 @@ static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 	}
 	if (i > beginning)
 	{
-		word = ft_substr(sh->l, beginning, i - beginning);
+		word = ft_substr(sh->line, beginning, i - beginning);
 		if (!word)
 			error(sh, "malloc", MALLOC_ERR, -FAIL);
 		add_token(sh, word, WORD);
@@ -52,13 +52,13 @@ int	tokenization(t_shell *sh)
 	ssize_t	i;
 
 	i = 0;
-	while (sh->l[i])
+	while (sh->line[i])
 	{
-		while (isshspace(sh->l[i]))
+		while (isshspace(sh->line[i]))
 			i++;
-		if (!sh->l[i] || isshbreak(sh->l[i]))
+		if (!sh->line[i] || isshbreak(sh->line[i]))
 			break ;
-		if (isshellkw(sh->l[i]))
+		if (isshellkw(sh->line[i]))
 			i = add_key_token(sh, i);
 		else
 			i = add_word_token(sh, i);

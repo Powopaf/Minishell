@@ -6,14 +6,14 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 08:05:36 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/04 16:33:32 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/05 23:03:16 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 #include "../../error/err.h"
+#include "../../../redir.h"
 #include <stdlib.h>
-#include "../parser_utils.h"
 
 void	ft_clean_redir(t_redir	*redir)
 {

@@ -13,9 +13,11 @@
 # include <readline/readline.h>
 #include "src/init/init_shell.h"
 #include <readline/history.h>
-#include "src/token/tokens.h"
-#include "src/token/syntax/syntax.h"
+#include "src/parsing/token/tokens.h"
+#include "src/parsing/token/syntax/syntax.h"
+#include "src/exec/exec.h"
 #include <stdio.h>
+#include "src/parsing/expend/expand.h"
 
 static int	process_line(t_shell *shell, char *line)
 {
@@ -25,7 +27,7 @@ static int	process_line(t_shell *shell, char *line)
 		return (EXIT_FAILURE);
 	// signal
 	add_history(line);
-	shell->l = line;
+	shell->line = line;
 	if (tokenization(shell))
 		return (EXIT_FAILURE);
 	if (check_syntax(shell))
@@ -34,8 +36,8 @@ static int	process_line(t_shell *shell, char *line)
 	shell->ast = parser(shell, &tokens);
 	if (!shell->ast)
 		return (EXIT_FAILURE);
-	ft_expand_variables(shell, shell->ast);
-	shell->status = ft_execute_root(shell, shell->ast);
+	expand_var(shell, shell->ast);
+	shell->status = exec_root(shell, shell->ast);
 	ft_clean_prompt(shell);
 	return (EXIT_SUCCESS);
 }

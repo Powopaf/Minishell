@@ -6,12 +6,13 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:57:30 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/19 19:04:12 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/05 23:02:24 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_utils.h"
 #include "../error/err.h"
+#include "../../redir.h"
 #include <stdlib.h>
 
 static void	rediradd_back(t_redir **redir, t_redir *newredir)

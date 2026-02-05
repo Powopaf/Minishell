@@ -62,7 +62,7 @@ typedef struct s_shell
 	int		hd_fd;
 	char	*file;
 	int		cmd_cnt;
-	char	*l;
+	char	*line;
 	t_token	*tokens;
 	t_ast	*ast;
 }	t_shell;

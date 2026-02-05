@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expanding.c                                        :+:      :+:    :+:   */
+/*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/26 12:18:31 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/05 23:04:23 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expand.h"
+#include "../../../redir.h"
 #include "../../error/err.h"
-#include "../parser_utils.h"
 #include "expand_utils.h"
 #include <stddef.h>
+#include <stdlib.h>
 
 static char	*expand_status(t_shell *sh, char *expand, size_t *i)
 {

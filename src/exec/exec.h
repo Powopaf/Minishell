@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/12 10:13:03 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/05 11:26:04 by flomulle         ###   ########.fr       */
+/*   Created: 2026/02/05 23:08:20 by pifourni          #+#    #+#             */
+/*   Updated: 2026/02/05 23:08:22 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef EXEC_H
+# define EXEC_H
 
-/*
-========= GLOBAL VARIABLE ======================================================
-*/
+#include "../../struct.h"
 
-//int			g_signal = 0;
+int	exec_root(t_shell *sh, t_ast *node);
 
 #endif
