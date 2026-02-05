@@ -16,6 +16,7 @@
 #include "src/init/init_shell.h"
 #include <readline/history.h>
 #include "src/token/tokens.h"
+#include "src/token/syntax/syntax.h"
 
 static int	process_line(t_shell *shell, char *line)
 {
@@ -26,9 +27,9 @@ static int	process_line(t_shell *shell, char *line)
 	// signal
 	add_history(line);
 	shell->l = line;
-	if (!tokenization(shell))
+	if (tokenization(shell))
 		return (EXIT_FAILURE);
-	if (!ft_tk_syntax(shell))
+	if (check_syntax(shell))
 		return (EXIT_FAILURE);
 	tokens = shell->tokens;
 	shell->ast = ft_parse(shell, &tokens);

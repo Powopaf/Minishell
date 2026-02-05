@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	ft_syntax_error(t_shell *sh, t_token_kw kw, int exitno)
+void	syntax_error(t_shell *sh, t_token_kw kw, int exitno)
 {
 	ft_putstr_fd("syntax error near unexpected token `", 2);
 	ft_putstr_fd(ft_token_to_char(kw), 2);
