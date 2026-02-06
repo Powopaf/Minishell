@@ -12,6 +12,7 @@
 
 #include "expand_utils.h"
 #include "../../error/err.h"
+#include "../../../libft/libft.h"
 
 char	*collect_env_var(t_shell *sh, char *var_name)
 {

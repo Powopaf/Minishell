@@ -13,6 +13,7 @@
 #include "expand.h"
 #include "../../../redir.h"
 #include "../../error/err.h"
+#include "../../../libft/libft.h"
 #include "expand_utils.h"
 #include <stddef.h>
 #include <stdlib.h>

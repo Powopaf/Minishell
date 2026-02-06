@@ -170,4 +170,20 @@ char	**ft_add_str_array(char **arr, char *s);
  */
 void	ft_free_array_strs(char ***s);
 
+/**
+ * Converts an integer to a string.
+ * Handles negative values and zero.
+ * @param {int} n - Number to convert.
+ * @returns { char * } - Numeric string representation.
+ */
+char	*ft_itoa(int n);
+
+/**
+ * Checks if a character is alphanumeric.
+ * Returns true for ASCII letters and digits.
+ * @param {int} c - Character to test.
+ * @returns {int} 1 if `c` is alphanumeric, otherwise 0.
+ */
+int		ft_isalnum(int c);
+
 #endif
