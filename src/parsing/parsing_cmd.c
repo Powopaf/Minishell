@@ -12,6 +12,7 @@
 
 #include "parser_utils.h"
 #include "../error/err.h"
+#include "../../libft/libft.h"
 
 static int	add_arg(t_shell *sh, t_ast *node, char *arg)
 {

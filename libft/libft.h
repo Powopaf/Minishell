@@ -153,4 +153,21 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
  */
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
+/**
+ * Add a new string to the end of an array of strings,
+ * malloc a new array and returns it. The array of strings is freed.
+ * @param {const char**} arr - array of strings.
+ * @param {const char*} s - string to add at the end of the array.
+ * @returns {char**} Newly allocated copy of the string.
+ * @warning returns null if arr null, or any malloc fails
+ */
+char	**ft_add_str_array(char **arr, char *s);
+
+/**
+ * @brief Free a NULL terminated array of strings,
+ * created with split for instance.
+ * @param {char ***s} - array of strings, NULL terminated
+ */
+void	ft_free_array_strs(char ***s);
+
 #endif

@@ -13,6 +13,7 @@
 #include "parser_utils.h"
 #include "../error/err.h"
 #include "../../redir.h"
+#include "../../libft/libft.h"
 #include <stdlib.h>
 
 static void	rediradd_back(t_redir **redir, t_redir *newredir)

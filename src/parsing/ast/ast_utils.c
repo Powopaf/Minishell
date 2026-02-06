@@ -14,19 +14,24 @@
 #include "../../error/err.h"
 #include "../../../redir.h"
 #include <stdlib.h>
+#include <unistd.h>
+#include "../../../libft/libft.h"
 
-void	ft_clean_redir(t_redir	*redir)
+void	clean_redir(t_redir	*redir)
 {
 	if (!redir)
 		return ;
-	ft_free_str(&redir->file);
-	ft_free_str(&redir->eofkw);
-	ft_close_fd(&redir->fd_in);
-	ft_close_fd(&redir->fd_out);
+	// TODO: Check if we can remove the if
+	if (redir->file)
+		free(redir->file);
+	if (redir->eofkw)
+		free(redir->eofkw);
+	close(redir->fd_in);
+	close(redir->fd_out);
 	free(redir);
 }
 
-void	ft_redir_clear(t_redir **redir, void (*del)(t_redir *))
+void	redir_clear(t_redir **redir, void (*del)(t_redir *))
 {
 	t_redir	*current;
 	t_redir	*redirfree;
@@ -70,20 +75,20 @@ void	ft_clean_ast(t_ast	*node)
 	if (!node)
 		return ;
 	ft_free_array_strs(&node->args);
-	ft_redir_clear(&node->redir, ft_clean_redir);
-	ft_close_fd(&node->fd_in);
-	ft_close_fd(&node->fd_out);
+	redir_clear(&node->redir, clean_redir);
+	close(node->fd_in);
+	close(node->fd_out);
 	free(node);
 }
 
-void	ft_astclear(t_ast **ast, void (*del)(t_ast	*))
+void	ast_clear(t_ast **ast, void (*del)(t_ast	*))
 {
 	if (!ast || !*ast)
 		return ;
 	if ((*ast)->left)
-		ft_astclear(&(*ast)->left, del);
+		ast_clear(&(*ast)->left, del);
 	if ((*ast)->right)
-		ft_astclear(&(*ast)->right, del);
+		ast_clear(&(*ast)->right, del);
 	del(*ast);
 	*ast = NULL;
 }
