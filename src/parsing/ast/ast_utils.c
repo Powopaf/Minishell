@@ -16,37 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "../../../libft/libft.h"
-
-void	clean_redir(t_redir	*redir)
-{
-	if (!redir)
-		return ;
-	// TODO: Check if we can remove the if
-	if (redir->file)
-		free(redir->file);
-	if (redir->eofkw)
-		free(redir->eofkw);
-	close(redir->fd_in);
-	close(redir->fd_out);
-	free(redir);
-}
-
-void	redir_clear(t_redir **redir, void (*del)(t_redir *))
-{
-	t_redir	*current;
-	t_redir	*redirfree;
-
-	if (!redir || !*redir)
-		return ;
-	current = *redir;
-	while (current)
-	{
-		redirfree = current;
-		current = current->next;
-		del(redirfree);
-	}
-	*redir = NULL;
-}
+#include "../../clean/clean_shell.h"
 
 t_ast	*create_ast_node(t_shell *sh, t_ast_node_type astkw)
 {

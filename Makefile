@@ -2,7 +2,7 @@
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
-LIB = -fsanitize=address
+LIB = libft/libft.a -lreadline -fsanitize=address
 SRC = ./minishell.c \
 	  ./src/error/err.c \
 	  ./src/init/init_shell.c \
@@ -12,7 +12,6 @@ SRC = ./minishell.c \
 	  ./src/exec/exec_cmd.c \
 	  ./src/exec/exec_redir.c \
 	  ./src/exec/exec_utils.c \
-	  ./src/exec/find_cmd.c \
 	  ./src/exec/parser_cmd/get_env.c \
 	  ./src/exec/parser_cmd/parser_cmd.c \
 	  ./src/parsing/parsing.c \
@@ -22,10 +21,11 @@ SRC = ./minishell.c \
 	  ./src/parsing/expend/expand.c \
 	  ./src/parsing/expend/expand_env.c \
 	  ./src/parsing/token/syntax/syntax.c \
+	  ./src/parsing/token/put_token.c \
 	  ./src/parsing/token/tokens.c \
 	  ./src/parsing/token/tokens_add.c \
 	  ./src/parsing/token/tokens_lst_utils.c \
-	  ./src/parsing/token/tokens_lst_utils.c \
+	  ./src/parsing/token/tokens_utils.c \
 	  ./src/exec/pipe.c \
 	  ./src/exec/exec_heredoc.c \
 
@@ -37,8 +37,11 @@ NAME = minishell
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) -o $(NAME) $+ $(LIB)
+$(NAME): $(OBJ) libft/libft.a
+	$(CC) -o $(NAME) $(OBJ) $(LIB)
+
+libft/libft.a:
+	$(MAKE) -C libft
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@mkdir -p $(dir $@)
@@ -52,8 +55,10 @@ $(OBJ_DIR):
 clean:
 	rm -f $(OBJ) $(DEP)
 	rm -rf $(OBJ_DIR)
+	$(MAKE) -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C libft fclean
 
 re: fclean all
