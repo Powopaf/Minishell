@@ -58,5 +58,22 @@ char	*ft_strjoin_char(char *s1, char c, int position, int param);
  */
 char	*ft_strjoin_char_p(char **s1, char c, int position, int param);
 
+/**
+ * Duplicates an array of strings.
+ * Allocates memory and copies the node of `s`.
+ * Free and returns null if malloc error.
+ * Protected if s null.
+ * @param {const char**} s - array of strings to duplicate.
+ * @returns {char**} Newly allocated copy of the string.
+ */
+char	**ft_strsdup(char **s);
+
+/**
+ * Searches for the last occurrence of a character in a string.
+ * @param {const char*} s - String to search.
+ * @param {int} c - Character to locate.
+ * @returns {char*} Pointer to match or NULL.
+ */
+char	*ft_strrchr(const char *s, int c);
 
 #endif

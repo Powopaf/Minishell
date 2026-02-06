@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include "../../libft/libft.h"
 
 static void	copy_envp(t_shell *shell, char **envp)
 {
