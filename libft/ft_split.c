@@ -13,6 +13,25 @@
 #include <stdlib.h>
 #include "libft.h"
 
+static int	ft_count_words(char const *s, char c)
+{
+	size_t	count;
+	size_t	i;
+
+	count = 0;
+	i = 0;
+	while (s[i])
+	{
+		while (s[i] && s[i] == c)
+			i++;
+		if (s[i])
+			count++;
+		while (s[i] && s[i] != c)
+			i++;
+	}
+	return (count);
+}
+
 static char	*ft_strndup(const char *s, size_t n)
 {
 	size_t	len;

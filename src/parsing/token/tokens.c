@@ -13,7 +13,8 @@
 #include "tokens.h"
 #include "token_utils.h"
 #include "../../error/err.h"
-#include <stddef.h>
+#include "../../../libft/libft.h"
+#include <stdlib.h>
 
 // ssize_t	ft_quotes(t_shell *sh, ssize_t i)
 // {
@@ -42,7 +43,9 @@ static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 		if (!word)
 			error(sh, "malloc", MALLOC_ERR, -FAIL);
 		add_token(sh, word, WORD);
-		ft_free_str(&word);
+		// TODO: check if we can remove if
+		if (word)
+			free(word);
 	}
 	return (i);
 }

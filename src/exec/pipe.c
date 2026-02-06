@@ -35,7 +35,7 @@ static int pipe_right(t_shell *sh, t_ast *node, int fd)
 		error(sh, DEBUG, DEBUG, -EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}
-	ft_close_fd(&tmp->fd_in);
+	close(tmp->fd_in);
 	tmp->fd_in = fd;
 	return (EXIT_SUCCESS);
 }
@@ -60,7 +60,7 @@ static int pipe_left(t_shell *sh, t_ast *node, int fd)
 		error(sh, DEBUG, DEBUG, -EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}
-	ft_close_fd(&tmp->fd_out);
+	close(tmp->fd_out);
 	tmp->fd_out = fd;
 	return (EXIT_SUCCESS);
 }

@@ -12,6 +12,7 @@
 
 #include "token_utils.h"
 #include "../../error/err.h"
+#include "../../../libft/libft.h"
 #include <stdlib.h>
 
 static void	token_add_back(t_token **token, t_token *new)

@@ -186,4 +186,36 @@ char	*ft_itoa(int n);
  */
 int		ft_isalnum(int c);
 
+/**
+ * Reads the next line from a file descriptor `fd`.
+ * Supports reading from multiple file descriptors simultaneously (bonus).
+ * Each call returns a newly allocated string ending with a newline character
+ * if present.
+ * The function maintains an internal static buffer for each file descriptor.
+ * Returns NULL on end-of-file or error.
+ * @param {int} fd - File descriptor to read from.
+ * @returns {char*} Pointer to a newly allocated string containing the next line,
+ * including the newline character if present. Returns NULL on EOF or error.
+ * The caller is responsible for freeing the returned string.
+ */
+char	*ft_get_next_line(int fd);
+
+/**
+ * Converts a pointer to a string.
+ * If pointer is null returns NULL.
+ * @param {void *} ptr - Pointer to convert.
+ * @returns { char * } - string representation.
+ */
+char	*ft_ptoa(void *ptr);
+
+/**
+ * Copies a block of memory.
+ * Copies `n` bytes from `src` to `dst`. Undefined behavior if memory overlaps.
+ * @param {void*} dst - Destination buffer.
+ * @param {const void*} src - Source buffer.
+ * @param {size_t} n - Number of bytes to copy.
+ * @returns {void*} Pointer to `dst`.
+ */
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+
 #endif

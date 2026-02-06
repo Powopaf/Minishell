@@ -12,6 +12,7 @@
 
 #include "exec_utils.h"
 #include "../error/err.h"
+#include "../../libft/libft.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>

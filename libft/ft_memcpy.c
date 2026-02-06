@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_empty_array_strs.c                              :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/19 18:41:18 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/05 10:43:57 by flomulle         ###   ########.fr       */
+/*   Created: 2025/11/09 21:37:33 by flomulle          #+#    #+#             */
+/*   Updated: 2025/11/14 16:25:18 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void	ft_empty_array_strs(char **s)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	size_t	i;
+	unsigned char	*d;
+	unsigned char	*s;
+	size_t			i;
 
-	if (!s)
-		return ;
+	d = (unsigned char *)(dest);
+	s = (unsigned char *)(src);
 	i = 0;
-	while (s[i])
+	while (i < n)
 	{
-		free(s[i]);
+		d[i] = s[i];
 		i++;
 	}
-	free(s);
+	return (dest);
 }

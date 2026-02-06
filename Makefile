@@ -33,7 +33,7 @@ OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 DEP = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.d))
 
-NAME = philo
+NAME = minishell
 
 all: $(NAME)
 
@@ -51,6 +51,7 @@ $(OBJ_DIR):
 
 clean:
 	rm -f $(OBJ) $(DEP)
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME)
