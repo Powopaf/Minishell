@@ -19,7 +19,7 @@
 
 static int	redir_hd(t_shell *sh, t_redir *redir)
 {
-	ft_close_fd(&redir->fd_in);
+	close(redir->fd_in);
 	if (heredoc(sh, redir) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (redir->fd_in < 0)
@@ -34,7 +34,7 @@ static int	redir_hd(t_shell *sh, t_redir *redir)
 
 static int	redir_in(t_shell *sh, t_redir *redir)
 {
-	ft_close_fd(&redir->fd_in);
+	close(redir->fd_in);
 	redir->fd_in = open(redir->file, O_RDONLY);
 	if (redir->fd_in < 0)
 	{
@@ -51,7 +51,7 @@ static int	redir_in(t_shell *sh, t_redir *redir)
 
 static int	redir_out(t_shell *sh, t_redir *redir)
 {
-	ft_close_fd(&redir->fd_out);
+	close(redir->fd_out);
 	redir->fd_out = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (redir->fd_out < 0)
 	{
@@ -68,7 +68,7 @@ static int	redir_out(t_shell *sh, t_redir *redir)
 
 static int	redir_app(t_shell *sh, t_redir *redir)
 {
-	ft_close_fd(&redir->fd_out);
+	close(redir->fd_out);
 	redir->fd_out = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0664);
 	if (redir->fd_out < 0)
 	{
@@ -111,3 +111,32 @@ int	redir(t_shell *sh, t_redir *redir)
 	}
 	return (EXIT_SUCCESS);
 }
+
+//int	redir(t_shell *sh, t_redir *redir)
+//{
+//	while (redir)
+//	{
+//		if (redir->kw == REDIR_HD)
+//		{
+//			if (redir_hd(sh, redir) == EXIT_FAILURE)
+//				return (EXIT_FAILURE);
+//		}
+//		else if (redir->kw == REDIR_IN)
+//		{
+//			if (redir_in(sh, redir) == EXIT_FAILURE)
+//				return (EXIT_FAILURE);
+//		}
+//		else if (redir->kw == REDIR_OUT)
+//		{
+//			if (redir_out(sh, redir) == EXIT_FAILURE)
+//				return (EXIT_FAILURE);
+//		}
+//		else if (redir->kw == REDIR_APP)
+//		{
+//			if (redir_app(sh, redir) == EXIT_FAILURE)
+//				return (EXIT_FAILURE);
+//		}
+//		redir = redir->next;
+//	}
+//	return (EXIT_SUCCESS);
+//}

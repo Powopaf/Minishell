@@ -12,6 +12,7 @@
 
 #include "parser_cmd.h"
 #include "../../error/err.h"
+#include "../../../libft/libft.h"
 
 char	*get_env(t_shell *sh, char *var_name)
 {

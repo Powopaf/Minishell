@@ -16,6 +16,7 @@
 #include "../error/err.h"
 #include <string.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
 pid_t	try_fork(t_shell *sh)
 {
@@ -73,4 +74,15 @@ int	wait_ast(t_ast *node)
 			exit = WEXITSTATUS(status);
 	}
 	return (exit);
+}
+
+int	is_dir(char *path)
+{
+	struct stat	status;
+
+	if (!path)
+		return (0);
+	if (stat(path, &status) == -1)
+		return (0);
+	return (S_ISDIR(status.st_mode));
 }

@@ -26,6 +26,7 @@ pid_t	try_fork(t_shell *sh);
 int		redir(t_shell *sh, t_redir *redir);
 int		wait_ast(t_ast *node);
 int		setup_pipe(t_shell *sh, t_ast *node);
-int	heredoc(t_shell *sh, t_redir *redir);
+int		heredoc(t_shell *sh, t_redir *redir);
+int		is_dir(char *path);
 
 #endif

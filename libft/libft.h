@@ -83,4 +83,74 @@ char	*ft_strrchr(const char *s, int c);
  */
 void	ft_free_array_strs(char ***s);
 
+/**
+ * Splits a string by a delimiter into an array.
+ * Allocates a NULL-terminated array containing the substrings
+ * of `s` separated by the character `c`.
+ * @param {const char*} s - String to split.
+ * @param {char} c - Delimiter.
+ * @returns {char**} Array of substrings or NULL.
+ */
+char	**ft_split(char const *s, char c);
+
+/**
+ * Joins two strings into a new allocated string.
+ * Param indicate which strings to free.
+ * 0 : don't free input strings ;
+ * 1 : free first string ;
+ * 2 : free second string ;
+ * 3 : free both strings.
+ * @param {char**} s1 - Prefix string.
+ * @param {char**} s2 - Suffix string.
+ * @param {int} param - indication on strings to free
+ * @returns {char*} Joined string.
+ * @warning strings are freed even if malloc failed
+ */
+char	*ft_strjoin_free(char **s1, char **s2, int param);
+
+/**
+ * @brief Free the strings of a NULL terminated array of strings,
+ * created with split for instance.
+ * @param {char **s} - array of strings, NULL terminated
+ * @warning Does not free the array.
+ */
+void	ft_empty_array_strs(char **s);
+
+/**
+ * Duplicates a string.
+ * Allocates memory and copies the node of `s1`.
+ * @param {const char*} s1 - String to duplicate.
+ * @returns {char*} Newly allocated copy of the string.
+ */
+char	*ft_strdup(const char *s);
+
+/**
+ * Searches for a character in a string.
+ * Returns a pointer to the first occurrence of `c`
+ * within the string `s`, or NULL if not found.
+ * @param {const char*} s - String to search.
+ * @param {int} c - Character to locate.
+ * @returns {char*} Pointer to match or NULL.
+ */
+char	*ft_strchr(const char *s, int c);
+/**
+* Compares two strings for up to `n` characters.
+* @param {const char*} s1 - First string.
+* @param {const char*} s2 - Second string.
+* @param {size_t} n - Maximum number of bytes to compare.
+* @returns {int} Difference between first mismatched bytes.
+*/
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+
+/**
+ * Extracts a substring from a string.
+ * Allocates and returns up to `len` characters
+ * from `s` starting at position `start`.
+ * @param {const char*} s - Original string.
+ * @param {unsigned int} start - Index of start.
+ * @param {size_t} len - Max length of substring.
+ * @returns {char*} New substring or empty string on error.
+ */
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+
 #endif

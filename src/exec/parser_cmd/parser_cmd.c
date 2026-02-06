@@ -16,6 +16,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../../../libft/libft.h"
+#include "../exec_utils.h"
 
 static char	**parse_path(t_shell *sh, t_ast *node)
 {
@@ -40,7 +42,7 @@ static int	check_bin_rights(t_shell *sh, t_ast *node, char *cmd)
 			return (SUCCESS);
 		else
 		{
-			if (ft_isdir(cmd))
+			if (is_dir(cmd))
 			{
 				free(cmd);
 				error(sh, node->args[0], ISDIR, CMD_PERM_DND);
@@ -78,8 +80,7 @@ static char	*search_cmd(t_shell *sh, t_ast *node)
 		paths++;
 	}
 	ft_empty_array_strs(paths);
-	error(sh, node->args[0], strerror(errno), CMD_NOT_FND);
-	return (NULL);
+	return (	error(sh, node->args[0], strerror(errno), CMD_NOT_FND), NULL);
 }
 
 static char	*local_cmd(t_shell *sh, t_ast *node)
@@ -92,7 +93,7 @@ static char	*local_cmd(t_shell *sh, t_ast *node)
 		error(sh, node->args[0], strerror(errno), CMD_NOT_FND);
 		return (NULL);
 	}
-	if (ft_isdir(node->args[0]))
+	if (is_dir(node->args[0]))
 	{
 		error(sh, node->args[0], ISDIR, CMD_PERM_DND);
 		return (NULL);

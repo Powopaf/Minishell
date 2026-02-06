@@ -40,6 +40,7 @@ static int	exec_sub(t_shell *sh, t_ast *node)
 {
 	int	status;
 
+	status = EXIT_FAILURE;
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
 		return (EXIT_FAILURE);
@@ -115,6 +116,6 @@ int	exec_root(t_shell *sh, t_ast *node)
 		status = exec_sub(sh, node);
 	if (status == -1)
 		return (EXIT_FAILURE);
-	sh->status = try_wait(node);
+	sh->status = wait_ast(node);
 	return (sh->status);
 }

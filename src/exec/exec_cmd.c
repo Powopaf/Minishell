@@ -18,6 +18,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include "../../libft/libft.h"
 
 static int	pipe_redir(t_shell *sh, t_ast *node)
 {
@@ -31,8 +32,8 @@ static int	pipe_redir(t_shell *sh, t_ast *node)
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}
-	ft_close_fd(&node->fd_in);
-	ft_close_fd(&node->fd_out);
+	close(node->fd_in);
+	close(node->fd_out);
 	return (EXIT_SUCCESS);
 }
 
@@ -82,7 +83,7 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 			exit(EXIT_FAILURE);
 		exec_bin(sh, node);
 	}
-	ft_close_fd(&node->fd_in);
-	ft_close_fd(&node->fd_out);
+	close(node->fd_in);
+	close(node->fd_out);
 	return (EXIT_SUCCESS);
 }
