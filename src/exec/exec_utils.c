@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_utils.c                                    :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/04 12:53:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/06 15:52:49 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <errno.h>
 #include <unistd.h>
 #include "../error/err.h"
+#include <string.h>
+#include <sys/wait.h>
 
 pid_t	try_fork(t_shell *sh)
 {
@@ -52,7 +54,7 @@ int	restore_std(t_shell *sh)
 	return (EXIT_SUCCESS);
 }
 
-int	try_wait(t_ast *node)
+int	wait_ast(t_ast *node)
 {
 	int status;
 	int exit;
@@ -61,9 +63,9 @@ int	try_wait(t_ast *node)
 	if (!node)
 		return (exit);
 	if (node->left)
-		status = ft_wait(node->left);
+		status = wait_ast(node->left);
 	if (node->right)
-		status = ft_wait(node->right);
+		status = wait_ast(node->right);
 	if (node->pid > 0)
 	{
 		waitpid(node->pid, &status, 0);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_redir.c                                    :+:      :+:    :+:   */
+/*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 22:59:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/04 11:20:01 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/06 15:34:26 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "exec_utils.h"
+#include <string.h>
 
 static int	redir_hd(t_shell *sh, t_redir *redir)
 {
 	ft_close_fd(&redir->fd_in);
-	if (ft_heredoc(sh, redir) == EXIT_FAILURE)
+	if (heredoc(sh, redir) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (redir->fd_in < 0)
 		return (EXIT_FAILURE);

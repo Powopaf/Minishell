@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/06 13:08:45 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/06 14:43:03 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdio.h>
 #include "src/parsing/expend/expand.h"
 #include "src/parsing/parsing.h"
+#include "src/clean/clean_shell.h"
 
 static int	process_line(t_shell *shell, char *line)
 {
@@ -39,7 +40,7 @@ static int	process_line(t_shell *shell, char *line)
 		return (EXIT_FAILURE);
 	expand_var(shell, shell->ast);
 	shell->status = exec_root(shell, shell->ast);
-	ft_clean_prompt(shell);
+	clean_prompt(shell);
 	return (EXIT_SUCCESS);
 }
 
@@ -59,7 +60,7 @@ static void	shell_process(t_shell *shell)
 		if (process_line(shell, line))
 			break ;
 	}
-	ft_clean_prompt(shell);
+	clean_prompt(shell);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -69,7 +70,7 @@ int	main(int argc, char **argv, char **envp)
 
 	initialize_shell(&shell, envp, argv);
 	shell_process(&shell);
-	ft_clean_shell(&shell);
+	clean_shell(&shell);
 	rl_clear_history();
 	return (shell.status);
 }

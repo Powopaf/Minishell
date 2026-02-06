@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   err.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/23 14:43:55 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/06 15:58:17 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "../parsing/token/tokens.h"
+#include "../clean/clean_shell.h"
+#include "../../libft/libft.h"
 
 void	syntax_error(t_shell *sh, t_token_kw kw, int exitno)
 {
@@ -23,7 +26,7 @@ void	syntax_error(t_shell *sh, t_token_kw kw, int exitno)
 	sh->status = -exitno;
 	if (exitno >= 0)
 	{
-		ft_clean_shell(sh);
+		clean_shell(sh);
 		exit(exitno);
 	}
 }
@@ -64,6 +67,6 @@ void	error(t_shell *shell, char *context, char *why, int exitno)
 	shell->status = -exitno;
 	if (exitno < 0)
 		return ;
-	ft_clean_shell(shell);
+	clean_shell(shell);
 	exit(exitno);
 }

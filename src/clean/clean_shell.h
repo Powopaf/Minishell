@@ -6,5 +6,6 @@
 
 void	clean_prompt(t_shell *shell);
 void	ft_clean_redir(t_redir	*redir);
+void	clean_shell(t_shell *shell);
 
 #endif

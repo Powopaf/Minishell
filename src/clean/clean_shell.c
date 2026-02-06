@@ -36,7 +36,7 @@ void	ft_astclear(t_ast **ast, void (*del)(t_ast	*))
 	*ast = NULL;
 }
 
-void	ft_clean_token(t_token	*tk)
+static void	ft_clean_token(t_token	*tk)
 {
 	if (tk && tk->token)
 	{

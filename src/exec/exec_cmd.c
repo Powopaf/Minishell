@@ -6,13 +6,14 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/06 13:31:25 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/06 15:32:28 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser_cmd/parser_cmd.h"
 #include "exec_utils.h"
 #include "../error/err.h"
+#include "../clean/clean_shell.h"
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
@@ -48,7 +49,7 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	envp = ft_strsdup(sh->envp);
 	if (!envp)
 		error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
-	ft_clean_shell(sh);
+	clean_shell(sh);
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }

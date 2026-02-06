@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/06 13:20:37 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/06 15:23:20 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <sys/wait.h>
 #include <stdlib.h>
 #include "../error/err.h"
+#include "../clean/clean_shell.h"
 
 static int  exec_sub(t_shell *sh, t_ast *node);
 static int  exec_pipe(t_shell *sh, t_ast *node);
@@ -46,7 +47,7 @@ static int	exec_sub(t_shell *sh, t_ast *node)
 	{
 	// 	// signal ???
 		status = exec_root(sh, node->left);
-		ft_clean_shell(sh);
+		clean_shell(sh);
 		exit(status);
 	}
 	waitpid(node->pid, &node->status, 0);
@@ -64,7 +65,7 @@ static int	exec_pipe(t_shell *sh, t_ast *node)
 
 	if (!node->left || !node->right)
 		return (EXIT_FAILURE);
-	if (ft_setup_pipe(sh, node) == EXIT_FAILURE)
+	if (setup_pipe(sh, node) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	pid_left = exec(sh, node->left);
 	if (pid_left == EXIT_FAILURE)
