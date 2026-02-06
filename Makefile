@@ -6,7 +6,7 @@ LIB = -fsanitize=address
 SRC = ./minishell.c \
 	  ./src/error/err.c \
 	  ./src/init/init_shell.c \
-	  ./src/clean/clean_redir.c \
+	  ./src/clean/clean_utils.c \
 	  ./src/clean/clean_shell.c \
 	  ./src/exec/exec.c \
 	  ./src/exec/exec_cmd.c \

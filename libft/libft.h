@@ -76,4 +76,11 @@ char	**ft_strsdup(char **s);
  */
 char	*ft_strrchr(const char *s, int c);
 
+/**
+ * @brief Free a NULL terminated array of strings,
+ * created with split for instance.
+ * @param {char ***s} - array of strings, NULL terminated
+ */
+void	ft_free_array_strs(char ***s);
+
 #endif

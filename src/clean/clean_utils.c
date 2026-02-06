@@ -11,20 +11,24 @@
 /* ************************************************************************** */
 
 #include "clean_shell.h"
-#include <stddef.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-void	ft_clean_redir(t_redir	*redir)
+void	clean_redir(t_redir	*redir)
 {
 	if (!redir)
 		return ;
-	ft_free_str(&redir->file);
-	ft_free_str(&redir->eofkw);
-	ft_close_fd(&redir->fd_in);
-	ft_close_fd(&redir->fd_out);
+	// TODO: check if we can remove the if
+	if (redir->file)
+		free(redir->file);
+	if (redir->eofkw)
+		free(redir->eofkw);
+	close(redir->fd_in);
+	close(redir->fd_out);
 	free(redir);
 }
 
-void	ft_redir_clear(t_redir **redir, void (*del)(t_redir *))
+void	redir_clear(t_redir **redir, void (*del)(t_redir *))
 {
 	t_redir	*current;
 	t_redir	*redirfree;
@@ -39,4 +43,22 @@ void	ft_redir_clear(t_redir **redir, void (*del)(t_redir *))
 		del(redirfree);
 	}
 	*redir = NULL;
+}
+
+void	tokens_clear(t_token **token, void (*del)(t_token *))
+{
+	t_token	*current;
+	t_token	*tokenfree;
+
+	if (!token || !*token)
+		return ;
+	current = *token;
+	while (current)
+	{
+		tokenfree = current;
+		current = current->next;
+		del(tokenfree);
+		free(tokenfree);
+	}
+	*token = NULL;
 }

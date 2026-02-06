@@ -11,32 +11,34 @@
 /* ************************************************************************** */
 
 #include "clean_shell.h"
-#include <stddef.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "../../libft/libft.h"
 
-void	ft_clean_ast(t_ast	*node)
+static void	clean_ast(t_ast	*node)
 {
 	if (!node)
 		return ;
 	ft_free_array_strs(&node->args);
-	ft_redir_clear(&node->redir, ft_clean_redir);
-	ft_close_fd(&node->fd_in);
-	ft_close_fd(&node->fd_out);
+	redir_clear(&node->redir, clean_redir);
+	close(node->fd_in);
+	close(node->fd_out);
 	free(node);
 }
 
-void	ft_astclear(t_ast **ast, void (*del)(t_ast	*))
+static void	ast_clear(t_ast **ast, void (*del)(t_ast	*))
 {
 	if (!ast || !*ast)
 		return ;
 	if ((*ast)->left)
-		ft_astclear(&(*ast)->left, del);
+		ast_clear(&(*ast)->left, del);
 	if ((*ast)->right)
-		ft_astclear(&(*ast)->right, del);
+		ast_clear(&(*ast)->right, del);
 	del(*ast);
 	*ast = NULL;
 }
 
-static void	ft_clean_token(t_token	*tk)
+static void	clean_token(t_token	*tk)
 {
 	if (tk && tk->token)
 	{
@@ -48,24 +50,24 @@ static void	ft_clean_token(t_token	*tk)
 void	clean_shell(t_shell *shell)
 {
 	ft_free_array_strs(&shell->envp);
-	ft_close_fd(&shell->stdin_fd);
-	ft_close_fd(&shell->stdout_fd);
-	ft_close_fd(&shell->hd_fd);
-	ft_free_str(&shell->file);
-	ft_free_str(&shell->line);
-	ft_tokens_clear(&shell->tokens, ft_clean_token);
-	ft_astclear(&shell->ast, ft_clean_ast);
+	close(shell->stdin_fd);
+	close(shell->stdout_fd);
+	close(shell->hd_fd);
+	if (shell->file)
+		free(shell->file);
+	if (shell->file)
+		free(shell->file);
+	tokens_clear(&shell->tokens, clean_token);
+	ast_clear(&shell->ast, clean_ast);
 }
 
 void	clean_prompt(t_shell *shell)
 {
-// ft_printf("Close stdin\n");
-// 	ft_close_fd(&shell->stdin_fd);
-// ft_printf("Close stdout\n");
-// 	ft_close_fd(&shell->stdout_fd);
-	ft_close_fd(&shell->hd_fd);
-	ft_free_str(&shell->file);
-	ft_free_str(&shell->line);
-	ft_tokens_clear(&shell->tokens, ft_clean_token);
-	ft_astclear(&shell->ast, ft_clean_ast);
+	close(shell->hd_fd);
+	if (shell->file)
+		free(shell->file);
+	if (shell->line)
+		free(shell->line);
+	tokens_clear(&shell->tokens, clean_token);
+	ast_clear(&shell->ast, clean_ast);
 }

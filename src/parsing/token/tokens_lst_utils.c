@@ -69,21 +69,3 @@ int	add_token(t_shell *sh, char *token, t_token_kw kw)
 	token_add_back(&sh->tokens, new_tk);
 	return (EXIT_SUCCESS);
 }
-
-//void	ft_tokens_clear(t_token **token, void (*del)(t_token *))
-//{
-//	t_token	*current;
-//	t_token	*tokenfree;
-
-//	if (!token || !*token)
-//		return ;
-//	current = *token;
-//	while (current)
-//	{
-//		tokenfree = current;
-//		current = current->next;
-//		del(tokenfree);
-//		free(tokenfree);
-//	}
-//	*token = NULL;
-//}
