@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/04 18:28:13 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/06 13:31:25 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser_cmd/parser_cmd.h"
 #include "exec_utils.h"
 #include "../error/err.h"
 #include <errno.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
 static int	pipe_redir(t_shell *sh, t_ast *node)
 {
@@ -38,16 +41,16 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	char	**args;
 	char	**envp;
 
-	cmd = ft_parse_cmd(sh, node);
+	cmd = parse_cmd(sh, node);
 	args = ft_strsdup(node->args);
 	if (!args)
-		ft_error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
+		error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
 	envp = ft_strsdup(sh->envp);
 	if (!envp)
-		ft_error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
+		error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
 	ft_clean_shell(sh);
 	execve(cmd, args, envp);
-	ft_error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
+	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
 
 int	exec_cmd(t_shell *sh, t_ast *node)

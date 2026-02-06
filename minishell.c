@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/04 18:41:21 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/06 13:08:45 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "src/exec/exec.h"
 #include <stdio.h>
 #include "src/parsing/expend/expand.h"
+#include "src/parsing/parsing.h"
 
 static int	process_line(t_shell *shell, char *line)
 {

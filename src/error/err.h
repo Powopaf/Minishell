@@ -22,14 +22,13 @@
 # define QUOTE_ERR "expected end-quote"
 # define PARENTH_ERR "missing a parenthesis"
 # define PIPE_ERR "piping wrong"
-# define PROMPT_MES "minishell: "
+# define PROMPT_MES "minishell: " // TODO: shoulb equlal to argv[0]
 # define CMD_NOT_FND 127
 # define CMD_PERM_DND 126
 # define MISUSE 2
 # define PRG_ERR 666
-//# define SIG_BASE 128
-
-//# define ISDIR "Is a directory"
+#define ISDIR "Is a directory"
+# define SIG_BASE 128
 # define DEBUG "PROGRAM ERROR"
 
 

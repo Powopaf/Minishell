@@ -15,14 +15,13 @@
 
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1
-# define SIG_BASE 128
-#define ISDIR "Is a directory"
 
 #include "../../struct.h"
 #include "../../redir.h"
 
-int	exec_cmd(t_shell *sh, t_ast *node);
+int		exec_cmd(t_shell *sh, t_ast *node);
 pid_t	try_fork(t_shell *sh);
-int	redir(t_shell *sh, t_redir *redir);
+int		redir(t_shell *sh, t_redir *redir);
+int		try_wait(t_ast *node);
 
 #endif

@@ -51,3 +51,24 @@ int	restore_std(t_shell *sh)
 	}
 	return (EXIT_SUCCESS);
 }
+
+int	try_wait(t_ast *node)
+{
+	int status;
+	int exit;
+
+	exit = EXIT_SUCCESS;
+	if (!node)
+		return (exit);
+	if (node->left)
+		status = ft_wait(node->left);
+	if (node->right)
+		status = ft_wait(node->right);
+	if (node->pid > 0)
+	{
+		waitpid(node->pid, &status, 0);
+		if (WIFEXITED(status))
+			exit = WEXITSTATUS(status);
+	}
+	return (exit);
+}
