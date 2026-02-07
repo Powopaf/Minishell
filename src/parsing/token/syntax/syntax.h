@@ -18,6 +18,11 @@
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
 
+/**
+ * Validates the token list syntax.
+ * @param {t_shell *} sh - Shell context.
+ * @returns {int} EXIT_SUCCESS or EXIT_FAILURE.
+ */
 int	check_syntax(t_shell *sh);
 
 #endif

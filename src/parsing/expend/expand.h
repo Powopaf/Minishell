@@ -15,6 +15,11 @@
 
 # include "../../../struct.h"
 
+/**
+ * Expands variables in the AST node arguments.
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_ast *} current_node - AST node to expand.
+ */
 void	expand_var(t_shell *sh, t_ast *current_node);
 
 #endif
