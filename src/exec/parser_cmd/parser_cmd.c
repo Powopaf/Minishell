@@ -58,13 +58,15 @@ static char	*search_cmd(t_shell *sh, t_ast *node)
 {
 	char	**paths;
 	char	*full_cmd;
+	size_t	i;
 
+	i = -1;
 	paths = parse_path(sh, node);
 	if (!paths)
 		return (NULL);
-	while (*paths)
+	while (paths[++i])
 	{
-		full_cmd = ft_strjoin(*paths, "/");
+		full_cmd = ft_strjoin(paths[i], "/");
 		full_cmd = ft_strjoin_free(&full_cmd, &node->args[0], 1);
 		if (!full_cmd)
 		{
@@ -73,14 +75,12 @@ static char	*search_cmd(t_shell *sh, t_ast *node)
 		}
 		if (check_bin_rights(sh, node, full_cmd) == SUCCESS)
 		{
-			ft_empty_array_strs(paths);
-			return (full_cmd);
+			return (ft_empty_array_strs(paths), full_cmd);
 		}
 		free(full_cmd);
-		paths++;
 	}
 	ft_empty_array_strs(paths);
-	return (	error(sh, node->args[0], strerror(errno), CMD_NOT_FND), NULL);
+	return (error(sh, node->args[0], strerror(errno), CMD_NOT_FND), NULL);
 }
 
 static char	*local_cmd(t_shell *sh, t_ast *node)

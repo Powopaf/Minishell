@@ -13,6 +13,8 @@
 #ifndef INIT_SHELL_H
 # define INIT_SHELL_H
 
+# define PROMPT_HD "> "
+
 #include "../../struct.h"
 
 void	initialize_shell(t_shell *shell, char **envp, char **argv);

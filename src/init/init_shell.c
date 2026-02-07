@@ -17,6 +17,7 @@
 #include <errno.h>
 #include <string.h>
 #include "../../libft/libft.h"
+# include "init_shell.h"
 
 static void	copy_envp(t_shell *shell, char **envp)
 {
@@ -37,14 +38,14 @@ static void	get_shell_name(t_shell *shell, char **argv)
 {
 	if (!argv || !*argv)
 	{
-		shell->name = "minishell";
+		shell->name = "minishell> ";
 		return ;
 	}
 	shell->name = ft_strrchr(*argv, '/');
-	if (shell->name)
-		shell->name++;
-	else
-		shell->name = *argv;
+	// if (shell->name)
+	// 	shell->name++;
+	// else
+	shell->name = ft_strjoin(*argv, PROMPT_HD);
 }
 
 void	initialize_shell(t_shell *shell, char **envp, char **argv)
