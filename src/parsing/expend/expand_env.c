@@ -1,0 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   environment.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
+/*   Updated: 2026/02/04 16:35:35 by flomulle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "expand_utils.h"
+#include "../../error/err.h"
+#include "../../../libft/libft.h"
+
+char	*collect_env_var(t_shell *sh, char *var_name)
+{
+	char	*var;
+	size_t	len;
+	size_t	i;
+
+	i = 0;
+	len = ft_strlen(var_name);
+	while (sh->envp && sh->envp[i])
+	{
+		if (!ft_strncmp(var_name, sh->envp[i], len) && sh->envp[i][len] == '=')
+		{
+			var = ft_substr(sh->envp[i], len + 1,
+				ft_strlen(sh->envp[i]) - (len + 1));
+			if (!var)
+				error(sh, "malloc", MALLOC_ERR, -FAIL);
+			return (var);
+		}
+		i++;
+	}
+	var = ft_strdup("");
+	if (!var)
+		error(sh, "malloc", MALLOC_ERR, -FAIL);
+	return (var);
+}

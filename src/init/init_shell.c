@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_shell.c                                 :+:      :+:    :+:   */
+/*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/05 13:22:48 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/05 23:08:06 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <string.h>
+#include "../../libft/libft.h"
+# include "init_shell.h"
 
-static void	ft_copy_envp(t_shell *shell, char **envp)
+static void	copy_envp(t_shell *shell, char **envp)
 {
 	if (!envp)
 	{
@@ -31,9 +34,23 @@ static void	ft_copy_envp(t_shell *shell, char **envp)
 		error(shell, "malloc", MALLOC_ERR, FAIL);
 }
 
-void	ft_initialize_shell(t_shell *shell, char **envp)
+static void	get_shell_name(t_shell *shell, char **argv)
 {
-	ft_copy_envp(shell, envp);
+	if (!argv || !*argv)
+	{
+		shell->name = "minishell> ";
+		return ;
+	}
+	shell->name = ft_strrchr(*argv, '/');
+	// if (shell->name)
+	// 	shell->name++;
+	// else
+	shell->name = ft_strjoin(*argv, PROMPT_HD);
+}
+
+void	initialize_shell(t_shell *shell, char **envp, char **argv)
+{
+	copy_envp(shell, envp);
 	shell->status = 0;
 	shell->stdin_fd = dup(STDIN_FILENO);
 	if (shell->stdin_fd == -1)
@@ -44,9 +61,10 @@ void	ft_initialize_shell(t_shell *shell, char **envp)
 	shell->hd_fd = -1;
 	shell->file = NULL;
 	shell->cmd_cnt = 0;
-	shell->l = NULL;
+	shell->line = NULL;
 	shell->tokens = NULL;
 	shell->ast = NULL;
+	get_shell_name(shell, argv);
 	//ft_init_terminal(shell);
 	//ft_setup_signals(shell);
 }

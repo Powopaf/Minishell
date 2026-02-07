@@ -1,0 +1,122 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_cmd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/28 21:02:15 by flomulle          #+#    #+#             */
+/*   Updated: 2026/02/06 13:33:59 by pifourni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "parser_cmd.h"
+#include "../../error/err.h"
+#include <errno.h>
+#include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
+#include "../../../libft/libft.h"
+#include "../exec_utils.h"
+
+static char	**parse_path(t_shell *sh, t_ast *node)
+{
+	char	*path;
+	char	**paths;
+
+	path = get_env(sh, "PATH");
+	if (!path)
+		error(sh, node->args[0], strerror(errno), CMD_NOT_FND);
+	paths = ft_split(path, ':');
+	free(path);
+	if (!paths)
+		error(sh, "malloc", MALLOC_ERR, FAIL);
+	return (paths);
+}
+
+static int	check_bin_rights(t_shell *sh, t_ast *node, char *cmd)
+{
+	if (!access(cmd, F_OK))
+	{
+		if (!access(cmd, X_OK))
+			return (SUCCESS);
+		else
+		{
+			if (is_dir(cmd))
+			{
+				free(cmd);
+				error(sh, node->args[0], ISDIR, CMD_PERM_DND);
+			}
+			free(cmd);
+			error(sh, node->args[0], strerror(errno), CMD_PERM_DND);
+		}
+	}
+	return (FAIL);
+}
+
+static char	*search_cmd(t_shell *sh, t_ast *node)
+{
+	char	**paths;
+	char	*full_cmd;
+	size_t	i;
+
+	i = -1;
+	paths = parse_path(sh, node);
+	if (!paths)
+		return (NULL);
+	while (paths[++i])
+	{
+		full_cmd = ft_strjoin(paths[i], "/");
+		full_cmd = ft_strjoin_free(&full_cmd, &node->args[0], 1);
+		if (!full_cmd)
+		{
+			ft_empty_array_strs(paths);
+			error(sh, "malloc", MALLOC_ERR, FAIL);
+		}
+		if (check_bin_rights(sh, node, full_cmd) == SUCCESS)
+		{
+			return (ft_empty_array_strs(paths), full_cmd);
+		}
+		free(full_cmd);
+	}
+	ft_empty_array_strs(paths);
+	return (error(sh, node->args[0], strerror(errno), CMD_NOT_FND), NULL);
+}
+
+static char	*local_cmd(t_shell *sh, t_ast *node)
+{
+	char	*cmd;
+
+	cmd = NULL;
+	if (access(node->args[0], F_OK))
+	{
+		error(sh, node->args[0], strerror(errno), CMD_NOT_FND);
+		return (NULL);
+	}
+	if (is_dir(node->args[0]))
+	{
+		error(sh, node->args[0], ISDIR, CMD_PERM_DND);
+		return (NULL);
+	}
+	if (access(node->args[0], X_OK))
+	{
+		error(sh, node->args[0], strerror(errno), CMD_PERM_DND);
+		return (NULL);
+	}
+	cmd = ft_strdup(node->args[0]);
+	if (!cmd)
+		error(sh, "malloc", MALLOC_ERR, FAIL);
+	return (cmd);
+}
+
+char	*parse_cmd(t_shell *sh, t_ast *node)
+{
+	char	*cmd;
+
+	cmd = NULL;
+	if (ft_strchr(node->args[0], '/'))
+		cmd = local_cmd(sh, node);
+	else
+		cmd = search_cmd(sh, node);
+	return (cmd);
+}

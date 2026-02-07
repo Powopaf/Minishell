@@ -55,13 +55,14 @@ typedef struct s_token
 typedef struct s_shell
 {
 	char	**envp;
+	char	*name;
 	int		status;
 	int		stdin_fd;
 	int		stdout_fd;
 	int		hd_fd;
 	char	*file;
 	int		cmd_cnt;
-	char	*l;
+	char	*line;
 	t_token	*tokens;
 	t_ast	*ast;
 }	t_shell;

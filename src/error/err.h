@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   err.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
+/*   Updated: 2026/02/05 23:06:43 by pifourni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef ERR_H
 # define ERR_H
 
@@ -10,9 +22,15 @@
 # define QUOTE_ERR "expected end-quote"
 # define PARENTH_ERR "missing a parenthesis"
 # define PIPE_ERR "piping wrong"
-# define PROMPT_MES "minishell: "
+# define PROMPT_MES "minishell: " // TODO: shoulb equlal to argv[0]
 # define CMD_NOT_FND 127
 # define CMD_PERM_DND 126
+# define MISUSE 2
+# define PRG_ERR 666
+#define ISDIR "Is a directory"
+# define SIG_BASE 128
+# define DEBUG "PROGRAM ERROR"
+
 
 
 void	syntax_error(t_shell *sh, t_token_kw kw, int exitno);
