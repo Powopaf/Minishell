@@ -33,7 +33,21 @@
 
 
 
+/**
+ * Reports a syntax error and updates shell status.
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_token_kw} kw - Token that caused the syntax error.
+ * @param {int} exitno - Exit status to set.
+ */
 void	syntax_error(t_shell *sh, t_token_kw kw, int exitno);
+
+/**
+ * Reports an error with context and updates shell status.
+ * @param {t_shell *} shell - Shell context.
+ * @param {char *} context - Error context (command or component).
+ * @param {char *} why - Error description.
+ * @param {int} exitno - Exit status to set.
+ */
 void	error(t_shell *shell, char *context, char *why, int exitno);
 
 #endif

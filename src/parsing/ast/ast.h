@@ -15,6 +15,12 @@
 
 #include "../../../struct.h"
 
+/**
+ * Allocates and initializes a new AST node.
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_ast_node_type} astkw - AST node type.
+ * @returns {t_ast*} Newly allocated node or NULL on failure.
+ */
 t_ast	*create_ast_node(t_shell *sh, t_ast_node_type astkw);
 
 #endif

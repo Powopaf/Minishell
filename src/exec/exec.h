@@ -15,6 +15,12 @@
 
 #include "../../struct.h"
 
+/**
+ * Executes the AST starting at the root node.
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_ast *} node - AST root node.
+ * @returns {int} Exit status of the executed pipeline.
+ */
 int	exec_root(t_shell *sh, t_ast *node);
 
 #endif

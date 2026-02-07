@@ -17,6 +17,12 @@
 
 #include "../../struct.h"
 
+/**
+ * Initializes the shell context and environment.
+ * @param {t_shell *} shell - Shell context to initialize.
+ * @param {char **} envp - Environment variables.
+ * @param {char **} argv - Program arguments.
+ */
 void	initialize_shell(t_shell *shell, char **envp, char **argv);
 
 #endif

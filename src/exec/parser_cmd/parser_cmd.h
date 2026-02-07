@@ -15,7 +15,20 @@
 
 # include "../../../struct.h"
 
+/**
+ * Resolves a command name into an executable path.
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_ast *} node - AST command node.
+ * @returns {char*} Allocated command path or NULL on failure.
+ */
 char	*parse_cmd(t_shell *sh, t_ast *node);
+
+/**
+ * Retrieves an environment variable value.
+ * @param {t_shell *} sh - Shell context.
+ * @param {char *} var_name - Variable name to look up.
+ * @returns {char*} Allocated value or NULL if not found.
+ */
 char	*get_env(t_shell *sh, char *var_name);
 
 #endif

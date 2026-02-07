@@ -15,6 +15,12 @@
 
 # include "../../../struct.h"
 
+/**
+ * Retrieves an environment variable value from the shell context.
+ * @param {t_shell *} sh - Shell context.
+ * @param {char *} var_name - Variable name to look up.
+ * @returns {char*} Newly allocated value or NULL if not found.
+ */
 char	*collect_env_var(t_shell *sh, char *var_name);
 
 #endif

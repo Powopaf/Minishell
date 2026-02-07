@@ -18,7 +18,22 @@
 
 #include "../../struct.h"
 
+/**
+ * Parses redirections for an AST node.
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_ast *} ast_node - AST node to fill.
+ * @param {t_token **} token - Current token pointer.
+ * @returns {int} EXIT_SUCCESS or EXIT_FAILURE.
+ */
 int	parse_redir(t_shell *sh, t_ast *ast_node, t_token **token);
+
+/**
+ * Parses command arguments into an AST node.
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_ast *} node - AST node to fill.
+ * @param {t_token **} tokens - Current token pointer.
+ * @returns {int} EXIT_SUCCESS or EXIT_FAILURE.
+ */
 int	parse_command_args(t_shell *sh, t_ast *node, t_token **tokens);
 
 #endif
