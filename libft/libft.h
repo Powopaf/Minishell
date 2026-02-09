@@ -226,4 +226,11 @@ void	*ft_memcpy(void *dest, const void *src, size_t n);
  */
 int		ft_atoi(const char *str);
 
+/**
+ * ft_isdigit - Checks whether a character is a decimal digit.
+ * @param c: The character to check.
+ * @returns: 1 if the character is a digit ('0' to '9'), 0 otherwise.
+ */
+int	ft_isdigit(int c);
+
 #endif

@@ -13,6 +13,7 @@
 #include "../func.h"
 #include "../../../libft/libft.h"
 #include "../../error/err.h"
+#include <stdlib.h>
 
 static int	nb_args(char **args)
 {
@@ -26,18 +27,29 @@ static int	nb_args(char **args)
 
 int	ft_exit(char **args, t_shell *sh)
 {
-	int	exit_code;
+	char	*msg;
 
+	if (args && args[1] && !ft_isdigit(args[1][0]) && args[1][0] != '-' && args[1][0] != '+')
+	{
+		msg = ft_strjoin("exit: ", args[1]);
+		if (!msg)
+			error(sh, "malloc", MALLOC_ERR, 2);
+		else
+		{
+			error(sh, msg, "numeric argument required", 2);
+			free(msg);
+			sh->exit = 2;
+		}
+		return (sh->exit);
+	}
 	if (nb_args(args) > 2)
 	{
 		error(sh, "exit", "too many arguments", 1);
 		return (-1);
 	}
-	exit_code = sh->status;
 	if (args && args[1])
-	{
-		exit_code = ft_atoi(args[1]);
-	}
-	sh->exit = exit_code;
-	return (exit_code);
+		sh->exit = ft_atoi(args[1]) % 256;
+	else 
+		sh->exit = sh->status;
+	return (sh->exit);
 }
