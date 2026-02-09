@@ -113,6 +113,8 @@ char	*parse_cmd(t_shell *sh, t_ast *node)
 {
 	char	*cmd;
 
+	if (is_builtin(node->args[0]))
+		return (ft_strdup(node->args[0]));
 	cmd = NULL;
 	if (ft_strchr(node->args[0], '/'))
 		cmd = local_cmd(sh, node);

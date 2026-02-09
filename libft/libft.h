@@ -218,4 +218,12 @@ char	*ft_ptoa(void *ptr);
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
+/**
+ * Converts a null-terminated string to an int.
+ * Skips leading whitespace, handles optional '+'/'-' and digits.
+ * @param {const char*} str - Input string.
+ * @returns {int} Converted integer.
+ */
+int		ft_atoi(const char *str);
+
 #endif

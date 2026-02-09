@@ -6,8 +6,15 @@
 /*   By: pifourni <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:24:01 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/09 12:24:03 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/09 13:31:25 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef EXIT_H
+# define EXIT_H
 
+#include "../../../struct.h"
+
+void	ft_exit(char **args, t_shell *sh);
+
+#endif

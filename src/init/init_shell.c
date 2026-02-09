@@ -65,6 +65,5 @@ void	initialize_shell(t_shell *shell, char **envp, char **argv)
 	shell->tokens = NULL;
 	shell->ast = NULL;
 	get_shell_name(shell, argv);
-	//ft_init_terminal(shell);
-	//ft_setup_signals(shell);
+	shell->exit = -1;
 }

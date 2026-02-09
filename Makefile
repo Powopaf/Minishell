@@ -12,7 +12,7 @@ SRC = ./minishell.c \
 	  ./src/exec/exec_cmd.c \
 	  ./src/exec/exec_redir.c \
 	  ./src/exec/exec_utils.c \
-	  ./src/exec/parser_cmd/get_env.c \
+	  ./src/exec/parser_cmd/utils_parse_cmd.c \
 	  ./src/exec/parser_cmd/parser_cmd.c \
 	  ./src/parsing/parsing.c \
 	  ./src/parsing/parsing_cmd.c \
@@ -28,6 +28,7 @@ SRC = ./minishell.c \
 	  ./src/parsing/token/tokens_utils.c \
 	  ./src/exec/pipe.c \
 	  ./src/exec/exec_heredoc.c \
+	  ./src/func/exit/exit.c 
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
