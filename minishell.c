@@ -41,7 +41,7 @@ static int	process_line(t_shell *shell, char *line)
 	expand_var(shell, shell->ast);
 	shell->status = exec_root(shell, shell->ast);
 	clean_prompt(shell);
-	return (EXIT_SUCCESS);
+	return (shell->exit != -1);
 }
 
 static void	shell_process(t_shell *shell)
@@ -60,7 +60,6 @@ static void	shell_process(t_shell *shell)
 		if (process_line(shell, line))
 			break ;
 	}
-	clean_prompt(shell);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -72,5 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	shell_process(&shell);
 	clean_shell(&shell);
 	rl_clear_history();
-	return (shell.status);
+	if (shell.exit == -1)
+		return (shell.status);
+	return (shell.exit);
 }

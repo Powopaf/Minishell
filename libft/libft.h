@@ -218,4 +218,19 @@ char	*ft_ptoa(void *ptr);
  */
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
+/**
+ * Converts a null-terminated string to an int.
+ * Skips leading whitespace, handles optional '+'/'-' and digits.
+ * @param {const char*} str - Input string.
+ * @returns {int} Converted integer.
+ */
+int		ft_atoi(const char *str);
+
+/**
+ * ft_isdigit - Checks whether a character is a decimal digit.
+ * @param c: The character to check.
+ * @returns: 1 if the character is a digit ('0' to '9'), 0 otherwise.
+ */
+int	ft_isdigit(int c);
+
 #endif

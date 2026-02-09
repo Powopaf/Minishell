@@ -28,7 +28,8 @@ typedef enum e_ast_node
 	AST_PIPE,
 	AST_AND,
 	AST_OR,
-	AST_SUBSHELL
+	AST_SUBSHELL,
+	AST_FUNC
 }	t_ast_node_type;
 
 typedef struct s_ast
@@ -57,6 +58,7 @@ typedef struct s_shell
 	char	**envp;
 	char	*name;
 	int		status;
+	int		exit;
 	int		stdin_fd;
 	int		stdout_fd;
 	int		hd_fd;

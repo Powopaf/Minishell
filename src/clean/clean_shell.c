@@ -55,8 +55,7 @@ void	clean_shell(t_shell *shell)
 	close(shell->hd_fd);
 	if (shell->file)
 		free(shell->file);
-	if (shell->file)
-		free(shell->file);
+	free(shell->name);
 	tokens_clear(&shell->tokens, clean_token);
 	ast_clear(&shell->ast, clean_ast);
 }

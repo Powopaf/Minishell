@@ -113,6 +113,14 @@ char	*parse_cmd(t_shell *sh, t_ast *node)
 {
 	char	*cmd;
 
+	if (ft_strncmp(node->args[0], "echo", 5) == 0
+		|| ft_strncmp(node->args[0], "cd", 3) == 0
+		|| ft_strncmp(node->args[0], "pwd", 4) == 0
+		|| ft_strncmp(node->args[0], "export", 7) == 0
+		|| ft_strncmp(node->args[0], "unset", 6) == 0
+		|| ft_strncmp(node->args[0], "env", 4) == 0
+		|| ft_strncmp(node->args[0], "exit", 5) == 0)
+		return (ft_strdup(node->args[0]));
 	cmd = NULL;
 	if (ft_strchr(node->args[0], '/'))
 		cmd = local_cmd(sh, node);
