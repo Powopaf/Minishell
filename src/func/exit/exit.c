@@ -25,11 +25,13 @@ static int	nb_args(char **args)
 	return (i);
 }
 
+
 int	ft_exit(char **args, t_shell *sh)
 {
 	char	*msg;
 
-	if (args && args[1] && !ft_isdigit(args[1][0]) && args[1][0] != '-' && args[1][0] != '+')
+	if (args && args[1] && !ft_isdigit(args[1][0]) &&
+		args[1][0] != '-' && args[1][0] != '+')
 	{
 		msg = ft_strjoin("exit: ", args[1]);
 		if (!msg)
@@ -40,16 +42,15 @@ int	ft_exit(char **args, t_shell *sh)
 			free(msg);
 			sh->exit = 2;
 		}
-		return (sh->exit);
 	}
-	if (nb_args(args) > 2)
+	else if (nb_args(args) > 2)
 	{
 		error(sh, "exit", "too many arguments", 1);
 		return (-1);
 	}
-	if (args && args[1])
+	else if (args && args[1])
 		sh->exit = ft_atoi(args[1]) % 256;
-	else 
+	else
 		sh->exit = sh->status;
 	return (sh->exit);
 }
