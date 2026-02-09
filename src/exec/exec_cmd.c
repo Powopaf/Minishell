@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/06 15:32:28 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:39:52 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../../libft/libft.h"
+#include "../func/func.h"
+#include "../signal/signal_handling.h"
 
 static int	pipe_redir(t_shell *sh, t_ast *node)
 {
@@ -57,17 +59,19 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 
 int	exec_cmd(t_shell *sh, t_ast *node)
 {
+	char	*cmd;
+
 	if (!node)
 		return (EXIT_SUCCESS);
-	// if (!node->args || !*(node->args))
-	// {
-	// 	int check = ft_redir(sh, node->redir);
-	// 	ft_restore_std(sh);
-	// 	if (check != SUCCESS)
-	// 		return (FAIL);
-	// 	return (SUCCESS);
-	// }
-	// built-in?
+	cmd = parse_cmd(sh, node);
+	if (cmd && ft_strncmp(cmd, "exit", 5) == 0)
+	{
+		free(cmd);
+		ft_exit(node->args, sh);
+		return (sh->exit);
+	}
+	if (!cmd)
+		return (EXIT_FAILURE);
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
 	{
@@ -76,13 +80,14 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 	}
 	if (node->pid == 0)
 	{
-		// signal ??
+		setup_child_signals(sh);
 		if (pipe_redir(sh, node) != EXIT_SUCCESS)
 			exit(EXIT_FAILURE);
 		if (redir(sh, node->redir) != EXIT_SUCCESS)
 			exit(EXIT_FAILURE);
 		exec_bin(sh, node);
 	}
+	ignore_signals();
 	close(node->fd_in);
 	close(node->fd_out);
 	return (EXIT_SUCCESS);

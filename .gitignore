@@ -1,5 +1,8 @@
 *.swp
 minishell
+*.supp
+*.vscode
+
 # Prerequisites
 *.d
 

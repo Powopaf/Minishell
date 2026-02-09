@@ -1,8 +1,8 @@
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
-LIB = libft/libft.a -lreadline -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
+LIB = libft/libft.a -lreadline
 SRC = ./minishell.c \
 	  ./src/error/err.c \
 	  ./src/init/init_shell.c \
@@ -12,7 +12,7 @@ SRC = ./minishell.c \
 	  ./src/exec/exec_cmd.c \
 	  ./src/exec/exec_redir.c \
 	  ./src/exec/exec_utils.c \
-	  ./src/exec/parser_cmd/get_env.c \
+	  ./src/exec/parser_cmd/utils_parse_cmd.c \
 	  ./src/exec/parser_cmd/parser_cmd.c \
 	  ./src/parsing/parsing.c \
 	  ./src/parsing/parsing_cmd.c \
@@ -26,8 +26,12 @@ SRC = ./minishell.c \
 	  ./src/parsing/token/tokens_add.c \
 	  ./src/parsing/token/tokens_lst_utils.c \
 	  ./src/parsing/token/tokens_utils.c \
+	  ./src/signal/signal.c \
+	  ./src/signal/signal_fork.c \
+	  ./src/signal/signal_utils.c \
 	  ./src/exec/pipe.c \
 	  ./src/exec/exec_heredoc.c \
+	  ./src/func/exit/exit.c
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

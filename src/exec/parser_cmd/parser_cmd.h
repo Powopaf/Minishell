@@ -31,4 +31,11 @@ char	*parse_cmd(t_shell *sh, t_ast *node);
  */
 char	*get_env(t_shell *sh, char *var_name);
 
+/**
+ * Checks if a command is a built-in shell command.
+ * @param: cmd
+ * @returns: 1 if the command is a builtin, 0 otherwise
+ */
+int is_builtin(char *cmd);
+
 #endif

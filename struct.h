@@ -2,6 +2,7 @@
 # define STRUCT_H
 
 # include <sys/types.h>
+# include <termios.h>
 
 typedef enum e_token_kw
 {
@@ -28,7 +29,8 @@ typedef enum e_ast_node
 	AST_PIPE,
 	AST_AND,
 	AST_OR,
-	AST_SUBSHELL
+	AST_SUBSHELL,
+	AST_FUNC
 }	t_ast_node_type;
 
 typedef struct s_ast
@@ -54,17 +56,20 @@ typedef struct s_token
 
 typedef struct s_shell
 {
-	char	**envp;
-	char	*name;
-	int		status;
-	int		stdin_fd;
-	int		stdout_fd;
-	int		hd_fd;
-	char	*file;
-	int		cmd_cnt;
-	char	*line;
-	t_token	*tokens;
-	t_ast	*ast;
+	char			**envp;
+	char			*name;
+	int				status;
+	int				exit;
+	int				stdin_fd;
+	int				stdout_fd;
+	int				hd_fd;
+	char			*file;
+	int				cmd_cnt;
+	char			*line;
+	int				tty;
+	struct termios	original_termios;
+	t_token			*tokens;
+	t_ast			*ast;
 }	t_shell;
 
 #endif

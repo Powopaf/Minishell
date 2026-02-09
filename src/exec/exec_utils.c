@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/06 15:52:49 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/10 18:31:34 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int	wait_ast(t_ast *node)
 		waitpid(node->pid, &status, 0);
 		if (WIFEXITED(status))
 			exit = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+ 			exit = WTERMSIG(status) + SIG_BASE;
 	}
 	return (exit);
 }
