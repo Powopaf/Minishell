@@ -19,7 +19,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../../libft/libft.h"
-#include "../func/exit/exit.h"
+#include "../func/func.h"
 
 static int	pipe_redir(t_shell *sh, t_ast *node)
 {
@@ -51,7 +51,6 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	envp = ft_strsdup(sh->envp);
 	if (!envp)
 		error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
-	clean_shell(sh);
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
@@ -63,12 +62,14 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 	if (!node)
 		return (EXIT_SUCCESS);
 	cmd = parse_cmd(sh, node);
-	if (ft_strncmp(cmd, "exit", 5) == 0)
+	if (cmd && ft_strncmp(cmd, "exit", 5) == 0)
 	{
 		free(cmd);
 		ft_exit(node->args, sh);
 		return (sh->exit);
 	}
+	if (!cmd)
+		return (EXIT_FAILURE);
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
 	{

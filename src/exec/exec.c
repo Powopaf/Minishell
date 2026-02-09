@@ -69,9 +69,13 @@ static int	exec_pipe(t_shell *sh, t_ast *node)
 	if (setup_pipe(sh, node) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	pid_left = exec(sh, node->left);
+	if (sh->exit != -1)
+		return (sh->exit);
 	if (pid_left == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	pid_right = exec(sh, node->right);
+	if (sh->exit != -1)
+		return (sh->exit);
 	if (pid_right == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -84,6 +88,8 @@ static int	exec_logop(t_shell *sh, t_ast *node)
 	if (!node)
 		return (EXIT_FAILURE);
 	left_status = exec(sh, node->left);
+	if (sh->exit != -1)
+		return (sh->exit);
 	if (node->astkw == AST_AND)
 	{
 		if (left_status == EXIT_SUCCESS)

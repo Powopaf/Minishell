@@ -10,17 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exit.h"
+#include "../func.h"
 #include "../../../libft/libft.h"
+#include "../../error/err.h"
 
-void	ft_exit(char **args, t_shell *sh)
+static int	nb_args(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+		i++;
+	return (i);
+}
+
+int	ft_exit(char **args, t_shell *sh)
 {
 	int	exit_code;
 
+	if (nb_args(args) > 2)
+	{
+		error(sh, "exit", "too many arguments", 1);
+		return (-1);
+	}
 	exit_code = sh->status;
 	if (args && args[1])
 	{
 		exit_code = ft_atoi(args[1]);
 	}
 	sh->exit = exit_code;
+	return (exit_code);
 }

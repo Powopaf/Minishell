@@ -67,6 +67,4 @@ void	error(t_shell *shell, char *context, char *why, int exitno)
 	shell->status = -exitno;
 	if (exitno < 0)
 		return ;
-	clean_shell(shell);
-	exit(exitno);
 }
