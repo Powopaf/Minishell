@@ -41,7 +41,7 @@ static int	process_line(t_shell *shell, char *line)
 	expand_var(shell, shell->ast);
 	shell->status = exec_root(shell, shell->ast);
 	clean_prompt(shell);
-	return (shell->exit == -1);
+	return (shell->exit != -1);
 }
 
 static void	shell_process(t_shell *shell)

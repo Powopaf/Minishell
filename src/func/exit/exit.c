@@ -18,9 +18,9 @@ void	ft_exit(char **args, t_shell *sh)
 	int	exit_code;
 
 	exit_code = sh->status;
-	if (args && *args)
+	if (args && args[1])
 	{
-		exit_code = ft_atoi(*args);
+		exit_code = ft_atoi(args[1]);
 	}
 	sh->exit = exit_code;
 }

@@ -56,22 +56,19 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
 
-static int	is_func(char *cmd, t_ast *node, t_shell *sh)
-{
-	if (ft_strncmp(cmd, "exit", 5) == 0)
-		return (ft_exit(node->args, sh), 1);
-	return (0);
-}
-
 int	exec_cmd(t_shell *sh, t_ast *node)
 {
 	char	*cmd;
 
-	cmd = parse_cmd(sh, node);
-	if (is_func(cmd, node, sh))
-		return (EXIT_SUCCESS);
 	if (!node)
 		return (EXIT_SUCCESS);
+	cmd = parse_cmd(sh, node);
+	if (ft_strncmp(cmd, "exit", 5) == 0)
+	{
+		free(cmd);
+		ft_exit(node->args, sh);
+		return (sh->exit);
+	}
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
 	{
