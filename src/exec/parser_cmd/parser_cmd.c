@@ -113,6 +113,8 @@ char	*parse_cmd(t_shell *sh, t_ast *node)
 {
 	char	*cmd;
 
+	if (!node || !node->args || !node->args[0])
+		return (NULL);
 	if (ft_strncmp(node->args[0], "echo", 5) == 0
 		|| ft_strncmp(node->args[0], "cd", 3) == 0
 		|| ft_strncmp(node->args[0], "pwd", 4) == 0
