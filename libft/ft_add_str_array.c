@@ -71,6 +71,5 @@ char	**ft_add_str_array(char **arr, char *s)
 	}
 	tmp = ft_util(arr, s);
 	ft_empty_array_strs(arr);
-	free(arr);
 	return (tmp);
 }
