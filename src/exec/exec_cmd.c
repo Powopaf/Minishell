@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/11 14:39:52 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/11 18:26:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	char	*cmd;
 	char	**args;
 	char	**envp;
+	int		builtin;
 
 	cmd = parse_cmd(sh, node);
 	args = ft_strsdup(node->args);
@@ -52,7 +53,16 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	envp = ft_strsdup(sh->envp);
 	if (!envp)
 		error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
-	clean_shell(sh);
+	builtin = is_builtin(cmd);
+	if (builtin)
+	{
+		if (builtin == 1)
+			ft_exit(args, sh);
+		else if (builtin == 2)
+			echo(args, sh);
+		ft_free_array_strs(&args);
+		ft_free_array_strs(&envp);
+	}
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/09 13:32:10 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/11 18:31:13 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ int	ft_exit(char **args, t_shell *sh)
 	else if (args && args[1])
 		sh->exit = ft_atoi(args[1]) % 256;
 	else
-		sh->exit = sh->status;
+		sh->exit = (sh->status < 0) ? -sh->status : sh->status;
 	return (sh->exit);
 }

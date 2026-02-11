@@ -1,5 +1,7 @@
 *.swp
 minishell
+.vscode/
+.clang-format
 *.supp
 *.vscode
 

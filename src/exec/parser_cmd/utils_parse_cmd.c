@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environment.c                                      :+:      :+:    :+:   */
+/*   utils_parse_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/04 16:35:35 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/11 18:34:29 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,19 @@ char	*get_env(t_shell *sh, char *var_name)
 
 int is_builtin(char *cmd)
 {
-	if (ft_strncmp(cmd, "echo", 5) == 0
-		|| ft_strncmp(cmd, "cd", 3) == 0
-		|| ft_strncmp(cmd, "pwd", 4) == 0
-		|| ft_strncmp(cmd, "export", 7) == 0
-		|| ft_strncmp(cmd, "unset", 6) == 0
-		|| ft_strncmp(cmd, "env", 4) == 0
-		|| ft_strncmp(cmd, "exit", 5) == 0)
+	if (ft_strncmp(cmd, "exit", 5) == 0)
 		return (1);
+	if (ft_strncmp(cmd, "echo", 5) == 0)
+		return (2);
+	if (ft_strncmp(cmd, "cd", 3) == 0)
+		return (3);
+	if (ft_strncmp(cmd, "pwd", 4) == 0)
+		return (4);
+	if (ft_strncmp(cmd, "export", 7) == 0)
+		return (5);
+	if (ft_strncmp(cmd, "unset", 6) == 0)
+		return (6);
+	if (ft_strncmp(cmd, "env", 4) == 0)
+		return (7);
 	return (0);
 }
