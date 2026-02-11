@@ -43,6 +43,7 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	char	*cmd;
 	char	**args;
 	char	**envp;
+	int		builtin;
 
 	cmd = parse_cmd(sh, node);
 	args = ft_strsdup(node->args);
@@ -51,25 +52,30 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	envp = ft_strsdup(sh->envp);
 	if (!envp)
 		error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
+	builtin = is_builtin(cmd);
+	if (builtin)
+	{
+		if (builtin == 1)
+			ft_exit(args, sh);
+		else if (builtin == 2)
+			echo(args, sh);
+		ft_free_array_strs(&args);
+		ft_free_array_strs(&envp);
+	}
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
 
 int	exec_cmd(t_shell *sh, t_ast *node)
 {
-	char	*cmd;
-
 	if (!node)
 		return (EXIT_SUCCESS);
-	cmd = parse_cmd(sh, node);
-	if (cmd && ft_strncmp(cmd, "exit", 5) == 0)
+	if (node->args && node->args[0]
+		&& ft_strncmp(node->args[0], "exit", 5) == 0)
 	{
-		free(cmd);
 		ft_exit(node->args, sh);
 		return (sh->exit);
 	}
-	if (!cmd)
-		return (EXIT_FAILURE);
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
 	{
