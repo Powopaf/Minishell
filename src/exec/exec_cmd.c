@@ -73,15 +73,12 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 
 	if (!node)
 		return (EXIT_SUCCESS);
-	cmd = parse_cmd(sh, node);
-	if (cmd && ft_strncmp(cmd, "exit", 5) == 0)
+	if (node->args && node->args[0]
+		&& ft_strncmp(node->args[0], "exit", 5) == 0)
 	{
-		free(cmd);
 		ft_exit(node->args, sh);
 		return (sh->exit);
 	}
-	if (!cmd)
-		return (EXIT_FAILURE);
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
 	{
