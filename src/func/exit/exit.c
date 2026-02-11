@@ -51,6 +51,6 @@ int	ft_exit(char **args, t_shell *sh)
 	else if (args && args[1])
 		sh->exit = ft_atoi(args[1]) % 256;
 	else
-		sh->exit = sh->status;
+		sh->exit = (sh->status < 0) ? -sh->status : sh->status;
 	return (sh->exit);
 }
