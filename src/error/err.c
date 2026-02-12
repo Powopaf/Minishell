@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 11:22:49 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 11:33:22 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	warning_hd(t_shell *sh)
 
 	txt1 = "here-document at line ";
 	txt2 = " delimited by end-of-file (wanted `eof')\n";
-	s = ft_strjoin(sh->name, WARNING);
+	s = ft_strjoin(PROMPT_MES, WARNING);
 	if (!s)
 		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
 	s = ft_strjoin_free(&s, &txt1, 1);
