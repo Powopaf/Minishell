@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:12:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/04 18:07:50 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/11 18:24:55 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	clean_shell(t_shell *shell)
 	if (shell->file)
 		free(shell->file);
 	free(shell->name);
+	free(shell->line);
 	tokens_clear(&shell->tokens, clean_token);
 	ast_clear(&shell->ast, clean_ast);
 }

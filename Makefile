@@ -26,6 +26,9 @@ SRC = ./minishell.c \
 	  ./src/parsing/token/tokens_add.c \
 	  ./src/parsing/token/tokens_lst_utils.c \
 	  ./src/parsing/token/tokens_utils.c \
+	  ./src/signal/signal.c \
+	  ./src/signal/signal_fork.c \
+	  ./src/signal/signal_utils.c \
 	  ./src/exec/pipe.c \
 	  ./src/exec/exec_heredoc.c \
 	  ./src/func/exit/exit.c \

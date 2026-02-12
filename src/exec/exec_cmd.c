@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/09 13:31:12 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/11 18:26:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include "../../libft/libft.h"
 #include "../func/func.h"
+#include "../signal/signal_handling.h"
 
 static int	pipe_redir(t_shell *sh, t_ast *node)
 {
@@ -68,6 +69,8 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 
 int	exec_cmd(t_shell *sh, t_ast *node)
 {
+	char	*cmd;
+
 	if (!node)
 		return (EXIT_SUCCESS);
 	if (node->args && node->args[0]
@@ -84,13 +87,14 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 	}
 	if (node->pid == 0)
 	{
-		// signal ??
+		setup_child_signals(sh);
 		if (pipe_redir(sh, node) != EXIT_SUCCESS)
 			exit(EXIT_FAILURE);
 		if (redir(sh, node->redir) != EXIT_SUCCESS)
 			exit(EXIT_FAILURE);
 		exec_bin(sh, node);
 	}
+	ignore_signals();
 	close(node->fd_in);
 	close(node->fd_out);
 	return (EXIT_SUCCESS);
