@@ -6,14 +6,14 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:02:38 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:02:40 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:30:52 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
 
-#include "../../../struct.h"
+# include "../../../struct.h"
 
 /**
  * Allocates and initializes a new AST node.

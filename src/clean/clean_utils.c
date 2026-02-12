@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 08:05:32 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 09:41:48 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:36:42 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	clean_redir(t_redir	*redir)
 {
 	if (!redir)
 		return ;
-	// TODO: check if we can remove the if
 	if (redir->file)
 		free(redir->file);
 	if (redir->eofkw)

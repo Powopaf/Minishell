@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 15:14:30 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:05:18 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static int verif(char *new_pwd, t_shell *sh)
+static int	verif(char *new_pwd, t_shell *sh)
 {
 	if (!new_pwd)
 	{
@@ -69,17 +69,20 @@ static int	replace_envp(t_shell *sh)
 	return (0);
 }
 
-static void move(char *path, t_shell *sh)
+static void	move(char *path, t_shell *sh)
 {
+	char	*err_msg;
+
 	if (chdir(path) == -1)
 	{
-		error(sh, "cd", ft_strjoin(path, ": No such file or directory"), 1);
-		sh->status = 1;
+		err_msg = ft_strjoin(path, ": No such file or directory");
+		error(sh, "cd", err_msg, 1);
+		free(err_msg);
 		return ;
 	}
-	if (replace_envp(sh) == 1)
+	if (replace_envp(sh))
 	{
-		sh->status = 1;
+		error(sh, "cd", "can not update PWD", 1);
 	}
 	else
 	{
@@ -87,28 +90,26 @@ static void move(char *path, t_shell *sh)
 	}
 }
 
-void cd(t_shell *sh, char **args)
+void	cd(t_shell *sh, char **args)
 {
 	char	*w_dir;
 	char	*new_pwd;
-	
+
 	if (args[1] && args[2])
 	{
 		error(sh, "cd", "too many arguments", 1);
-		sh->status = 1;
-		return;
+		return ;
 	}
 	w_dir = getcwd(NULL, 0);
 	if (w_dir == NULL)
 	{
 		error(sh, "cd", "getcwd error", 1);
-		sh->status = 1;
 		return ;
 	}
 	new_pwd = NULL;
 	if (is_full_path(sh, args[1], &new_pwd))
 	{
-		sh->status = 1;
+		free(w_dir);
 		return ;
 	}
 	move(new_pwd, sh);

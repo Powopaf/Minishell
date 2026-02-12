@@ -6,16 +6,16 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:05:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:05:14 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:35:14 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKENS_UTILS_H
-# define TOKENS_UTILS_H
+#ifndef TOKEN_UTILS_H
+# define TOKEN_UTILS_H
 
 # include "../../../struct.h"
 
-#define EXIT_FAILURE 1
+# define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
 
 /**
@@ -23,21 +23,21 @@
  * @param {char} c - Character to test.
  * @returns {int} 1 if whitespace, otherwise 0.
  */
-int	isshspace(char c);
+int		isshspace(char c);
 
 /**
  * Checks if a character breaks a word token.
  * @param {char} c - Character to test.
  * @returns {int} 1 if break character, otherwise 0.
  */
-int	isshbreak(char c);
+int		isshbreak(char c);
 
 /**
  * Checks if a character starts a shell keyword/operator.
  * @param {char} c - Character to test.
  * @returns {int} 1 if keyword, otherwise 0.
  */
-int	isshellkw(char c);
+int		isshellkw(char c);
 
 /**
  * Adds a keyword token at the current index.
@@ -54,6 +54,6 @@ ssize_t	add_key_token(t_shell *sh, ssize_t i);
  * @param {t_token_kw} kw - Token kind.
  * @returns {int} EXIT_SUCCESS or EXIT_FAILURE.
  */
-int	add_token(t_shell *sh, char *token, t_token_kw kw);
+int		add_token(t_shell *sh, char *token, t_token_kw kw);
 
 #endif

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 11:09:24 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/19 11:30:16 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:33:06 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token_utils.h"
-
-// ' & "
 
 int	isshspace(char c)
 {

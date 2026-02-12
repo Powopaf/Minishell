@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_shell.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/12 16:36:15 by pifourni          #+#    #+#             */
+/*   Updated: 2026/02/12 16:36:34 by pifourni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CLEAN_SHELL_H
 # define CLEAN_SHELL_H
 
-#include "../../struct.h"
-#include "../../redir.h"
+# include "../../struct.h"
+# include "../../redir.h"
 
 /**
  * Frees the current prompt line and related buffers.
@@ -35,6 +47,5 @@ void	redir_clear(t_redir **redir, void (*del)(t_redir *));
  * @param {void (*)(t_token *)} del - Node free callback.
  */
 void	tokens_clear(t_token **token, void (*del)(t_token *));
-
 
 #endif

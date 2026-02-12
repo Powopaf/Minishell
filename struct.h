@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   struct.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
+/*   Updated: 2026/02/12 15:21:43 by pifourni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCT_H
 # define STRUCT_H
 
@@ -49,7 +61,7 @@ typedef struct s_ast
 typedef struct s_token
 {
 	t_token_kw		kw;
-	char	*token;
+	char			*token;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;

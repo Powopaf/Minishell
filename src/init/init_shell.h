@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:07:04 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:07:06 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:35:27 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define PROMPT_HD "> "
 
-#include "../../struct.h"
+# include "../../struct.h"
 
 /**
  * Initializes the shell context and environment.

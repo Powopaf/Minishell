@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 15:12:12 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:27:23 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include <string.h>
 #include <unistd.h>
 
-static int pipe_redir(t_shell *sh, t_ast *node)
+static int	pipe_redir(t_shell *sh, t_ast *node)
 {
 	if (node->fd_in > -1 && dup2(node->fd_in, STDIN_FILENO) < 0)
 	{
@@ -39,11 +39,11 @@ static int pipe_redir(t_shell *sh, t_ast *node)
 	return (EXIT_SUCCESS);
 }
 
-static void exec_bin(t_shell *sh, t_ast *node)
+static void	exec_bin(t_shell *sh, t_ast *node)
 {
-	char *cmd;
-	char **args;
-	char **envp;
+	char	*cmd;
+	char	**args;
+	char	**envp;
 
 	cmd = parse_cmd(sh, node);
 	args = ft_strsdup(node->args);
@@ -65,40 +65,34 @@ static void exec_bin(t_shell *sh, t_ast *node)
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
 
-int exec_cmd(t_shell *sh, t_ast *node)
+static void	exec_forked(t_shell *sh, t_ast *node)
+{
+	setup_child_signals(sh);
+	if (pipe_redir(sh, node) != EXIT_SUCCESS)
+		exit(EXIT_FAILURE);
+	if (redir(sh, node->redir) != EXIT_SUCCESS)
+		exit(EXIT_FAILURE);
+	exec_bin(sh, node);
+}
+
+int	exec_cmd(t_shell *sh, t_ast *node)
 {
 	if (!node)
 		return (EXIT_SUCCESS);
-	if (node->args && node->args[0]
-		&& ft_strncmp(node->args[0], "cd", 3) == 0
-		&& node->fd_in == -1 && node->fd_out == -1 && !node->redir)
+	if (node->args && node->args[0])
 	{
-		cd(sh, node->args);
-		return (sh->status);
-	}
-	if (node->args && node->args[0] &&
-		ft_strncmp(node->args[0], "exit", 5) == 0)
-	{
-		ft_exit(node->args, sh);
-		return (sh->exit);
+		if (ft_strncmp(node->args[0], "cd", 3) == 0
+			&& node->fd_in == -1 && node->fd_out == -1 && !node->redir)
+			return (cd(sh, node->args), sh->status);
+		if (ft_strncmp(node->args[0], "exit", 5) == 0)
+			return (ft_exit(node->args, sh), sh->exit);
 	}
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
-	{
-		error(sh, "fork", strerror(errno), -EXIT_FAILURE);
-		return (EXIT_FAILURE);
-	}
+		return (error(sh, "fork", strerror(errno),
+				-EXIT_FAILURE), EXIT_FAILURE);
 	if (node->pid == 0)
-	{
-		setup_child_signals(sh);
-		if (pipe_redir(sh, node) != EXIT_SUCCESS)
-			exit(EXIT_FAILURE);
-		if (redir(sh, node->redir) != EXIT_SUCCESS)
-			exit(EXIT_FAILURE);
-		exec_bin(sh, node);
-	}
-	ignore_signals();
-	ft_close_fd(&node->fd_in);
-	ft_close_fd(&node->fd_out);
-	return (EXIT_SUCCESS);
+		exec_forked(sh, node);
+	return (ignore_signals(), ft_close_fd(&node->fd_in),
+		ft_close_fd(&node->fd_out), EXIT_SUCCESS);
 }

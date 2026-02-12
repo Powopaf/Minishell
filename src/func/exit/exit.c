@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/11 18:31:13 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:51:29 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	nb_args(char **args)
 	return (i);
 }
 
-
 int	ft_exit(char **args, t_shell *sh)
 {
 	char	*msg;
@@ -35,10 +34,10 @@ int	ft_exit(char **args, t_shell *sh)
 	{
 		msg = ft_strjoin("exit: ", args[1]);
 		if (!msg)
-			error(sh, "malloc", MALLOC_ERR, 2);
+			error(sh, "malloc", MALLOC_ERR, 1);
 		else
 		{
-			error(sh, msg, "numeric argument required", 2);
+			error(sh, msg, "numeric argument required", 1);
 			free(msg);
 			sh->exit = 2;
 		}
@@ -46,11 +45,11 @@ int	ft_exit(char **args, t_shell *sh)
 	else if (nb_args(args) > 2)
 	{
 		error(sh, "exit", "too many arguments", 1);
-		return (-1);
+		return (1);
 	}
 	else if (args && args[1])
 		sh->exit = ft_atoi(args[1]) % 256;
 	else
-		sh->exit = (sh->status < 0) ? -sh->status : sh->status;
+		sh->exit = sh->status;
 	return (sh->exit);
 }

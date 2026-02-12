@@ -6,14 +6,14 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:06:43 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:37:03 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERR_H
 # define ERR_H
 
-#include "../../struct.h"
+# include "../../struct.h"
 
 # define SUCCESS 0
 # define FAIL 1
@@ -27,11 +27,9 @@
 # define CMD_PERM_DND 126
 # define MISUSE 2
 # define PRG_ERR 666
-#define ISDIR "Is a directory"
+# define ISDIR "Is a directory"
 # define SIG_BASE 128
 # define DEBUG "PROGRAM ERROR"
-
-
 
 /**
  * Reports a syntax error and updates shell status.

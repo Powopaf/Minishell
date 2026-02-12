@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:25:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/11 11:40:22 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:55:03 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../libft/libft.h"
+#include "../../error/err.h"
 #include "../func.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-static int trim(char *str)
+static int	trim(char *str)
 {
-	size_t i;
+	size_t	i;
 
 	if (str[0] != '"')
 		return (printf("%s", str));
@@ -31,10 +32,10 @@ static int trim(char *str)
 	return (0);
 }
 
-void echo(char **args, t_shell *sh)
+void	echo(char **args, t_shell *sh)
 {
-	size_t i;
-	int n_flag;
+	size_t	i;
+	int		n_flag;
 
 	i = 1;
 	n_flag = 1;
@@ -47,15 +48,15 @@ void echo(char **args, t_shell *sh)
 	{
 		if (trim(args[i]) == -1)
 		{
-			sh->status = EXIT_FAILURE;
+			error(sh, "echo", "printf error", 1);
 			exit(EXIT_FAILURE);
 		}
-		if (args[i + 1])
-			printf(" ");
+		if (args[i + 1] && printf(" ") == -1)
+			error(sh, "echo", "printf error", 1);
 		i++;
 	}
-	if (n_flag)
-		printf("\n");
+	if (n_flag && printf("\n") == -1)
+		error(sh, "echo", "printf error", 1);
 	sh->status = EXIT_SUCCESS;
 	exit(EXIT_SUCCESS);
 }

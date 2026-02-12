@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/11 14:39:41 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:27:46 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 #include "../clean/clean_shell.h"
 #include "../signal/signal_handling.h"
 
-static int  exec_sub(t_shell *sh, t_ast *node);
-static int  exec_pipe(t_shell *sh, t_ast *node);
-static int exec_logop(t_shell *sh, t_ast *node);
+static	int	exec_sub(t_shell *sh, t_ast *node);
+static	int	exec_pipe(t_shell *sh, t_ast *node);
+static	int	exec_logop(t_shell *sh, t_ast *node);
 
 static int	exec(t_shell *sh, t_ast *node)
 {
