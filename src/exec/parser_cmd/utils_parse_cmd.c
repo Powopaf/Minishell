@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:28:44 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:59:36 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,28 +42,17 @@ char	*get_env(t_shell *sh, char *var_name)
 
 int	is_builtin(char *cmd, t_shell *sh, char **args)
 {
-	if (ft_strncmp(cmd, "exit", 5) == 0)
-	{
-		ft_exit(args, sh);
+	if (!ft_strncmp(cmd, "exit", 5))
+		return (ft_exit(args, sh), 1);
+	if (!ft_strncmp(cmd, "echo", 5))
+		return (echo(args, sh), 1);
+	if (!ft_strncmp(cmd, "cd", 3))
+		return (cd(sh, args), 1);
+	if (!ft_strncmp(cmd, "pwd", 4))
+		return (pwd(args, sh), 1);
+	if (!ft_strncmp(cmd, "export", 7) || !ft_strncmp(cmd, "unset", 6))
 		return (1);
-	}
-	if (ft_strncmp(cmd, "echo", 5) == 0)
-	{
-		echo(args, sh);
-		return (2);
-	}
-	if (ft_strncmp(cmd, "cd", 3) == 0)
-		return (3);
-	if (ft_strncmp(cmd, "pwd", 4) == 0)
-	{
-		pwd(args, sh);
-		return (4);
-	}
-	if (ft_strncmp(cmd, "export", 7) == 0)
-		return (5);
-	if (ft_strncmp(cmd, "unset", 6) == 0)
-		return (6);
-	if (ft_strncmp(cmd, "env", 4) == 0)
-		return (7);
+	if (!ft_strncmp(cmd, "env", 4))
+		return (env(args, sh), 1);
 	return (0);
 }
