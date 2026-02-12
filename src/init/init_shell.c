@@ -69,7 +69,7 @@ void	initialize_shell(t_shell *shell, char **envp, char **argv)
 		error(shell, "dup", strerror(errno), FAIL);
 	shell->hd_fd = -1;
 	shell->file = NULL;
-	shell->cmd_cnt = 0;
+	shell->line_cnt = 0;
 	shell->line = NULL;
 	shell->tokens = NULL;
 	shell->ast = NULL;
