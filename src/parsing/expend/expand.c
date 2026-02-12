@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/05 23:04:23 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:09:14 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,22 @@ static char	*expand_str(t_shell *sh, char *s)
 {
 	char	*expand;
 	size_t	i;
+	size_t	squotes = 0;
 
 	expand = ft_strdup("");
 	if (!expand)
-	{
-		error(sh, "malloc", MALLOC_ERR, -FAIL);
-		return (NULL);
-	}
+		return (error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '$' && s[i + 1] == '?')
+		if (s[i] == '\'' && (!i || (s[i-1] != '\\')))
+			squotes++;
+		else if (s[i] == '\"' && (!i || (s[i-1] != '\\')))
+			;
+		else if (s[i] == '$' && s[i + 1] == '?' && (squotes % 2 == 0))
 			expand = expand_status(sh, expand, &i);
-		else if (s[i] == '$' && (ft_isalnum(s[i + 1]) || s[i + 1] == '_'))
+		else if (s[i] == '$' && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')
+			&& (squotes % 2 == 0))
 			expand = expand_env_var(sh, s, expand, &i);
 		else
 			expand = ft_strjoin_char(expand, s[i], 1, 1);
@@ -106,6 +109,15 @@ static void	expand_redirs(t_shell *sh, t_redir *redir)
 			{
 				free(redir->file);
 				redir->file = expand;
+			}
+		}
+		if (redir->eofkw)
+		{
+			expand = expand_str(sh, redir->eofkw);
+			if (expand)
+			{
+				free(redir->eofkw);
+				redir->eofkw = expand;
 			}
 		}
 		redir = redir->next;
