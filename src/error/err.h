@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:06:43 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 10:51:34 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #define ISDIR "Is a directory"
 # define SIG_BASE 128
 # define DEBUG "PROGRAM ERROR"
+# define WARNING "warning: "
 
 
 

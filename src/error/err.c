@@ -6,17 +6,45 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/06 15:58:17 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 11:22:49 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../libft/libft.h"
+#include "../clean/clean_shell.h"
+#include "../parsing/token/tokens.h"
 #include "err.h"
 #include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "../parsing/token/tokens.h"
-#include "../clean/clean_shell.h"
-#include "../../libft/libft.h"
+
+void	warning_hd(t_shell *sh)
+{
+	char	*s;
+	char	*txt1;
+	char	*txt2;
+	char	*line_count;
+
+	txt1 = "here-document at line ";
+	txt2 = " delimited by end-of-file (wanted `eof')\n";
+	s = ft_strjoin(sh->name, WARNING);
+	if (!s)
+		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+	s = ft_strjoin_free(&s, &txt1, 1);
+	if (!s)
+		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+	line_count = ft_itoa(sh->line_cnt);
+	if (!line_count)
+		return (free(s), error(sh, "malloc", MALLOC_ERR, -FAIL));
+	s = ft_strjoin_free(&s, &line_count, 3);
+	if (!s)
+		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+	s = ft_strjoin_free(&s, &txt2, 1);
+	if (!s)
+		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+	write(2, s, ft_strlen(s));
+	free(s);
+}
 
 void	syntax_error(t_shell *sh, t_token_kw kw, int exitno)
 {
