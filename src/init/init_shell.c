@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 09:39:54 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 10:41:03 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	initialize_shell(t_shell *shell, char **envp, char **argv)
 		error(shell, "dup", strerror(errno), FAIL);
 	shell->hd_fd = -1;
 	shell->file = NULL;
-	shell->cmd_cnt = 0;
+	shell->line_cnt = 0;
 	shell->line = NULL;
 	shell->tokens = NULL;
 	shell->ast = NULL;
