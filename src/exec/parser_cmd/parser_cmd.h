@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 
 #ifndef PARSER_CMD_H
-# define PARSER_CMD_H
+#define PARSER_CMD_H
 
-# include "../../../struct.h"
+#include "../../../struct.h"
 
 /**
  * Resolves a command name into an executable path.
@@ -21,7 +21,7 @@
  * @param {t_ast *} node - AST command node.
  * @returns {char*} Allocated command path or NULL on failure.
  */
-char	*parse_cmd(t_shell *sh, t_ast *node);
+char *parse_cmd(t_shell *sh, t_ast *node);
 
 /**
  * Retrieves an environment variable value.
@@ -29,13 +29,16 @@ char	*parse_cmd(t_shell *sh, t_ast *node);
  * @param {char *} var_name - Variable name to look up.
  * @returns {char*} Allocated value or NULL if not found.
  */
-char	*get_env(t_shell *sh, char *var_name);
+char *get_env(t_shell *sh, char *var_name);
 
 /**
  * Checks if a command is a built-in shell command.
  * @param: cmd
+ * @param: sh- Shell context, used for built-in commands that may need it.
+ * @param: args - Arguments passed to the command, used for built-in commands
+ * that may need it.
  * @returns: 1 if the command is a builtin, 0 otherwise
  */
-int is_builtin(char *cmd);
+int is_builtin(char *cmd, t_shell *sh, char **args);
 
 #endif
