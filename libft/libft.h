@@ -232,5 +232,9 @@ int		ft_atoi(const char *str);
  * @returns: 1 if the character is a digit ('0' to '9'), 0 otherwise.
  */
 int	ft_isdigit(int c);
+/**
+ * Close a filedescriptor if this one is open, then set it to -1
+ */
+void	ft_close_fd(int *fd);
 
 #endif
