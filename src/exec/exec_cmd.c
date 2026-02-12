@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/11 18:26:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 10:13:03 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int	pipe_redir(t_shell *sh, t_ast *node)
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}
-	close(node->fd_in);
-	close(node->fd_out);
+	ft_close_fd(&node->fd_in);
+	ft_close_fd(&node->fd_out);
 	return (EXIT_SUCCESS);
 }
 
@@ -63,14 +63,13 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 		ft_free_array_strs(&args);
 		ft_free_array_strs(&envp);
 	}
+	clean_shell(sh);
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
 
 int	exec_cmd(t_shell *sh, t_ast *node)
 {
-	char	*cmd;
-
 	if (!node)
 		return (EXIT_SUCCESS);
 	if (node->args && node->args[0]
@@ -95,7 +94,7 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 		exec_bin(sh, node);
 	}
 	ignore_signals();
-	close(node->fd_in);
-	close(node->fd_out);
+	ft_close_fd(&node->fd_in);
+	ft_close_fd(&node->fd_out);
 	return (EXIT_SUCCESS);
 }

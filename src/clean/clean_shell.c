@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:12:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/11 18:24:55 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 09:27:30 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	clean_ast(t_ast	*node)
 		return ;
 	ft_free_array_strs(&node->args);
 	redir_clear(&node->redir, clean_redir);
-	close(node->fd_in);
-	close(node->fd_out);
+	ft_close_fd(&node->fd_in);
+	ft_close_fd(&node->fd_out);
 	free(node);
 }
 
@@ -50,9 +50,9 @@ static void	clean_token(t_token	*tk)
 void	clean_shell(t_shell *shell)
 {
 	ft_free_array_strs(&shell->envp);
-	close(shell->stdin_fd);
-	close(shell->stdout_fd);
-	close(shell->hd_fd);
+	ft_close_fd(&shell->stdin_fd);
+	ft_close_fd(&shell->stdout_fd);
+	ft_close_fd(&shell->hd_fd);
 	if (shell->file)
 		free(shell->file);
 	free(shell->name);
@@ -63,7 +63,7 @@ void	clean_shell(t_shell *shell)
 
 void	clean_prompt(t_shell *shell)
 {
-	close(shell->hd_fd);
+	ft_close_fd(&shell->hd_fd);
 	if (shell->file)
 		free(shell->file);
 	if (shell->line)

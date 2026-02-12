@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_lst_utils.c                                  :+:      :+:    :+:   */
+/*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 08:05:32 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/26 11:06:50 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 09:41:48 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "clean_shell.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include "../../libft/libft.h"
 
 void	clean_redir(t_redir	*redir)
 {
@@ -23,8 +24,8 @@ void	clean_redir(t_redir	*redir)
 		free(redir->file);
 	if (redir->eofkw)
 		free(redir->eofkw);
-	close(redir->fd_in);
-	close(redir->fd_out);
+	ft_close_fd(&redir->fd_in);
+	ft_close_fd(&redir->fd_out);
 	free(redir);
 }
 

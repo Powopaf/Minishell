@@ -1,8 +1,8 @@
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
-LIB = libft/libft.a -lreadline -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g #-fsanitize=address
+LIB = libft/libft.a -lreadline #-fsanitize=address
 SRC = ./minishell.c \
 	  ./src/error/err.c \
 	  ./src/init/init_shell.c \

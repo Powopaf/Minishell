@@ -30,7 +30,8 @@ SRC = ./ft_add_str_array.c \
 	  ./gnl/ft_get_next_line_utils.c \
 	  ./ft_memcpy.c \
 	  ./ft_atoi.c \
-	  ./ft_isdigit.c
+	  ./ft_isdigit.c \
+	  ./ft_close_fd.c
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
