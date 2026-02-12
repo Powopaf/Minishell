@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 11:56:32 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/19 17:49:33 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:32:56 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 #include "../../error/err.h"
 #include "../../../libft/libft.h"
 #include <stdlib.h>
-
-// ssize_t	ft_quotes(t_shell *sh, ssize_t i)
-// {
-// 	return i;
-// }
 
 static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 {
@@ -30,12 +25,7 @@ static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 	while (sh->line[i] && !isshspace(sh->line[i]) && !isshellkw(sh->line[i])
 		&& !isshbreak(sh->line[i]))
 	{
-		// if (sh->line[i] == '\'' || sh->line[i] == '"')
-		// 	i = ft_quotes(sh, i);
-		// if (i == -1)
-		// 	return (i);
-		// else
-			i++;
+		i++;
 	}
 	if (i > beginning)
 	{
@@ -43,7 +33,6 @@ static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 		if (!word)
 			error(sh, "malloc", MALLOC_ERR, -FAIL);
 		add_token(sh, word, WORD);
-		// TODO: check if we can remove if
 		if (word)
 			free(word);
 	}
@@ -71,6 +60,3 @@ int	tokenization(t_shell *sh)
 	add_token(sh, NULL, EOFKW);
 	return (EXIT_SUCCESS);
 }
-// consider cases:
-// \ is it for ignoring \n for long script ?
-// \n in a script, handle command then start new one ?

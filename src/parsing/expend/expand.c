@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:09:14 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:00:21 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ static char	*expand_status(t_shell *sh, char *expand, size_t *i)
 		return (NULL);
 	}
 	free(exit);
-	if (!expand)
-		free(expand);
+	free(expand);
 	(*i)++;
 	return (s);
 }

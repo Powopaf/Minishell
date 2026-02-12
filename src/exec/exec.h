@@ -6,14 +6,14 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:20 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:08:22 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:09:12 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-#include "../../struct.h"
+# include "../../struct.h"
 
 /**
  * Executes the AST starting at the root node.

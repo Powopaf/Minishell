@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/11 18:34:29 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:28:44 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 #include "../../func/func.h"
 #include "parser_cmd.h"
 
-char *get_env(t_shell *sh, char *var_name)
+char	*get_env(t_shell *sh, char *var_name)
 {
-	char *var;
-	size_t i;
+	char	*var;
+	size_t	i;
 
 	i = 0;
 	while (sh->envp && sh->envp[i])
 	{
-		if (!ft_strncmp(var_name, sh->envp[i], ft_strlen(var_name)) &&
-			sh->envp[i][ft_strlen(var_name)] == '=')
+		if (!ft_strncmp(var_name, sh->envp[i], ft_strlen(var_name))
+			&& sh->envp[i][ft_strlen(var_name)] == '=')
 		{
 			var = ft_substr(sh->envp[i], ft_strlen(var_name) + 1,
-							ft_strlen(sh->envp[i]) - (ft_strlen(var_name) + 1));
+					ft_strlen(sh->envp[i]) - (ft_strlen(var_name) + 1));
 			if (!var)
 				error(sh, "malloc", MALLOC_ERR, -FAIL);
 			return (var);
@@ -40,7 +40,7 @@ char *get_env(t_shell *sh, char *var_name)
 	return (var);
 }
 
-int is_builtin(char *cmd, t_shell *sh, char **args)
+int	is_builtin(char *cmd, t_shell *sh, char **args)
 {
 	if (ft_strncmp(cmd, "exit", 5) == 0)
 	{

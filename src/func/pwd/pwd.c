@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 13:18:42 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 10:26:34 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:06:04 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void pwd(char **args, t_shell *sh)
+void	pwd(char **args, t_shell *sh)
 {
-	char *pwd;
+	char	*pwd;
 
-	if (args && args[1])
+	if (args[1])
 	{
 		error(sh, "pwd", "too many arguments", 1);
-		sh->status = EXIT_FAILURE;
-		return;
+		return ;
 	}
 	pwd = get_env(sh, "PWD");
 	if (!pwd)
 	{
 		error(sh, "pwd", "PWD not set", 1);
-		sh->status = EXIT_FAILURE;
-		return;
+		return ;
 	}
 	if (printf("%s\n", pwd) < 0)
 	{
 		error(sh, "pwd", "write error", 1);
-		sh->status = EXIT_FAILURE;
 		free(pwd);
-		return;
+		return ;
 	}
 	free(pwd);
 	sh->status = EXIT_SUCCESS;
-	return;
+	return ;
 }

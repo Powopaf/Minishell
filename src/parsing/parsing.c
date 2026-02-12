@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:38:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/05 23:01:23 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:30:41 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static t_ast	*parse_subshell(t_shell *sh, t_token **tokens)
 static t_ast	*parse_command(t_shell *sh, t_token **tokens)
 {
 	t_ast	*node;
+
 	if ((*tokens) && (*tokens)->kw == L_PARENTH)
 	{
 		node = parse_subshell(sh, tokens);
@@ -112,6 +113,7 @@ static t_ast	*parse_pipelines(t_shell *sh, t_token **tokens)
 t_ast	*parser(t_shell *sh, t_token **tokens)
 {
 	t_ast	*node;
+
 	node = parse_logical_operators(sh, tokens);
 	if (!node || (tokens && (*tokens)->kw != EOFKW))
 		return (NULL);

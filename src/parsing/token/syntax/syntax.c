@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens_syntax.c                                    :+:      :+:    :+:   */
+/*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:18:16 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/19 16:26:19 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:34:02 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	pipe_syntax(t_shell *sh)
 static int	parenth_syntax(t_shell *sh)
 {
 	t_token	*current;
-	int	count;
+	int		count;
 
 	current = sh->tokens;
 	count = 0;

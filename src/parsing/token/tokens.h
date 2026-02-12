@@ -6,16 +6,16 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:05:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:05:42 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:31:40 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENS_H
 # define TOKENS_H
 
-#include "../../../struct.h"
+# include "../../../struct.h"
 
-#define EXIT_FAILURE 1
+# define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
 
 /**
@@ -23,7 +23,7 @@
  * @param {t_shell *} sh - Shell context.
  * @returns {int} EXIT_SUCCESS or EXIT_FAILURE.
  */
-int	tokenization(t_shell *sh);
+int		tokenization(t_shell *sh);
 
 /**
  * Converts a token kind to its string representation.

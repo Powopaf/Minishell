@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/12 16:38:52 by pifourni          #+#    #+#             */
+/*   Updated: 2026/02/12 16:39:16 by pifourni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <stddef.h>
+# include <stddef.h>
 
 /**
  * Writes a string to a file descriptor.
@@ -231,7 +243,8 @@ int		ft_atoi(const char *str);
  * @param c: The character to check.
  * @returns: 1 if the character is a digit ('0' to '9'), 0 otherwise.
  */
-int	ft_isdigit(int c);
+int		ft_isdigit(int c);
+
 /**
  * Close a filedescriptor if this one is open, then set it to -1
  */

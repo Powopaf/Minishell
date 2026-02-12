@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 10:41:03 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:35:51 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <errno.h>
 #include <string.h>
 #include "../../libft/libft.h"
-# include "init_shell.h"
+#include "init_shell.h"
 #include "../signal/signal_handling.h"
 
 static void	init_terminal(t_shell *shell)
@@ -54,9 +54,6 @@ static void	get_shell_name(t_shell *shell, char **argv)
 		return ;
 	}
 	shell->name = ft_strrchr(*argv, '/');
-	// if (shell->name)
-	// 	shell->name++;
-	// else
 	shell->name = ft_strjoin(*argv, PROMPT_HD);
 }
 

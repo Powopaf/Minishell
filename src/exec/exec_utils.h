@@ -6,20 +6,20 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:09:07 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/06 15:53:06 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:10:11 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_UTILS_H
 # define EXEC_UTILS_H
 
-#define EXIT_SUCCESS 0
-#define EXIT_FAILURE 1
+# define EXIT_SUCCESS 0
+# define EXIT_FAILURE 1
 # define PROMPT_HD "> "
 # define HEREDOC "/tmp/minishell_heredoc"
 
-#include "../../struct.h"
-#include "../../redir.h"
+# include "../../struct.h"
+# include "../../redir.h"
 
 /**
  * Executes a command node (builtins or external).

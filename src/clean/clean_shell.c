@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_shell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:12:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 09:27:30 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:17:33 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,15 @@ void	clean_prompt(t_shell *shell)
 {
 	ft_close_fd(&shell->hd_fd);
 	if (shell->file)
+	{
 		free(shell->file);
+		shell->file = NULL;
+	}
 	if (shell->line)
+	{
 		free(shell->line);
+		shell->line = NULL;
+	}
 	tokens_clear(&shell->tokens, clean_token);
 	ast_clear(&shell->ast, clean_ast);
 }

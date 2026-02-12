@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:22:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 09:44:14 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:25:39 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,22 @@
 #include <string.h>
 #include "../../libft/libft.h"
 
-static int pipe_right(t_shell *sh, t_ast *node, int fd)
+static int	pipe_right(t_shell *sh, t_ast *node, int fd)
 {
-	t_ast *tmp;
+	t_ast	*tmp;
+
 	tmp = node->right;
 	while (tmp->astkw != AST_CMD)
 	{
 		if (tmp->left)
 		{
 			tmp = tmp->left;
-			continue;
+			continue ;
 		}
 		if (tmp->right)
 		{
 			tmp = tmp->right;
-			continue;
+			continue ;
 		}
 		error(sh, DEBUG, DEBUG, -EXIT_FAILURE);
 		return (EXIT_FAILURE);
@@ -41,9 +42,9 @@ static int pipe_right(t_shell *sh, t_ast *node, int fd)
 	return (EXIT_SUCCESS);
 }
 
-static int pipe_left(t_shell *sh, t_ast *node, int fd)
+static int	pipe_left(t_shell *sh, t_ast *node, int fd)
 {
-	t_ast *tmp;
+	t_ast	*tmp;
 
 	tmp = node->left;
 	while (tmp->astkw != AST_CMD)
@@ -51,12 +52,12 @@ static int pipe_left(t_shell *sh, t_ast *node, int fd)
 		if (tmp->right)
 		{
 			tmp = tmp->right;
-			continue;
+			continue ;
 		}
 		if (tmp->left)
 		{
 			tmp = tmp->left;
-			continue;
+			continue ;
 		}
 		error(sh, DEBUG, DEBUG, -EXIT_FAILURE);
 		return (EXIT_FAILURE);
@@ -69,6 +70,7 @@ static int pipe_left(t_shell *sh, t_ast *node, int fd)
 int	setup_pipe(t_shell *sh, t_ast *node)
 {
 	int	fd[2];
+
 	if (pipe(fd) == -1)
 	{
 		error(sh, "pipe", strerror(errno), -EXIT_FAILURE);

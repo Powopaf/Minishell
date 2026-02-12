@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:01:36 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/05 23:01:40 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:29:40 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0
 
-#include "../../struct.h"
+# include "../../struct.h"
 
 /**
  * Parses redirections for an AST node.

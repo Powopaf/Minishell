@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/10 18:31:34 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:09:55 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	restore_std(t_shell *sh)
 
 int	wait_ast(t_ast *node)
 {
-	int status;
-	int exit;
+	int	status;
+	int	exit;
 
 	exit = EXIT_SUCCESS;
 	if (!node)
@@ -73,7 +73,7 @@ int	wait_ast(t_ast *node)
 		if (WIFEXITED(status))
 			exit = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
- 			exit = WTERMSIG(status) + SIG_BASE;
+			exit = WTERMSIG(status) + SIG_BASE;
 	}
 	return (exit);
 }

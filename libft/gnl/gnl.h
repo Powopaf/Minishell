@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gnl.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/12 16:39:32 by pifourni          #+#    #+#             */
+/*   Updated: 2026/02/12 16:39:36 by pifourni         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GNL_H
 # define GNL_H
 
 # define BUFFER_SIZE 4096
 # define FD_MAX 16
 
-#include "stdlib.h"
+# include "stdlib.h"
 
 /**
  * Computes the length of a string.

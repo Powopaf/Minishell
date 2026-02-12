@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
 /*   Updated: 2026/02/12 10:43:22 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <readline/readline.h>
+#include <readline/readline.h>
 #include "src/init/init_shell.h"
 #include <readline/history.h>
 #include "src/parsing/token/tokens.h"
@@ -75,8 +75,8 @@ static void	shell_process(t_shell *shell)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
-	(void)argc;
 
+	(void)argc;
 	initialize_shell(&shell, envp, argv);
 	shell_process(&shell);
 	clean_shell(&shell);
