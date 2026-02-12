@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/11 14:39:02 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 10:43:22 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	shell_process(t_shell *shell)
 				printf("exit\n");
 			break ;
 		}
+		shell->line_cnt++;
 		if (process_line(shell, line))
 			break ;
 	}

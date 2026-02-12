@@ -64,8 +64,8 @@ typedef struct s_shell
 	int				stdout_fd;
 	int				hd_fd;
 	char			*file;
-	int				cmd_cnt;
 	char			*line;
+	int				line_cnt;
 	int				tty;
 	struct termios	original_termios;
 	t_token			*tokens;
