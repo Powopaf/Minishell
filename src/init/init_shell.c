@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/05 23:08:06 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 09:39:54 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 #include <string.h>
 #include "../../libft/libft.h"
 # include "init_shell.h"
+#include "../signal/signal_handling.h"
+
+static void	init_terminal(t_shell *shell)
+{
+	if (isatty(STDIN_FILENO))
+	{
+		shell->tty = 1;
+		tcgetattr(STDIN_FILENO, &shell->original_termios);
+	}
+	else
+		shell->tty = 0;
+}
 
 static void	copy_envp(t_shell *shell, char **envp)
 {
@@ -66,4 +78,6 @@ void	initialize_shell(t_shell *shell, char **envp, char **argv)
 	shell->ast = NULL;
 	get_shell_name(shell, argv);
 	shell->exit = -1;
+	init_terminal(shell);
+	setup_signals(shell);
 }

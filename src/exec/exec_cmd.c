@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/09 13:31:12 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 10:13:03 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,14 @@
 #include "parser_cmd/parser_cmd.h"
 #include <errno.h>
 #include <stdlib.h>
+<<<<<<< pwd
 #include <string.h>
 #include <unistd.h>
+=======
+#include "../../libft/libft.h"
+#include "../func/func.h"
+#include "../signal/signal_handling.h"
+>>>>>>> main
 
 static int pipe_redir(t_shell *sh, t_ast *node)
 {
@@ -33,8 +39,8 @@ static int pipe_redir(t_shell *sh, t_ast *node)
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}
-	close(node->fd_in);
-	close(node->fd_out);
+	ft_close_fd(&node->fd_in);
+	ft_close_fd(&node->fd_out);
 	return (EXIT_SUCCESS);
 }
 
@@ -59,6 +65,7 @@ static void exec_bin(t_shell *sh, t_ast *node)
 			exit(sh->exit);
 		exit(sh->status);
 	}
+	clean_shell(sh);
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
@@ -81,14 +88,15 @@ int exec_cmd(t_shell *sh, t_ast *node)
 	}
 	if (node->pid == 0)
 	{
-		// signal ??
+		setup_child_signals(sh);
 		if (pipe_redir(sh, node) != EXIT_SUCCESS)
 			exit(EXIT_FAILURE);
 		if (redir(sh, node->redir) != EXIT_SUCCESS)
 			exit(EXIT_FAILURE);
 		exec_bin(sh, node);
 	}
-	close(node->fd_in);
-	close(node->fd_out);
+	ignore_signals();
+	ft_close_fd(&node->fd_in);
+	ft_close_fd(&node->fd_out);
 	return (EXIT_SUCCESS);
 }

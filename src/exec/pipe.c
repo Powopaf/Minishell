@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:22:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/06 15:24:46 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 09:44:14 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
+#include "../../libft/libft.h"
 
 static int pipe_right(t_shell *sh, t_ast *node, int fd)
 {
@@ -35,7 +36,7 @@ static int pipe_right(t_shell *sh, t_ast *node, int fd)
 		error(sh, DEBUG, DEBUG, -EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}
-	close(tmp->fd_in);
+	ft_close_fd(&tmp->fd_in);
 	tmp->fd_in = fd;
 	return (EXIT_SUCCESS);
 }
@@ -60,7 +61,7 @@ static int pipe_left(t_shell *sh, t_ast *node, int fd)
 		error(sh, DEBUG, DEBUG, -EXIT_FAILURE);
 		return (EXIT_FAILURE);
 	}
-	close(tmp->fd_out);
+	ft_close_fd(&tmp->fd_out);
 	tmp->fd_out = fd;
 	return (EXIT_SUCCESS);
 }

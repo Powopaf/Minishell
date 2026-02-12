@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 09:36:17 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/06 15:50:10 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:39:19 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,34 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <string.h>
+#include "../signal/signal_handling.h"
 
 static int	write_heredoc(t_shell *sh, t_redir *redir, int fd)
 {
 	char	*line;
 	size_t	len;
 
+	setup_heredoc_signals();
 	while (1)
 	{
 		ft_putstr_fd(PROMPT_HD, 1);
 		line = ft_get_next_line(sh->stdin_fd);
 		if (!line)
 		{
-			error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
-			return (EXIT_FAILURE);
+			write(1, "\n", 1);
+			break ;
 		}
 		len = ft_strlen(line);
 		if (len > 0 && !ft_strncmp(line, redir->eofkw, ft_strlen(redir->eofkw))
 			&& line[ft_strlen(redir->eofkw)] == '\n')
 		{
 			free(line);
-			return (EXIT_SUCCESS);
+			break ;
 		}
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
+	close(fd);
 	return (EXIT_SUCCESS);
 }
 
@@ -51,8 +54,6 @@ int	heredoc(t_shell *sh, t_redir *redir)
 	int		fd;
 	char	*hdfile;
 	char	*id;
-
-	//signals ?????
 
 	id = ft_ptoa(redir->eofkw);
 	if (!id)
@@ -73,5 +74,6 @@ int	heredoc(t_shell *sh, t_redir *redir)
 	free(hdfile);
 	if (write_heredoc(sh, redir, fd) == EXIT_FAILURE)
 		return (FAIL);
+	setup_signals(sh);
 	return (EXIT_SUCCESS);
 }

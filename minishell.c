@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/06 14:43:03 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/11 14:39:02 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 #include "src/parsing/expend/expand.h"
 #include "src/parsing/parsing.h"
 #include "src/clean/clean_shell.h"
+#include "signal.h"
+#include "src/signal/signal_handling.h"
+
+volatile sig_atomic_t	g_signal = 0;
 
 static int	process_line(t_shell *shell, char *line)
 {
@@ -27,7 +31,11 @@ static int	process_line(t_shell *shell, char *line)
 
 	if (!*line)
 		return (EXIT_FAILURE);
-	// signal
+	if (g_signal == SIGINT)
+	{
+		shell->status = SIGINT_STATUS;
+		g_signal = 0;
+	}
 	add_history(line);
 	shell->line = line;
 	if (tokenization(shell))
@@ -48,13 +56,14 @@ static void	shell_process(t_shell *shell)
 {
 	char	*line;
 
-//	ft_signals();
 	while (1)
 	{
+		setup_signals(shell);
 		line = readline(shell->name);
 		if (!line)
 		{
-			printf("exit\n");
+			if (shell->tty)
+				printf("exit\n");
 			break ;
 		}
 		if (process_line(shell, line))
