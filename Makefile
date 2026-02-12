@@ -30,7 +30,7 @@ SRC = ./minishell.c \
 	  ./src/signal/signal_fork.c \
 	  ./src/signal/signal_utils.c \
 	  ./src/exec/pipe.c \
-	  ./src/exec/exec_heredoc.c \
+	  ./src/heredocs/heredoc.c \
 	  ./src/func/exit/exit.c \
 	  ./src/func/echo/echo.c \
 	  ./src/func/pwd/pwd.c \
