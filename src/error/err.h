@@ -6,14 +6,14 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 10:51:34 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 11:27:00 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERR_H
 # define ERR_H
 
-#include "../../struct.h"
+# include "../../struct.h"
 
 # define SUCCESS 0
 # define FAIL 1
@@ -27,12 +27,10 @@
 # define CMD_PERM_DND 126
 # define MISUSE 2
 # define PRG_ERR 666
-#define ISDIR "Is a directory"
+# define ISDIR "Is a directory"
 # define SIG_BASE 128
 # define DEBUG "PROGRAM ERROR"
 # define WARNING "warning: "
-
-
 
 /**
  * Reports a syntax error and updates shell status.
@@ -50,5 +48,11 @@ void	syntax_error(t_shell *sh, t_token_kw kw, int exitno);
  * @param {int} exitno - Exit status to set.
  */
 void	error(t_shell *shell, char *context, char *why, int exitno);
+/**
+ * @brief Prints a warning when ctrl D is used to close an here_doc,
+ * precising the line number.
+ * @param sh
+ */
+void	warning_hd(t_shell *sh);
 
 #endif
