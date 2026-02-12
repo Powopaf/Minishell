@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../../libft/libft.h"
+#include "../func.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "../func.h"
-#include "../../../libft/libft.h"
 
-static int	trim(char *str)
+static int trim(char *str)
 {
-	size_t	i;
+	size_t i;
 
 	if (str[0] != '"')
 		return (printf("%s", str));
@@ -31,10 +31,10 @@ static int	trim(char *str)
 	return (0);
 }
 
-void	echo(char **args, t_shell *sh)
+void echo(char **args, t_shell *sh)
 {
-	size_t	i;
-	int	n_flag;
+	size_t i;
+	int n_flag;
 
 	i = 1;
 	n_flag = 1;
