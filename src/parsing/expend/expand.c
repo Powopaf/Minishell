@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:00:21 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 20:03:56 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,18 @@ static char	*expand_str(t_shell *sh, char *s)
 {
 	char	*expand;
 	size_t	i;
-	size_t	squotes = 0;
+	size_t	squotes;
 
+	squotes = 0;
 	expand = ft_strdup("");
 	if (!expand)
 		return (error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '\'' && (!i || (s[i-1] != '\\')))
+		if (s[i] == '\'' && (!i || (s[i - 1] != '\\')))
 			squotes++;
-		else if (s[i] == '\"' && (!i || (s[i-1] != '\\')))
+		else if (s[i] == '\"' && (!i || (s[i - 1] != '\\')))
 			;
 		else if (s[i] == '$' && s[i + 1] == '?' && (squotes % 2 == 0))
 			expand = expand_status(sh, expand, &i);
