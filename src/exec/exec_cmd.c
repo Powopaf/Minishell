@@ -14,18 +14,13 @@
 #include "../clean/clean_shell.h"
 #include "../error/err.h"
 #include "../func/func.h"
+#include "../signal/signal_handling.h"
 #include "exec_utils.h"
 #include "parser_cmd/parser_cmd.h"
 #include <errno.h>
 #include <stdlib.h>
-<<<<<<< pwd
 #include <string.h>
 #include <unistd.h>
-=======
-#include "../../libft/libft.h"
-#include "../func/func.h"
-#include "../signal/signal_handling.h"
->>>>>>> main
 
 static int pipe_redir(t_shell *sh, t_ast *node)
 {
