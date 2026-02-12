@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 10:13:03 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:12:12 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ int exec_cmd(t_shell *sh, t_ast *node)
 {
 	if (!node)
 		return (EXIT_SUCCESS);
+	if (node->args && node->args[0]
+		&& ft_strncmp(node->args[0], "cd", 3) == 0
+		&& node->fd_in == -1 && node->fd_out == -1 && !node->redir)
+	{
+		cd(sh, node->args);
+		return (sh->status);
+	}
 	if (node->args && node->args[0] &&
 		ft_strncmp(node->args[0], "exit", 5) == 0)
 	{

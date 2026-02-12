@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 13:18:42 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 10:26:34 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/12 12:27:01 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void pwd(char **args, t_shell *sh)
 {
 	char *pwd;
 
-	if (args && args[1])
+	if (args[1])
 	{
 		error(sh, "pwd", "too many arguments", 1);
 		sh->status = EXIT_FAILURE;
