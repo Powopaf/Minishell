@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 22:59:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 09:43:41 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/12 17:20:54 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 
 static int	redir_hd(t_shell *sh, t_redir *redir)
 {
-	ft_close_fd(&redir->fd_in);
-	if (heredoc(sh, redir) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
 	if (redir->fd_in < 0)
 		return (EXIT_FAILURE);
 	if (dup2(redir->fd_in, STDIN_FILENO) < 0)
