@@ -35,7 +35,8 @@ SRC = ./minishell.c \
 	  ./src/func/echo/echo.c \
 	  ./src/func/pwd/pwd.c \
 	  ./src/func/cd/cd.c \
-	  ./src/func/env/env.c
+	  ./src/func/env/env.c \
+	  ./src/func/export/export.c
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
