@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 11:56:32 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/13 10:37:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/13 10:43:04 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "tokens.h"
 #include <stdlib.h>
 
-void	handle_quotes(char *s, ssize_t *i)
+static void	handle_quotes(char *s, ssize_t *i)
 {
 	size_t	squotes;
 	size_t	dquotes;
