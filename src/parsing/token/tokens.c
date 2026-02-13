@@ -3,18 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 11:56:32 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:32:56 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/13 10:37:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokens.h"
-#include "token_utils.h"
-#include "../../error/err.h"
 #include "../../../libft/libft.h"
+#include "../../error/err.h"
+#include "token_utils.h"
+#include "tokens.h"
 #include <stdlib.h>
+
+void	handle_quotes(char *s, ssize_t *i)
+{
+	size_t	squotes;
+	size_t	dquotes;
+
+	squotes = 0;
+	dquotes = 0;
+	if (s[*i] == '\'')
+		squotes++;
+	if (s[*i] == '\"')
+		dquotes++;
+	(*i)++;
+	while (s[*i] && (squotes % 2 == 1 || dquotes % 2 == 1))
+	{
+		if (s[*i] == '\'')
+			squotes++;
+		if (s[*i] == '\"')
+			dquotes++;
+		if ((squotes % 2 == 0 && dquotes % 2 == 0))
+			break ;
+		(*i)++;
+	}
+	if (!s[*i])
+		(*i)--;
+}
 
 static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 {
@@ -25,16 +51,17 @@ static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 	while (sh->line[i] && !isshspace(sh->line[i]) && !isshellkw(sh->line[i])
 		&& !isshbreak(sh->line[i]))
 	{
+		if (sh->line[i] == '\'' || sh->line[i] == '\"')
+			handle_quotes(sh->line, &i);
 		i++;
 	}
 	if (i > beginning)
 	{
 		word = ft_substr(sh->line, beginning, i - beginning);
 		if (!word)
-			error(sh, "malloc", MALLOC_ERR, -FAIL);
+			return (error(sh, "malloc", MALLOC_ERR, -FAIL), i);
 		add_token(sh, word, WORD);
-		if (word)
-			free(word);
+		free(word);
 	}
 	return (i);
 }
