@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:27:23 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/13 11:13:51 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,15 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 		return (EXIT_SUCCESS);
 	if (node->args && node->args[0])
 	{
-		if (ft_strncmp(node->args[0], "cd", 3) == 0
-			&& node->fd_in == -1 && node->fd_out == -1 && !node->redir)
-			return (cd(sh, node->args), sh->status);
-		if (ft_strncmp(node->args[0], "exit", 5) == 0)
-			return (ft_exit(node->args, sh), sh->exit);
+		if (node->fd_in == -1 && node->fd_out == -1 && !node->redir)
+		{
+			if (is_builtin(node->args[0], sh, node->args) > 0)
+			{
+				if (ft_strncmp(node->args[0], "exit", 5) == 0)
+					return (sh->exit);
+				return (sh->status);
+			}
+		}
 	}
 	node->pid = try_fork(sh);
 	if (node->pid < 0)

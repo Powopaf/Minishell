@@ -3,23 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handling.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:57:08 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/11 14:37:55 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/13 11:51:48 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define _GNU_SOURCE
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <sys/ioctl.h>
-#include <termios.h>
-#include "../../struct.h"
+#ifndef SIGNAL_HANDLING_H
+# define SIGNAL_HANDLING_H
 
-#define SIGINT_STATUS 130
+# define _GNU_SOURCE
+# include <signal.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <sys/ioctl.h>
+# include <termios.h>
+# include "../../struct.h"
+
+# define SIGINT_STATUS 130
 
 extern volatile sig_atomic_t	g_signal;
 
@@ -85,3 +88,5 @@ void	ignore_signals(void);
 void	restore_terminal_settings(t_shell *shell);
 /**Turn off echo of control characters */
 void	disable_echoctl(void);
+
+#endif
