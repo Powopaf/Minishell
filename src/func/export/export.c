@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/13 11:49:46 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/13 11:53:53 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,22 @@ static int	set_var(char **args, int i, int j, t_shell *sh)
 	char	*tmp;
 
 	if (args[i][j] == '=')
-		{
-			if (join(&sh->envp, args[i]) == EXIT_FAILURE)
-				return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE), EXIT_FAILURE);
-		}
-		else
-		{	
-			tmp = ft_strjoin_char(args[i], '=', 1, 0);
-			if (!tmp)
-				return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE), EXIT_FAILURE);
-			if (join(&sh->envp, tmp) == EXIT_FAILURE)
-				return (free(tmp), error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE), EXIT_FAILURE);
-			free(tmp);
-		}
+	{
+		if (join(&sh->envp, args[i]) == EXIT_FAILURE)
+			return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE),
+				EXIT_FAILURE);
+	}
+	else
+	{	
+		tmp = ft_strjoin_char(args[i], '=', 1, 0);
+		if (!tmp)
+			return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE),
+				EXIT_FAILURE);
+		if (join(&sh->envp, tmp) == EXIT_FAILURE)
+			return (free(tmp), error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE),
+				EXIT_FAILURE);
+		free(tmp);
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -113,11 +116,13 @@ void	export(char **args, t_shell *sh)
 		j = -1;
 		if (!args[i][++j] || ((ft_isalnum(args[i][j]) && ft_isdigit(args[i][j]))
 				|| (!ft_isalnum(args[i][j]) && args[i][j] != '_')))
-			return (error(sh, "export", "not a valid identifier", EXIT_FAILURE));
+			return (error(sh, "export", "not a valid identifier",
+					EXIT_FAILURE));
 		while (args[i][++j] && args[i][j] != '=')
 		{
 			if (!ft_isalnum(args[i][j]) && args[i][j] != '_')
-				return (error(sh, "export", "not a valid identifier", EXIT_FAILURE));
+				return (error(sh, "export", "not a valid identifier",
+						EXIT_FAILURE));
 		}
 		if (set_var(args, i, j, sh) == EXIT_FAILURE)
 			return ;
