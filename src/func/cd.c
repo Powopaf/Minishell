@@ -6,14 +6,14 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:05:18 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:43:09 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../error/err.h"
-#include "../../exec/parser_cmd/parser_cmd.h"
-#include "../func.h"
-#include "../../../libft/libft.h"
+#include "../error/err.h"
+#include "../exec/parser_cmd/parser_cmd.h"
+#include "func.h"
+#include "../../libft/libft.h"
 #include <unistd.h>
 #include <stdlib.h>
 

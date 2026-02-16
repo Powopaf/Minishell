@@ -6,12 +6,12 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:44:02 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 20:00:57 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:43:36 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../func.h"
-#include "../../error/err.h"
+#include "func.h"
+#include "../error/err.h"
 #include <stdio.h>
 
 void	env(char **args, t_shell *sh)

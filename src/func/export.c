@@ -6,13 +6,13 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/13 11:53:53 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:44:02 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../func.h"
-#include "../../../libft/libft.h"
-#include "../../error/err.h"
+#include "func.h"
+#include "../../libft/libft.h"
+#include "../error/err.h"
 #include <stdlib.h>
 
 static int	len(char **env)

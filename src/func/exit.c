@@ -6,13 +6,13 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 15:51:29 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:43:50 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../func.h"
-#include "../../../libft/libft.h"
-#include "../../error/err.h"
+#include "func.h"
+#include "../../libft/libft.h"
+#include "../error/err.h"
 #include <stdlib.h>
 
 static int	nb_args(char **args)
