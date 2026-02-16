@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/16 18:43:50 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:51:57 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_exit(char **args, t_shell *sh)
 		return (1);
 	}
 	else if (args && args[1])
-		sh->exit = ft_atoi(args[1]) % 256;
+		sh->exit = (unsigned char)ft_atoi(args[1]);
 	else
 		sh->exit = sh->status;
 	return (sh->exit);
