@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 20:03:56 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/15 12:32:18 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,4 +149,10 @@ void	expand_var(t_shell *sh, t_ast *current_node)
 		expand_redirs(sh, current_node->redir);
 	expand_var(sh, current_node->left);
 	expand_var(sh, current_node->right);
+}
+
+void	expand(t_shell *sh, t_ast *current_node)
+{
+	expand_var(sh, current_node);
+	expand_wildcards(sh, current_node);
 }

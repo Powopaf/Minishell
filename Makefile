@@ -1,8 +1,8 @@
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
-LIB = libft/libft.a -lreadline -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
+LIB = libft/libft.a -lreadline
 SRC = ./minishell.c \
 	  ./src/error/err.c \
 	  ./src/init/init_shell.c \
@@ -18,8 +18,9 @@ SRC = ./minishell.c \
 	  ./src/parsing/parsing_cmd.c \
 	  ./src/parsing/parsing_redir.c \
 	  ./src/parsing/ast/ast_utils.c \
-	  ./src/parsing/expend/expand.c \
-	  ./src/parsing/expend/expand_env.c \
+	  ./src/parsing/expand/expand.c \
+	  ./src/parsing/expand/expand_wildcards.c \
+	  ./src/parsing/expand/expand_env.c \
 	  ./src/parsing/token/syntax/syntax.c \
 	  ./src/parsing/token/put_token.c \
 	  ./src/parsing/token/tokens.c \

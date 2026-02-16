@@ -6,6 +6,8 @@ LIB =
 SRC = ./ft_add_str_array.c \
 	  ./ft_empty_array_strs.c \
 	  ./ft_free_array_strs.c \
+	  ./ft_add_arr_arr.c \
+	  ./ft_addstr_arr.c \
 	  ./ft_isalnum.c \
 	  ./ft_itoa.c \
 	  ./ft_ptoa.c \
