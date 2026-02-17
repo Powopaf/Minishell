@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:20:39 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/15 18:31:58 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:02:32 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_add_arr_arr(char ***dest, char **src)
 	char	**new_arr;
 
 	new_arr = (char **)malloc(sizeof(char *) * ((ft_strslen(*dest)
-		+ ft_strslen(src) + 1)));
+					+ ft_strslen(src) + 1)));
 	if (new_arr == NULL)
 		return ;
 	copy_array(new_arr, *dest, 0, ft_strslen(*dest));
