@@ -84,6 +84,8 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 {
 	if (!node)
 		return (EXIT_SUCCESS);
+	if (!expand_cmd(sh, node))
+		return (EXIT_FAILURE);
 	if (node->args && node->args[0])
 	{
 		if (node->fd_in == -1 && node->fd_out == -1 && !node->redir)
