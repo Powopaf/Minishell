@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parse_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 19:59:36 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/14 11:15:10 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ int	is_builtin(char *cmd, t_shell *sh, char **args)
 		return (cd(sh, args), 1);
 	if (!ft_strncmp(cmd, "pwd", 4))
 		return (pwd(args, sh), 1);
-	if (!ft_strncmp(cmd, "export", 7) || !ft_strncmp(cmd, "unset", 6))
-		return (1);
+	if (!ft_strncmp(cmd, "export", 7))
+		return (export(args, sh), 1);
 	if (!ft_strncmp(cmd, "env", 4))
 		return (env(args, sh), 1);
+	if (!ft_strncmp(cmd, "unset", 6))
+		return (unset(args, sh), 1);
 	return (0);
 }

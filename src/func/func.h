@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:54 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 19:43:53 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:35:05 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ void	echo(char **args, t_shell *sh);
 void	pwd(char **args, t_shell *sh);
 void	cd(t_shell *sh, char **args);
 void	env(char **args, t_shell *sh);
+void	export(char **args, t_shell *sh);
+void	unset(char **args, t_shell *sh);
 
 #endif
