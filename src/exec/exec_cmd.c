@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 11:34:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:17:56 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../func/func.h"
 #include "../signal/signal_handling.h"
 #include "./expand/expand.h"
+#include "./heredocs/heredoc.h"
 #include "exec_utils.h"
 #include "parser_cmd/parser_cmd.h"
 #include <errno.h>
@@ -69,6 +70,9 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 static void	exec_forked(t_shell *sh, t_ast *node)
 {
 	setup_child_signals(sh);
+	if (!expand_cmd(sh, node))
+		exit(EXIT_FAILURE);
+	handle_heredocs(sh, node);
 	if (pipe_redir(sh, node) != EXIT_SUCCESS)
 		exit(EXIT_FAILURE);
 	if (redir(sh, node->redir) != EXIT_SUCCESS)
@@ -80,8 +84,6 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 {
 	if (!node)
 		return (EXIT_SUCCESS);
-	if (!expand_cmd(sh, node))
-		return (EXIT_FAILURE);
 	if (node->args && node->args[0])
 	{
 		if (node->fd_in == -1 && node->fd_out == -1 && !node->redir)

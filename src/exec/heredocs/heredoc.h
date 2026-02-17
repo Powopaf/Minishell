@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:18:30 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 18:17:33 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:20:31 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # define PROMPT_HD "> "
 # define HEREDOC "/tmp/minishell_heredoc"
 
-# include "../../struct.h"
-# include "../../redir.h"
+# include "../../../struct.h"
+# include "../../../redir.h"
 
 /**
  * Check all nodes to collect sequentially heredocs
