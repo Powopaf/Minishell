@@ -42,6 +42,8 @@ char	*get_env(t_shell *sh, char *var_name)
 
 int	is_builtin(char *cmd, t_shell *sh, char **args)
 {
+	if (!cmd)
+		return (0);
 	if (!ft_strncmp(cmd, "exit", 5))
 		return (ft_exit(args, sh), 1);
 	if (!ft_strncmp(cmd, "echo", 5))

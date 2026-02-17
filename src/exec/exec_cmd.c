@@ -6,7 +6,7 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/14 11:31:33 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/17 10:29:16 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	}
 	clean_shell(sh);
 	execve(cmd, args, envp);
-	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
+	if (args && args[0])
+		error(sh, args[0], strerror(errno), EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 static void	exec_forked(t_shell *sh, t_ast *node)
