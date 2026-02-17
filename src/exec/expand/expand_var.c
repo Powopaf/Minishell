@@ -6,15 +6,11 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 10:37:38 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:42:03 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../libft/libft.h"
-#include "../../error/err.h"
 #include "expand.h"
-#include <stddef.h>
-#include <stdlib.h>
 
 static char	*expand_status(t_shell *sh, char *expand, size_t *i)
 {
@@ -79,8 +75,6 @@ static char	*expand_var(t_shell *sh, char *s, char *expand)
 			squotes++;
 			expand = ft_strjoin_char(expand, s[i], 1, 1);
 		}
-		// else if (s[i] == '\"' && (!i || (s[i - 1] != '\\')))
-		// 	expand = ft_strjoin_char(expand, s[i], 1, 1);
 		else if (s[i] == '$' && s[i + 1] == '?' && (squotes % 2 == 0))
 			expand = expand_status(sh, expand, &i);
 		else if (s[i] == '$' && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')

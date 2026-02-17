@@ -6,13 +6,11 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 10:59:22 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:39:19 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expand.h"
-#include "../../error/err.h"
-#include "../../../libft/libft.h"
 
 char	*collect_env_var(t_shell *sh, char *var_name)
 {

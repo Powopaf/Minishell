@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:03:22 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/17 11:09:19 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:54:49 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 
-// expand_var
-
-static void	expand_redirs(t_shell *sh, t_redir *redir);
-char		*expand_str(t_shell *sh, char *s);
-
+// expand.c
 /**
  * Expands variables in the AST node arguments.
  * @param {t_shell *} sh - Shell context.
@@ -33,8 +29,47 @@ char		*expand_str(t_shell *sh, char *s);
  */
 int			expand_cmd(t_shell *sh, t_ast *current_node);
 
+// expand_var
+/**
+ * Expands variables and special tokens in a string.
+ * Processes the input string to expand:
+ * - Environment variables (prefixed with '$' followed by alphanumeric /
+ * underscore)
+ * - Exit status (represented by '$?')
+ * Expansions only occur outside single quotes. The original string is not
+ * modified. Allocates and returns a new string with expansions applied.
+ * @param sh The shell context containing environment and exit status.
+ * @param s The input string to expand.
+ * @return A newly allocated string with expansions, or NULL on allocation
+ * failure.
+ */
+char		*expand_str(t_shell *sh, char *s);
+
 // expand_wildcards.c
+/**
+ * Expands wildcard patterns in command arguments.
+ * Processes each argument in the AST node's argument list. If an argument
+ * contains unquoted wildcards ('*'), expands it to match files in the current
+ * directory (excluding hidden files). Non-wildcard arguments are preserved
+ * as-is. The original arguments array is freed and replaced with the expanded
+ * version.
+ * @param sh The shell context.
+ * @param current_node The AST node containing arguments to process.
+ */
 void		expand_wildcards_arg(t_shell *sh, t_ast *current_node);
+
+/**
+ * Expands a wildcard pattern in a redirection filename if present.
+ * Checks if the redirection's filename contains an unquoted wildcard ('*').
+ * If found, expands it to match files in the current directory. If the
+ * expansion results in exactly one match, replaces the filename with the
+ * matched file. If multiple matches are found, reports an ambiguous
+ * redirection error.
+ * @param sh The shell context.
+ * @param current_redir The redirection node to process.
+ * @return 1 on success or no expansion needed, 0 on error or
+ * ambiguous redirection.
+ */
 int			expand_wildcard_redir_file(t_shell *sh, t_redir *current_redir);
 
 // expand_env.c
@@ -47,10 +82,36 @@ int			expand_wildcard_redir_file(t_shell *sh, t_redir *current_redir);
 char		*collect_env_var(t_shell *sh, char *var_name);
 
 // expand_utils.c
+/**
+ * Removes all unescaped quotes from each string in a NULL-terminated array.
+ * Processes each string in the input array by stripping single ('\'') and
+ * double ('"') quotes, provided they are not nested within the opposite type
+ * of quote. The original array is freed, and a new array with the modified
+ * strings is allocated and assigned to the input pointer.
+ * @param arr A pointer to a NULL-terminated array of strings to process.
+ * @return 1 on success, 0 on allocation failure (original array remains
+ * unchanged).
+ */
 int			arr_rm_quotes(char ***arr);
+/**
+ * Creates a duplicate of a string with all unescaped quotes removed.
+ * Allocates and returns a new string where single and double
+ * quotes are stripped, provided they are not nested within the opposite type
+ * of quote. The original string remains unchanged.
+ * @param s The input string to process.
+ * @return A newly allocated string with quotes removed, or NULL on allocation
+ * failure.
+ */
+
 char		*strdup_rm_quotes(char *s);
 
 // expand_wildcards_utils.c
+/**
+ * Checks if a string contains at least one unquoted wildcard character ('*')
+ * that is not enclosed within single ('\'') or double ('"') quotes.
+ * @param s The string to check for unquoted wildcards.
+ * @return 1 if an unquoted wildcard is found, 0 otherwise.
+ */
 int			include_wildcard(char *s);
 
 #endif

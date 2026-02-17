@@ -6,16 +6,11 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 10:59:49 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:56:59 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../libft/libft.h"
-#include "../../../redir.h"
-#include "../../error/err.h"
 #include "expand.h"
-#include <stddef.h>
-#include <stdlib.h>
 
 static void	expand_redirs_hd(t_shell *sh, t_redir *redir)
 {
@@ -60,11 +55,11 @@ static int	expand_redirs_files(t_shell *sh, t_redir *redir)
 			}
 			if (!expand_wildcard_redir_file(sh, redir))
 				return (0);
-			tmp = strdup_rm_quotes(redir->eofkw);
+			tmp = strdup_rm_quotes(redir->file);
 			if (tmp)
 			{
-				free(redir->eofkw);
-				redir->eofkw = tmp;
+				free(redir->file);
+				redir->file = tmp;
 			}
 		}
 		redir = redir->next;
@@ -72,7 +67,7 @@ static int	expand_redirs_files(t_shell *sh, t_redir *redir)
 	return (1);
 }
 
-int	expand_args(t_shell *sh, t_ast *current_node)
+static int	expand_args(t_shell *sh, t_ast *current_node)
 {
 	size_t	i;
 	char	*tmp;

@@ -6,41 +6,31 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:40:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 10:51:20 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 12:43:14 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expand.h"
-#include "../../../redir.h"
 
-int	compare(char *base, char *s, int squote, int dquote)
+static int	compare(char *base, char *s, int squote, int dquote)
 {
-	while (*base || *s)
+	if (!*base && !*s)
+		return (1);
+	if (*base == '\'' && !dquote)
+		return (compare(base + 1, s, !squote, dquote));
+	if (*base == '\"' && !squote)
+		return (compare(base + 1, s, squote, !dquote));
+	if (*base == '*' && !squote && !dquote)
 	{
-		if (!*base && !*s)
-			return (1);
-		if (*base == '*' && !squote && !dquote)
-			return (compare(base + 1, s, squote, dquote)
-				|| (*s && compare(base, s + 1, squote, dquote)));
-		if (*base == '\'' && !dquote)
-		{
-			squote = !squote;
-			base++;
-			continue ;
-		}
-		if (*base == '\"' && !squote)
-		{
-			dquote = !dquote;
-			base++;
-			continue ;
-		}
-		if(*base == *s)
-			return (compare(base + 1, s + 1, squote, dquote));
+		return ((*base && compare(base + 1, s, squote, dquote))
+			|| (*s && compare(base, s + 1, squote, dquote)));
 	}
+	if(*base == *s)
+		return (compare(base + 1, s + 1, squote, dquote));
 	return (0);
 }
 
-int check_match(char ***files, char *s, char *entry, size_t *count)
+static int check_match(char ***files, char *s, char *entry, size_t *count)
 {
 	if (entry[0] != '.' && compare(s, entry, 0, 0))
 	{
@@ -51,7 +41,7 @@ int check_match(char ***files, char *s, char *entry, size_t *count)
 	return (1);
 }
 
-char	**expand_wildcards_str(t_shell *sh, char *s, size_t *count)
+static char	**expand_wildcards_str(t_shell *sh, char *s, size_t *count)
 {
 	DIR				*dir;
 	struct dirent	*entry;
@@ -107,35 +97,19 @@ int	expand_wildcard_redir_file(t_shell *sh, t_redir *current_redir)
 {
 	size_t	count;
 	char	**tmp;
-	// t_redir	*current_redir;
 
-	// current_redir = current_node->redir;
-	// while (current_redir)
-	// {
-		if (include_wildcard(current_redir->file))
+	if (include_wildcard(current_redir->file))
+	{
+		tmp = expand_wildcards_str(sh, current_redir->file, &count);
+		if (count > 1)
+			return (error(sh, current_redir->file, AMB_REDIR, -FAIL),
+				ft_empty_array_strs(tmp), 0);
+		else
 		{
-			tmp = expand_wildcards_str(sh, current_redir->file, &count);
-			if (count > 1)
-				return (error(sh, current_redir->file, AMB_REDIR, -FAIL),
-					ft_empty_array_strs(tmp), 0);
-			else
-			{
-				free(current_redir->file);
-				current_redir->file = ft_strdup(*tmp);
-				ft_empty_array_strs(tmp);
-			}
+			free(current_redir->file);
+			current_redir->file = ft_strdup(*tmp);
+			ft_empty_array_strs(tmp);
 		}
-	// 	current_redir = current_redir->next;
-	// }
+	}
 	return (1);
 }
-
-// int	expand_wildcards(t_shell *sh, t_ast *current_node)
-// {
-// 	if (!current_node)
-// 		return ;
-// 	if (current_node->args)
-// 		expand_wildcards_arg(sh, current_node);
-// 	if (current_node->redir)
-// 		expand_wildcard_redir_file(sh, current_node);
-// }

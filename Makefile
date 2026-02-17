@@ -8,32 +8,32 @@ SRC = 	./minishell.c \
 		./src/init/init_shell.c \
 		./src/clean/clean_utils.c \
 		./src/clean/clean_shell.c \
-		./src/exec/exec.c \
-		./src/exec/exec_cmd.c \
-		./src/exec/exec_redir.c \
-		./src/exec/exec_utils.c \
-		./src/exec/parser_cmd/utils_parse_cmd.c \
-		./src/exec/parser_cmd/parser_cmd.c \
 		./src/parsing/parsing.c \
 		./src/parsing/parsing_cmd.c \
 		./src/parsing/parsing_redir.c \
 		./src/parsing/ast/ast_utils.c \
-		./src/parsing/expand/expand.c \
-		./src/parsing/expand/expand_var.c \
-		./src/parsing/expand/expand_wildcards.c \
-		./src/parsing/expand/expand_wildcards_utils.c \
-		./src/parsing/expand/expand_env.c \
-		./src/parsing/expand/expand.c \
 		./src/parsing/token/syntax/syntax.c \
 		./src/parsing/token/put_token.c \
 		./src/parsing/token/tokens.c \
 		./src/parsing/token/tokens_add.c \
 		./src/parsing/token/tokens_lst_utils.c \
 		./src/parsing/token/tokens_utils.c \
+		./src/exec/expand/expand.c \
+		./src/exec/expand/expand_var.c \
+		./src/exec/expand/expand_wildcards.c \
+		./src/exec/expand/expand_wildcards_utils.c \
+		./src/exec/expand/expand_env.c \
+		./src/exec/expand/expand_utils.c \
+		./src/exec/exec.c \
+		./src/exec/pipe.c \
+		./src/exec/exec_cmd.c \
+		./src/exec/exec_redir.c \
+		./src/exec/exec_utils.c \
+		./src/exec/parser_cmd/utils_parse_cmd.c \
+		./src/exec/parser_cmd/parser_cmd.c \
 		./src/signal/signal.c \
 		./src/signal/signal_fork.c \
 		./src/signal/signal_utils.c \
-		./src/exec/pipe.c \
 		./src/heredocs/heredoc.c \
 		./src/func/exit/exit.c \
 		./src/func/echo/echo.c \
