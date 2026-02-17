@@ -6,22 +6,49 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:40:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/15 18:34:54 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 10:51:20 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expand.h"
 #include "../../../redir.h"
 
-int	compare(char *base, char *s)
+int	compare(char *base, char *s, int squote, int dquote)
 {
-	if (!*base && !*s)
-		return (1);
-	if (*base == '*')
-		return (compare(base + 1, s) || (*s && compare(base, s + 1)));
-	if (*s && *base == *s)
-		return (compare(base + 1, s + 1));
+	while (*base || *s)
+	{
+		if (!*base && !*s)
+			return (1);
+		if (*base == '*' && !squote && !dquote)
+			return (compare(base + 1, s, squote, dquote)
+				|| (*s && compare(base, s + 1, squote, dquote)));
+		if (*base == '\'' && !dquote)
+		{
+			squote = !squote;
+			base++;
+			continue ;
+		}
+		if (*base == '\"' && !squote)
+		{
+			dquote = !dquote;
+			base++;
+			continue ;
+		}
+		if(*base == *s)
+			return (compare(base + 1, s + 1, squote, dquote));
+	}
 	return (0);
+}
+
+int check_match(char ***files, char *s, char *entry, size_t *count)
+{
+	if (entry[0] != '.' && compare(s, entry, 0, 0))
+	{
+		if (!ft_addstr_arr(files, entry))
+			return (0);
+		(*count)++;
+	}
+	return (1);
 }
 
 char	**expand_wildcards_str(t_shell *sh, char *s, size_t *count)
@@ -41,38 +68,14 @@ char	**expand_wildcards_str(t_shell *sh, char *s, size_t *count)
 	entry = readdir(dir);
 	while (entry)
 	{
-		if (entry->d_name[0] != '.' && compare(s, entry->d_name))
-		{
-			if (!ft_addstr_arr(&files, entry->d_name))
-				return (error(sh, "malloc", MALLOC_ERR, -FAIL), files);
-			(*count)++;
-		}
+		if (!check_match(&files, s, entry->d_name, count))
+			return (error(sh, "malloc", MALLOC_ERR, -FAIL), files);
 		entry = readdir(dir);
 	}
 	closedir(dir);
+	if (!(*count))
+		ft_addstr_arr(&files, s);
 	return (files);
-}
-
-int	include_wildcard(char *s)
-{
-	size_t	i;
-	size_t	squotes;
-	size_t	dquotes;
-
-	i = 0;
-	squotes = 0;
-	dquotes = 0;
-	while (s && s[i])
-	{
-		if (s[i] == '\'')
-			squotes++;
-		else if (s[i] == '"')
-			dquotes++;
-		else if (s[i] == '*' && squotes % 2 == 0 && dquotes % 2 == 0)
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 void	expand_wildcards_arg(t_shell *sh, t_ast *current_node)
@@ -100,24 +103,21 @@ void	expand_wildcards_arg(t_shell *sh, t_ast *current_node)
 		current_node->args = new_args;
 }
 
-void	expand_wildcard_redir_file(t_shell *sh, t_ast *current_node)
+int	expand_wildcard_redir_file(t_shell *sh, t_redir *current_redir)
 {
 	size_t	count;
 	char	**tmp;
-	t_redir	*current_redir;
+	// t_redir	*current_redir;
 
-	current_redir = current_node->redir;
-	while (current_redir)
-	{
+	// current_redir = current_node->redir;
+	// while (current_redir)
+	// {
 		if (include_wildcard(current_redir->file))
 		{
 			tmp = expand_wildcards_str(sh, current_redir->file, &count);
 			if (count > 1)
-			{
-				error(sh, current_redir->file, AMB_REDIR, -FAIL);
-				//delete_redir(current_redir);
-				continue ;
-			}
+				return (error(sh, current_redir->file, AMB_REDIR, -FAIL),
+					ft_empty_array_strs(tmp), 0);
 			else
 			{
 				free(current_redir->file);
@@ -125,20 +125,17 @@ void	expand_wildcard_redir_file(t_shell *sh, t_ast *current_node)
 				ft_empty_array_strs(tmp);
 			}
 		}
-		current_redir = current_redir->next;
-	}
+	// 	current_redir = current_redir->next;
+	// }
+	return (1);
 }
 
-void	expand_wildcards(t_shell *sh, t_ast *current_node)
-{
-	if (!current_node)
-		return ;
-	if (current_node->astkw == AST_CMD && current_node->args)
-		expand_wildcards_arg(sh, current_node);
-	if (current_node->redir)
-	{
-		expand_wildcard_redir_file(sh, current_node);
-	}
-	expand_wildcards(sh, current_node->left);
-	expand_wildcards(sh, current_node->right);
-}
+// int	expand_wildcards(t_shell *sh, t_ast *current_node)
+// {
+// 	if (!current_node)
+// 		return ;
+// 	if (current_node->args)
+// 		expand_wildcards_arg(sh, current_node);
+// 	if (current_node->redir)
+// 		expand_wildcard_redir_file(sh, current_node);
+// }

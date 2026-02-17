@@ -6,10 +6,9 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 16:23:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/15 15:07:54 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/16 17:49:38 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 #include <stdlib.h>
