@@ -1,8 +1,8 @@
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsantize=address
-LIB = libft/libft.a -lreadline -fsanitize -fsantize=address
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g -fsanitize=address
+LIB = libft/libft.a -lreadline -fsanitize=address
 SRC = 	./minishell.c \
 		./src/error/err.c \
 		./src/init/init_shell.c \
@@ -24,6 +24,7 @@ SRC = 	./minishell.c \
 		./src/exec/expand/expand_wildcards_utils.c \
 		./src/exec/expand/expand_env.c \
 		./src/exec/expand/expand_utils.c \
+		./src/exec/heredocs/heredoc.c \
 		./src/exec/exec.c \
 		./src/exec/pipe.c \
 		./src/exec/exec_cmd.c \
@@ -34,12 +35,14 @@ SRC = 	./minishell.c \
 		./src/signal/signal.c \
 		./src/signal/signal_fork.c \
 		./src/signal/signal_utils.c \
-		./src/heredocs/heredoc.c \
-		./src/func/exit/exit.c \
-		./src/func/echo/echo.c \
-		./src/func/pwd/pwd.c \
 		./src/func/cd/cd.c \
-		./src/func/env/env.c
+		./src/func/echo/echo.c \
+		./src/func/env/env.c \
+		./src/func/exit/exit.c \
+		./src/func/export/export.c \
+		./src/func/pwd/pwd.c \
+		./src/func/unset/unset.c \
+
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

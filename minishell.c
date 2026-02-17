@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 11:01:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:13:26 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 #include "src/clean/clean_shell.h"
 #include "signal.h"
 #include "src/signal/signal_handling.h"
-#include "src/heredocs/heredoc.h"
 
 volatile sig_atomic_t	g_signal = 0;
 
@@ -46,7 +45,6 @@ static int	process_line(t_shell *shell, char *line)
 	shell->ast = parser(shell, &tokens);
 	if (!shell->ast)
 		return (EXIT_FAILURE);
-	handle_heredocs(shell, shell->ast);
 	shell->status = exec_root(shell, shell->ast);
 	clean_prompt(shell);
 	return (shell->exit != -1);
