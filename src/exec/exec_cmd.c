@@ -56,15 +56,19 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	{
 		ft_free_array_strs(&args);
 		ft_free_array_strs(&envp);
-		if (ft_strncmp(cmd, "exit", 5) == 0)
+		if (cmd && ft_strncmp(cmd, "exit", 5) == 0)
 			exit(sh->exit);
 		exit(sh->status);
 	}
 	clean_shell(sh);
+	if (!cmd)
+	{
+		ft_free_array_strs(&args);
+		ft_free_array_strs(&envp);
+		exit(sh->status);
+	}
 	execve(cmd, args, envp);
-	if (args && args[0])
-		error(sh, args[0], strerror(errno), EXIT_FAILURE);
-	exit(EXIT_FAILURE);
+	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
 
 static void	exec_forked(t_shell *sh, t_ast *node)

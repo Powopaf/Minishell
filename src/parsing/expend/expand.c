@@ -62,12 +62,12 @@ static char	*expand_env_var(t_shell *sh, char *s, char *expand, size_t *i)
 	var = collect_env_var(sh, var_name);
 	free(var_name);
 	tmp = ft_strjoin(expand, var);
-	if (var)
-		free(var);
 	if (tmp)
 		free(expand);
 	else
 		tmp = expand;
+	if (var)
+		free(var);
 	(*i)--;
 	return (tmp);
 }
