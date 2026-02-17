@@ -3,26 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:35:51 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:51:00 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../libft/libft.h"
 #include "../../struct.h"
 #include "../error/err.h"
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
-#include "../../libft/libft.h"
-#include "init_shell.h"
 #include "../signal/signal_handling.h"
+#include "init_shell.h"
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+void	trim_newline(char *line)
+{
+	int	len;
+
+	if (!line)
+		return ;
+	len = 0;
+	while (line[len])
+		len++;
+	if (len > 0 && line[len - 1] == '\n')
+		line[len - 1] = '\0';
+}
 
 static void	init_terminal(t_shell *shell)
 {
-	if (isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
 	{
 		shell->tty = 1;
 		tcgetattr(STDIN_FILENO, &shell->original_termios);

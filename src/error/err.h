@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:37:03 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/15 18:33:29 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define QUOTE_ERR "expected end-quote"
 # define PARENTH_ERR "missing a parenthesis"
 # define PIPE_ERR "piping wrong"
+# define AMB_REDIR "ambiguous redirect"
 # define PROMPT_MES "minishell: " // TODO: shoulb equlal to argv[0]
 # define CMD_NOT_FND 127
 # define CMD_PERM_DND 126
@@ -48,6 +49,7 @@ void	syntax_error(t_shell *sh, t_token_kw kw, int exitno);
  * @param {int} exitno - Exit status to set.
  */
 void	error(t_shell *shell, char *context, char *why, int exitno);
+
 /**
  * @brief Prints a warning when ctrl D is used to close an here_doc,
  * precising the line number.

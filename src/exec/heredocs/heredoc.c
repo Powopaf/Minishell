@@ -6,13 +6,13 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 09:36:17 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 18:15:31 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:22:05 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
-#include "../error/err.h"
-#include "../signal/signal_handling.h"
+#include "../../../libft/libft.h"
+#include "../../error/err.h"
+#include "../../signal/signal_handling.h"
 #include "heredoc.h"
 #include <errno.h>
 #include <fcntl.h>
@@ -99,6 +99,4 @@ void	handle_heredocs(t_shell *sh, t_ast *current_node)
 	{
 		collect_heredocs(sh, current_node->redir);
 	}
-	handle_heredocs(sh, current_node->left);
-	handle_heredocs(sh, current_node->right);
 }

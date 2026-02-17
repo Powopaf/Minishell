@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:38:52 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:39:16 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:02:38 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,12 @@ char	*ft_strdup(const char *s);
  */
 char	*ft_strchr(const char *s, int c);
 /**
-* Compares two strings for up to `n` characters.
-* @param {const char*} s1 - First string.
-* @param {const char*} s2 - Second string.
-* @param {size_t} n - Maximum number of bytes to compare.
-* @returns {int} Difference between first mismatched bytes.
-*/
+ * Compares two strings for up to `n` characters.
+ * @param {const char*} s1 - First string.
+ * @param {const char*} s2 - Second string.
+ * @param {size_t} n - Maximum number of bytes to compare.
+ * @returns {int} Difference between first mismatched bytes.
+ */
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 /**
@@ -174,6 +174,22 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
  * @warning returns null if arr null, or any malloc fails
  */
 char	**ft_add_str_array(char **arr, char *s);
+
+/**
+ * Add a new string to the end of an array of strings,
+ * malloc a new array and replace the original with it.
+ * @param {const char***} arr - array of strings.
+ * @param {const char*} s - string to add at the end of the array.
+ */
+int		ft_addstr_arr(char ***arr, char *s);
+
+/**
+ * Add an array of strings to the end of an array of strings,
+ * malloc a new array and replace the original with it.
+ * @param {const char***} arr - pointer to an array of strings.
+ * @param {const char**} s - array of strings to add at the end of the array.
+ */
+void	ft_add_arr_arr(char ***dest, char **src);
 
 /**
  * @brief Free a NULL terminated array of strings,
@@ -206,7 +222,8 @@ int		ft_isalnum(int c);
  * The function maintains an internal static buffer for each file descriptor.
  * Returns NULL on end-of-file or error.
  * @param {int} fd - File descriptor to read from.
- * @returns {char*} Pointer to a newly allocated string containing the next line,
+
+	* @returns {char*} Pointer to a newly allocated string containing the next line,
  * including the newline character if present. Returns NULL on EOF or error.
  * The caller is responsible for freeing the returned string.
  */

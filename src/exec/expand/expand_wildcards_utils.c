@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.h                                            :+:      :+:    :+:   */
+/*   expand_wildcards_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 15:19:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/17 10:58:00 by flomulle         ###   ########.fr       */
+/*   Created: 2026/02/17 09:20:44 by flomulle          #+#    #+#             */
+/*   Updated: 2026/02/17 09:30:29 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef REDIR_H
-# define REDIR_H
+#include "expand.h"
 
-# include "struct.h"
-
-typedef struct s_redir
+int	include_wildcard(char *s)
 {
-	t_token_kw		kw;
-	char			*file;
-	char			*eofkw;
-	int				fd_in;
-	int				fd_out;
-	struct s_redir	*prev;
-	struct s_redir	*next;
-}	t_redir;
+	size_t	i;
+	size_t	squotes;
+	size_t	dquotes;
 
-#endif
+	i = 0;
+	squotes = 0;
+	dquotes = 0;
+	while (s && s[i])
+	{
+		if (s[i] == '\'')
+			squotes++;
+		else if (s[i] == '"')
+			dquotes++;
+		else if (s[i] == '*' && squotes % 2 == 0 && dquotes % 2 == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}

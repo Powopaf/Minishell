@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:07:04 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:35:27 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:50:56 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,11 @@
  * @param {char **} argv - Program arguments.
  */
 void	initialize_shell(t_shell *shell, char **envp, char **argv);
+
+/**
+ * @brief Trim the newline at the end of each line from non interactive prompts.
+ * @param line
+ */
+void	trim_newline(char *line);
 
 #endif

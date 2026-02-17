@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 18:17:16 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 16:52:10 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@
 #include "src/parsing/token/syntax/syntax.h"
 #include "src/exec/exec.h"
 #include <stdio.h>
-#include "src/parsing/expend/expand.h"
 #include "src/parsing/parsing.h"
 #include "src/clean/clean_shell.h"
 #include "signal.h"
 #include "src/signal/signal_handling.h"
-#include "src/heredocs/heredoc.h"
+#include "./libft/libft.h"
 
 volatile sig_atomic_t	g_signal = 0;
 
@@ -37,7 +36,6 @@ static int	process_line(t_shell *shell, char *line)
 		shell->status = SIGINT_STATUS;
 		g_signal = 0;
 	}
-	add_history(line);
 	shell->line = line;
 	if (tokenization(shell))
 		return (EXIT_FAILURE);
@@ -47,14 +45,28 @@ static int	process_line(t_shell *shell, char *line)
 	shell->ast = parser(shell, &tokens);
 	if (!shell->ast)
 		return (EXIT_FAILURE);
-	expand_var(shell, shell->ast);
-	handle_heredocs(shell, shell->ast);
 	shell->status = exec_root(shell, shell->ast);
 	clean_prompt(shell);
 	return (shell->exit != -1);
 }
 
-static void	shell_process(t_shell *shell)
+static void	shell_process_non_tty(t_shell *shell)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = ft_get_next_line(STDIN_FILENO);
+		if (!line)
+			break ;
+		trim_newline(line);
+		shell->line_cnt++;
+		if (process_line(shell, line))
+			break ;
+	}
+}
+
+static void	shell_process_tty(t_shell *shell)
 {
 	char	*line;
 
@@ -64,10 +76,10 @@ static void	shell_process(t_shell *shell)
 		line = readline(shell->name);
 		if (!line)
 		{
-			if (shell->tty)
-				printf("exit\n");
+			write(2, "exit\n", 5);
 			break ;
 		}
+		add_history(line);
 		shell->line_cnt++;
 		if (process_line(shell, line))
 			break ;
@@ -80,7 +92,10 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	initialize_shell(&shell, envp, argv);
-	shell_process(&shell);
+	if (shell.tty)
+		shell_process_tty(&shell);
+	else
+		shell_process_non_tty(&shell);
 	clean_shell(&shell);
 	rl_clear_history();
 	if (shell.exit == -1)
