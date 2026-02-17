@@ -6,13 +6,13 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:25:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 15:55:03 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/16 18:43:24 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../libft/libft.h"
-#include "../../error/err.h"
-#include "../func.h"
+#include "../../libft/libft.h"
+#include "../error/err.h"
+#include "func.h"
 #include <stdio.h>
 #include <stdlib.h>
 

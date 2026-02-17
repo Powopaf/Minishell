@@ -35,14 +35,13 @@ SRC = 	./minishell.c \
 		./src/signal/signal.c \
 		./src/signal/signal_fork.c \
 		./src/signal/signal_utils.c \
-		./src/func/cd/cd.c \
-		./src/func/echo/echo.c \
-		./src/func/env/env.c \
-		./src/func/exit/exit.c \
-		./src/func/export/export.c \
-		./src/func/pwd/pwd.c \
-		./src/func/unset/unset.c \
-
+		./src/func/cd.c \
+		./src/func/echo.c \
+		./src/func/env.c \
+		./src/func/exit.c \
+		./src/func/export.c \
+		./src/func/pwd.c \
+		./src/func/unset.c \
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

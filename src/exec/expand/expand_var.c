@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 13:10:20 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:31:05 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static char	*expand_env_var(t_shell *sh, char *s, char *expand, size_t *i)
 	int		start;
 	char	*var_name;
 	char	*var;
+	char	*tmp;
 
 	start = ++(*i);
 	while (s[*i] && (ft_isalnum(s[*i]) || s[*i] == '_'))
@@ -54,11 +55,15 @@ static char	*expand_env_var(t_shell *sh, char *s, char *expand, size_t *i)
 	}
 	var = collect_env_var(sh, var_name);
 	free(var_name);
-	expand = ft_strjoin(expand, var);
+	tmp = ft_strjoin(expand, var);
+	if (tmp)
+		free(expand);
+	else
+		tmp = expand;
 	if (var)
 		free(var);
 	(*i)--;
-	return (expand);
+	return (tmp);
 }
 
 static char	*expand_var(t_shell *sh, char *s, char *expand)

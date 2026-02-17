@@ -6,14 +6,14 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 10:34:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/14 11:40:28 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/16 18:44:29 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../func.h"
-#include "../../error/err.h"
-#include "../../../libft/libft.h"
-#include "../../exec/parser_cmd/parser_cmd.h"
+#include "func.h"
+#include "../error/err.h"
+#include "../../libft/libft.h"
+#include "../exec/parser_cmd/parser_cmd.h"
 #include <stdlib.h>
 
 static void	error_unset(char *arg)

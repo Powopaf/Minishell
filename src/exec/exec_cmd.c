@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 13:17:56 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:28:57 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,17 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	{
 		ft_free_array_strs(&args);
 		ft_free_array_strs(&envp);
-		if (ft_strncmp(cmd, "exit", 5) == 0)
+		if (cmd && ft_strncmp(cmd, "exit", 5) == 0)
 			exit(sh->exit);
 		exit(sh->status);
 	}
 	clean_shell(sh);
+	if (!cmd)
+	{
+		ft_free_array_strs(&args);
+		ft_free_array_strs(&envp);
+		exit(sh->status);
+	}
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
