@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:03:22 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/17 12:54:49 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:10:32 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
  * @param {t_shell *} sh - Shell context.
  * @param {t_ast *} current_node - AST node to expand.
  */
-int			expand_cmd(t_shell *sh, t_ast *current_node);
+int		expand_cmd(t_shell *sh, t_ast *current_node);
 
 // expand_var
 /**
@@ -43,7 +43,7 @@ int			expand_cmd(t_shell *sh, t_ast *current_node);
  * @return A newly allocated string with expansions, or NULL on allocation
  * failure.
  */
-char		*expand_str(t_shell *sh, char *s);
+char	*expand_str(t_shell *sh, char *s);
 
 // expand_wildcards.c
 /**
@@ -56,7 +56,7 @@ char		*expand_str(t_shell *sh, char *s);
  * @param sh The shell context.
  * @param current_node The AST node containing arguments to process.
  */
-void		expand_wildcards_arg(t_shell *sh, t_ast *current_node);
+void	expand_wildcards_arg(t_shell *sh, t_ast *current_node);
 
 /**
  * Expands a wildcard pattern in a redirection filename if present.
@@ -70,7 +70,7 @@ void		expand_wildcards_arg(t_shell *sh, t_ast *current_node);
  * @return 1 on success or no expansion needed, 0 on error or
  * ambiguous redirection.
  */
-int			expand_wildcard_redir_file(t_shell *sh, t_redir *current_redir);
+int		expand_wildcard_redir_file(t_shell *sh, t_redir *current_redir);
 
 // expand_env.c
 /**
@@ -79,7 +79,7 @@ int			expand_wildcard_redir_file(t_shell *sh, t_redir *current_redir);
  * @param {char *} var_name - Variable name to look up.
  * @returns {char*} Newly allocated value or NULL if not found.
  */
-char		*collect_env_var(t_shell *sh, char *var_name);
+char	*collect_env_var(t_shell *sh, char *var_name);
 
 // expand_utils.c
 /**
@@ -92,7 +92,7 @@ char		*collect_env_var(t_shell *sh, char *var_name);
  * @return 1 on success, 0 on allocation failure (original array remains
  * unchanged).
  */
-int			arr_rm_quotes(char ***arr);
+int		arr_rm_quotes(char ***arr);
 /**
  * Creates a duplicate of a string with all unescaped quotes removed.
  * Allocates and returns a new string where single and double
@@ -103,7 +103,7 @@ int			arr_rm_quotes(char ***arr);
  * failure.
  */
 
-char		*strdup_rm_quotes(char *s);
+char	*strdup_rm_quotes(char *s);
 
 // expand_wildcards_utils.c
 /**
@@ -112,6 +112,6 @@ char		*strdup_rm_quotes(char *s);
  * @param s The string to check for unquoted wildcards.
  * @return 1 if an unquoted wildcard is found, 0 otherwise.
  */
-int			include_wildcard(char *s);
+int		include_wildcard(char *s);
 
 #endif

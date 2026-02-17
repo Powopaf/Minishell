@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 12:42:03 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:10:20 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,5 @@ char	*expand_str(t_shell *sh, char *s)
 	if (!expand)
 		return (error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
 	expand = expand_var(sh, s, expand);
-
 	return (expand);
 }
-
-

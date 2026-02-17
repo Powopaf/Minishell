@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:40:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 12:43:14 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 13:10:25 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static int	compare(char *base, char *s, int squote, int dquote)
 		return (compare(base + 1, s, squote, !dquote));
 	if (*base == '*' && !squote && !dquote)
 	{
-		return ((*base && compare(base + 1, s, squote, dquote))
-			|| (*s && compare(base, s + 1, squote, dquote)));
+		return ((*base && compare(base + 1, s, squote, dquote)) || (*s
+				&& compare(base, s + 1, squote, dquote)));
 	}
-	if(*base == *s)
+	if (*base == *s)
 		return (compare(base + 1, s + 1, squote, dquote));
 	return (0);
 }
 
-static int check_match(char ***files, char *s, char *entry, size_t *count)
+static int	check_match(char ***files, char *s, char *entry, size_t *count)
 {
 	if (entry[0] != '.' && compare(s, entry, 0, 0))
 	{
