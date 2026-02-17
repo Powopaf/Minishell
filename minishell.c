@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 18:17:16 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:01:04 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include "src/parsing/token/syntax/syntax.h"
 #include "src/exec/exec.h"
 #include <stdio.h>
-#include "src/parsing/expend/expand.h"
 #include "src/parsing/parsing.h"
 #include "src/clean/clean_shell.h"
 #include "signal.h"
@@ -47,7 +46,6 @@ static int	process_line(t_shell *shell, char *line)
 	shell->ast = parser(shell, &tokens);
 	if (!shell->ast)
 		return (EXIT_FAILURE);
-	expand_var(shell, shell->ast);
 	handle_heredocs(shell, shell->ast);
 	shell->status = exec_root(shell, shell->ast);
 	clean_prompt(shell);

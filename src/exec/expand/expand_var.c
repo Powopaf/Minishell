@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand.c                                           :+:      :+:    :+:   */
+/*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 20:03:56 by pifourni         ###   ########.fr       */
+/*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
+/*   Updated: 2026/02/17 13:10:20 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expand.h"
-#include "../../../redir.h"
-#include "../../error/err.h"
-#include "../../../libft/libft.h"
-#include "expand_utils.h"
-#include <stddef.h>
-#include <stdlib.h>
 
 static char	*expand_status(t_shell *sh, char *expand, size_t *i)
 {
@@ -67,23 +61,20 @@ static char	*expand_env_var(t_shell *sh, char *s, char *expand, size_t *i)
 	return (expand);
 }
 
-static char	*expand_str(t_shell *sh, char *s)
+static char	*expand_var(t_shell *sh, char *s, char *expand)
 {
-	char	*expand;
 	size_t	i;
 	size_t	squotes;
 
 	squotes = 0;
-	expand = ft_strdup("");
-	if (!expand)
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
 	i = 0;
 	while (s[i])
 	{
 		if (s[i] == '\'' && (!i || (s[i - 1] != '\\')))
+		{
 			squotes++;
-		else if (s[i] == '\"' && (!i || (s[i - 1] != '\\')))
-			;
+			expand = ft_strjoin_char(expand, s[i], 1, 1);
+		}
 		else if (s[i] == '$' && s[i + 1] == '?' && (squotes % 2 == 0))
 			expand = expand_status(sh, expand, &i);
 		else if (s[i] == '$' && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')
@@ -96,57 +87,13 @@ static char	*expand_str(t_shell *sh, char *s)
 	return (expand);
 }
 
-static void	expand_redirs(t_shell *sh, t_redir *redir)
+char	*expand_str(t_shell *sh, char *s)
 {
 	char	*expand;
 
-	while (redir)
-	{
-		if (redir->file)
-		{
-			expand = expand_str(sh, redir->file);
-			if (expand)
-			{
-				free(redir->file);
-				redir->file = expand;
-			}
-		}
-		if (redir->eofkw)
-		{
-			expand = expand_str(sh, redir->eofkw);
-			if (expand)
-			{
-				free(redir->eofkw);
-				redir->eofkw = expand;
-			}
-		}
-		redir = redir->next;
-	}
-}
-
-void	expand_var(t_shell *sh, t_ast *current_node)
-{
-	size_t	i;
-	char	*tmp;
-
-	if (!current_node)
-		return ;
-	if (current_node->astkw == AST_CMD && current_node->args)
-	{
-		i = 0;
-		while (current_node->args[i])
-		{
-			tmp = expand_str(sh, current_node->args[i]);
-			if (tmp)
-			{
-				free(current_node->args[i]);
-				current_node->args[i] = tmp;
-			}
-			i++;
-		}
-	}
-	if (current_node->redir)
-		expand_redirs(sh, current_node->redir);
-	expand_var(sh, current_node->left);
-	expand_var(sh, current_node->right);
+	expand = ft_strdup("");
+	if (!expand)
+		return (error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
+	expand = expand_var(sh, s, expand);
+	return (expand);
 }

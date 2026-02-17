@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/14 11:31:33 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/17 11:34:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../error/err.h"
 #include "../func/func.h"
 #include "../signal/signal_handling.h"
+#include "./expand/expand.h"
 #include "exec_utils.h"
 #include "parser_cmd/parser_cmd.h"
 #include <errno.h>
@@ -79,6 +80,8 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 {
 	if (!node)
 		return (EXIT_SUCCESS);
+	if (!expand_cmd(sh, node))
+		return (EXIT_FAILURE);
 	if (node->args && node->args[0])
 	{
 		if (node->fd_in == -1 && node->fd_out == -1 && !node->redir)
