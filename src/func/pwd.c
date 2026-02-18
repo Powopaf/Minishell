@@ -20,11 +20,7 @@ void	pwd(char **args, t_shell *sh)
 {
 	char	*pwd;
 
-	if (args[1])
-	{
-		error(sh, "pwd", "too many arguments", 1);
-		return ;
-	}
+	(void)args;
 	pwd = get_env(sh, "PWD");
 	if (!pwd)
 	{
