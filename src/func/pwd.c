@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 13:18:42 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/16 18:44:14 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:13:05 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ void	pwd(char **args, t_shell *sh)
 {
 	char	*pwd;
 
-	if (args[1])
-	{
-		error(sh, "pwd", "too many arguments", 1);
-		return ;
-	}
+	(void)args;
 	pwd = get_env(sh, "PWD");
 	if (!pwd)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_add_str_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 18:36:37 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/20 11:02:05 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:47:37 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,25 @@ static size_t	ft_strslen(char **s)
 	while (s[i])
 		i++;
 	return (i);
+}
+
+static char	**ft_single_str_array(char *s)
+{
+	char	**tmp;
+
+	if (!s || !*s)
+		return (NULL);
+	tmp = (char **)malloc(2 * sizeof(*tmp));
+	if (!tmp)
+		return (NULL);
+	tmp[0] = ft_strdup(s);
+	if (!tmp[0])
+	{
+		free(tmp);
+		return (NULL);
+	}
+	tmp[1] = NULL;
+	return (tmp);
 }
 
 static char	**ft_util(char **arr, char *s)
@@ -59,9 +78,7 @@ char	**ft_add_str_array(char **arr, char *s)
 
 	if (!arr || !*arr)
 	{
-		if (!s || !*s)
-			return (NULL);
-		tmp = ft_strsdup(&s);
+		tmp = ft_single_str_array(s);
 		return (tmp);
 	}
 	if (!s || !*s)

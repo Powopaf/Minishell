@@ -24,7 +24,7 @@ void	env(char **args, t_shell *sh)
 		return ;
 	}
 	i = 0;
-	while (sh->envp[i])
+	while (sh->envp && sh->envp[i])
 	{
 		if (printf("%s\n", sh->envp[i]) == -1)
 		{
