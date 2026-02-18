@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 16:52:10 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:34:58 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	process_line(t_shell *shell, char *line)
 	t_token	*tokens;
 
 	if (!*line)
-		return (EXIT_FAILURE);
+		return (0);
 	if (g_signal == SIGINT)
 	{
 		shell->status = SIGINT_STATUS;
@@ -40,7 +40,7 @@ static int	process_line(t_shell *shell, char *line)
 	if (tokenization(shell))
 		return (EXIT_FAILURE);
 	if (check_syntax(shell))
-		return (EXIT_FAILURE);
+		return (0);
 	tokens = shell->tokens;
 	shell->ast = parser(shell, &tokens);
 	if (!shell->ast)
