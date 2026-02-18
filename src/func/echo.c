@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:25:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/16 18:43:24 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:53:37 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	echo(char **args, t_shell *sh)
 		if (trim(args[i]) == -1)
 		{
 			error(sh, "echo", "printf error", 1);
-			exit(EXIT_FAILURE);
+			return ;
 		}
 		if (args[i + 1] && printf(" ") == -1)
 			error(sh, "echo", "printf error", 1);
@@ -58,5 +58,5 @@ void	echo(char **args, t_shell *sh)
 	if (n_flag && printf("\n") == -1)
 		error(sh, "echo", "printf error", 1);
 	sh->status = EXIT_SUCCESS;
-	exit(EXIT_SUCCESS);
+	return ;
 }
