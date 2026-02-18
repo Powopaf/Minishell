@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:03:22 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/17 13:10:32 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:27:12 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,14 @@ int		arr_rm_quotes(char ***arr);
  * @return A newly allocated string with quotes removed, or NULL on allocation
  * failure.
  */
+
+/**
+ * @brief Check if a string comtains quoted, either single or double, and
+ * returns the sum of quotes.
+ * @param s - string.
+ * @return int - sum of single and double quotes.
+ */
+int		is_quoted(char *s);
 
 char	*strdup_rm_quotes(char *s);
 

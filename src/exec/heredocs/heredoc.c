@@ -6,19 +6,35 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 09:36:17 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 13:22:05 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:18:56 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../libft/libft.h"
 #include "../../error/err.h"
 #include "../../signal/signal_handling.h"
+#include "../expand/expand.h"
 #include "heredoc.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
+static void	expand_hd_line(t_shell *sh, t_redir *redir, char **line)
+{
+	char	*expand;
+
+	if (!redir->quoted)
+	{
+		expand = expand_str(sh, *line);
+		if (expand)
+		{
+			free(*line);
+			*line = expand;
+		}
+	}
+}
 
 static int	write_heredoc(t_shell *sh, t_redir *redir, int fd)
 {
@@ -32,7 +48,6 @@ static int	write_heredoc(t_shell *sh, t_redir *redir, int fd)
 		line = ft_get_next_line(sh->stdin_fd);
 		if (!line)
 		{
-			write(1, "\n", 1);
 			warning_hd(sh);
 			break ;
 		}
@@ -43,6 +58,7 @@ static int	write_heredoc(t_shell *sh, t_redir *redir, int fd)
 			free(line);
 			break ;
 		}
+		expand_hd_line(sh, redir, &line);
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}

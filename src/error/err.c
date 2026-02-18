@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 12:34:01 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:33:32 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	warning_hd(t_shell *sh)
 	s = ft_strjoin_free(&s, &txt2, 1);
 	if (!s)
 		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+	write(1, "\n", 1);
 	write(2, s, ft_strlen(s));
 	free(s);
 }
