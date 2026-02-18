@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:57:30 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:30:02 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:16:19 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static t_redir	*create_redir(t_shell *sh, t_token_kw kw, char *file)
 		redir_struct->eofkw = redir_struct->file;
 		redir_struct->file = NULL;
 	}
+	redir_struct->quoted = 0;
 	redir_struct->fd_in = -1;
 	redir_struct->fd_out = -1;
 	redir_struct->prev = NULL;

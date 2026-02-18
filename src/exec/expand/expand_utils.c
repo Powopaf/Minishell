@@ -6,7 +6,7 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:47:19 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 10:50:11 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/18 15:27:51 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,28 @@ static size_t	strslen(char **s)
 	while (s[i])
 		i++;
 	return (i);
+}
+
+int	is_quoted(char *s)
+{
+	size_t	i;
+	size_t	squote;
+	size_t	dquote;
+
+	squote = 0;
+	dquote = 0;
+	i = 0;
+	if (!s)
+		return (0);
+	while (i < ft_strlen(s))
+	{
+		if (s[i] == '\'' && !dquote)
+			squote++;
+		else if (s[i] == '\"' && !squote)
+			dquote++;
+		i++;
+	}
+	return (squote + dquote);
 }
 
 char	*strdup_rm_quotes(char *s)
@@ -71,7 +93,7 @@ int	arr_rm_quotes(char ***arr)
 			return (ft_free_array_strs(&tmp), 0);
 		i++;
 	}
-	tmp[i] = NULL;
+	tmp[strslen(*arr)] = NULL;
 	ft_empty_array_strs(*arr);
 	*arr = tmp;
 	return (1);

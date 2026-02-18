@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 11:56:59 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 15:28:47 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,14 @@
 
 static void	expand_redirs_hd(t_shell *sh, t_redir *redir)
 {
-	char	*expand;
 	char	*tmp;
 
+	(void)sh;
 	while (redir)
 	{
 		if (redir->eofkw)
 		{
-			expand = expand_str(sh, redir->eofkw);
-			if (expand)
-			{
-				free(redir->eofkw);
-				redir->eofkw = expand;
-			}
+			redir->quoted = is_quoted(redir->eofkw);
 			tmp = strdup_rm_quotes(redir->eofkw);
 			if (tmp)
 			{
@@ -73,7 +68,7 @@ static int	expand_args(t_shell *sh, t_ast *current_node)
 	char	*tmp;
 
 	i = 0;
-	while (current_node->args[i])
+	while (current_node->args && current_node->args[i])
 	{
 		tmp = expand_str(sh, current_node->args[i]);
 		if (tmp)
