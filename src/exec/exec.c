@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:27:46 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/18 16:18:31 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ int	exec_root(t_shell *sh, t_ast *node)
 		status = exec_sub(sh, node);
 	if (status == -1)
 		return (EXIT_FAILURE);
-	sh->status = wait_ast(node);
+	if (node->astkw != AST_CMD || node->pid != -1)
+		sh->status = wait_ast(node);
 	setup_signals(sh);
 	return (sh->status);
 }

@@ -6,7 +6,7 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/16 18:51:57 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/18 16:02:38 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,17 @@ int	ft_exit(char **args, t_shell *sh)
 	{
 		msg = ft_strjoin("exit: ", args[1]);
 		if (!msg)
-			error(sh, "malloc", MALLOC_ERR, 1);
+			return (error(sh, "malloc", MALLOC_ERR, 1), -1);
 		else
 		{
 			error(sh, msg, "numeric argument required", 1);
 			free(msg);
-			sh->exit = 2;
+			sh->status = 2;
+			return (-1);
 		}
 	}
 	else if (nb_args(args) > 2)
-	{
-		error(sh, "exit", "too many arguments", 1);
-		return (1);
-	}
+		return (error(sh, "exit", "too many arguments", 1), sh->status = 1, -1);
 	else if (args && args[1])
 		sh->exit = (unsigned char)ft_atoi(args[1]);
 	else

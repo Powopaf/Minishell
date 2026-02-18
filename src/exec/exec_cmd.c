@@ -98,7 +98,8 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 		{
 			if (is_builtin(node->args[0], sh, node->args) > 0)
 			{
-				if (ft_strncmp(node->args[0], "exit", 5) == 0)
+				if (ft_strncmp(node->args[0], "exit", 5) == 0
+					&& sh->exit != -1)
 					return (sh->exit);
 				return (sh->status);
 			}
