@@ -6,7 +6,7 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 10:34:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/16 18:44:29 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:18:51 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,20 @@ static int	len(t_shell *sh)
 
 static int	exist(t_shell *sh, char *var_name)
 {
-	char	*var;
+	int		i;
+	size_t	len_name;
 
-	var = get_env(sh, var_name);
-	if (var)
+	if (!sh || !sh->envp || !var_name)
+		return (0);
+	len_name = ft_strlen(var_name);
+	i = 0;
+	while (sh->envp[i])
 	{
-		free(var);
-		return (1);
+		if (ft_strncmp(sh->envp[i], var_name, len_name) == 0
+			&& sh->envp[i][len_name] == '=')
+			return (1);
+		i++;
 	}
-	free(var);
 	return (0);
 }
 
