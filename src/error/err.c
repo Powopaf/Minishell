@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 11:33:22 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:34:01 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,6 @@ void	error(t_shell *shell, char *context, char *why, int exitno)
 	shell->status = -exitno;
 	if (exitno < 0)
 		return ;
+	clean_shell(shell);
+	exit(exitno);
 }
