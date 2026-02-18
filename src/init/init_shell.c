@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 16:51:00 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:12:06 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,28 @@ static void	copy_envp(t_shell *shell, char **envp)
 
 static void	get_shell_name(t_shell *shell, char **argv)
 {
+	char	*tmp;
+
+	shell->name = NULL;
 	if (!argv || !*argv)
 	{
-		shell->name = "minishell> ";
+		shell->name = STD_PROMPT;
 		return ;
 	}
-	shell->name = ft_strrchr(*argv, '/');
-	shell->name = ft_strjoin(*argv, PROMPT_HD);
+	tmp = ft_strrchr(*argv, '/');
+	if (!tmp)
+	{
+		shell->name = ft_strjoin(*argv, PROMPT_HD);
+		if (!shell->name)
+			shell->name = STD_PROMPT;
+		return ;
+	}
+	if (tmp && tmp[0] && tmp[1])
+	{
+		shell->name = ft_strjoin(tmp + 1, PROMPT_HD);
+	}
+	if (!shell->name)
+		shell->name = STD_PROMPT;
 }
 
 void	initialize_shell(t_shell *shell, char **envp, char **argv)

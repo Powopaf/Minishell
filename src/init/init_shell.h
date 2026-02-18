@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:07:04 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/17 16:50:56 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 11:50:46 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define INIT_SHELL_H
 
 # define PROMPT_HD "> "
+# define STD_PROMPT "minishell> "
 
 # include "../../struct.h"
 
