@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:47:19 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 12:42:29 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:50:11 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	arr_rm_quotes(char ***arr)
 			return (ft_free_array_strs(&tmp), 0);
 		i++;
 	}
+	tmp[i] = NULL;
 	ft_empty_array_strs(*arr);
 	*arr = tmp;
 	return (1);
