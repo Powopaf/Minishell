@@ -1,11 +1,9 @@
-minishell_tester
 *.swp
 minishell
 .vscode/
 .clang-format
 *.supp
 *.vscode
-*test*
 
 # Prerequisites
 *.d
