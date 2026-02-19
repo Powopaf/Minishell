@@ -4,6 +4,7 @@ minishell
 .clang-format
 *.supp
 *.vscode
+*tester*
 
 # Prerequisites
 *.d

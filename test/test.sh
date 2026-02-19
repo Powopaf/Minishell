@@ -5,10 +5,17 @@ GREEN='\033[0;32m'
 NC='\033[0m'
 GOOD="✓"
 BAD="✗"
-USAGE="Usage: ./test.sh <path_to_executable minishell>"
+USAGE="Usage: ./test.sh <path_to_executable minishell> [test_file]"
 
-if [ $# -ne 1 ]; then
-	echo $USAGE
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
+	echo "$USAGE"
+	exit 1
+fi
+
+TEST_FILE="${2:-test_cmd}"
+
+if [ ! -f "$TEST_FILE" ]; then
+	echo "Error: Test file '$TEST_FILE' not found."
 	exit 1
 fi
 
@@ -16,7 +23,9 @@ MINISHELL=$1
 
 error() {
 	echo -e "${LIGHT_RED}Wrong ${BAD}${NC}: $5"
-	echo "got $4 instead of $2"
+	if [ "$2" != "$4" ]; then
+		echo "got $4 instead of $2"
+	fi
 	echo "mini: $3"
 	echo "bash: $1"
 }
@@ -32,7 +41,7 @@ test_command() {
 	output=$(echo "$cmd" | "$MINISHELL")
 	exit_code=$?
 	if [ $expected_code -ne $exit_code ]; then
-		error "$expected" "$expected_code" "$output" "$exit_code"
+		error "$expected" "$expected_code" "$output" "$exit_code" "$cmd"
 		return 0
 	elif [[ "$expected" != "$output" ]]; then
 		error "$expected" "$expected_code" "$output" "$exit_code" "$cmd"
@@ -47,5 +56,12 @@ while IFS= read -r line; do
 	if [[ -z "$line" ]]; then
 		continue
 	fi
+	if [[ "$line" =~ ^[[:space:]]*# ]]; then
+		continue
+	fi
+	if [[ "$line" =~ ^[[:space:]]*===== ]]; then
+		echo "$line"
+		continue
+	fi
 	test_command "$line"
-done < test_cmd
+done < "$TEST_FILE"
