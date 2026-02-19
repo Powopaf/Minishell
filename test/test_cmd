@@ -1,0 +1,32 @@
+echo "Hello, World!"
+echo -n "Hello, World!"
+echo -n -n "Hello, World!"
+echo -n -n -n "Hello, World!"
+pwd
+pwd -n
+pwd hi
+pwd -g -r
+pwd qsfds
+env
+env -n
+env qsh
+cd .
+cd
+cd Document
+cd ..
+export TEST1
+export TEST2=1 TEST3=2
+unset TEST1
+unset TEST2 TEST3
+exit
+exit 123
+exit +100
+exit +"100"
+exit "+100"
+exit -100
+exit -1
+exit 0
+exit hello
+exit 123 hello
+exit hello 123
+exit -a
