@@ -20,6 +20,8 @@ SRC = 	./minishell.c \
 		./src/parsing/token/tokens_utils.c \
 		./src/exec/expand/expand.c \
 		./src/exec/expand/expand_var.c \
+		./src/exec/expand/expand_args_split.c \
+		./src/exec/expand/expand_custom_split.c \
 		./src/exec/expand/expand_wildcards.c \
 		./src/exec/expand/expand_wildcards_utils.c \
 		./src/exec/expand/expand_env.c \
