@@ -7,7 +7,6 @@ pwd -n
 pwd hi
 pwd -g -r
 pwd qsfds
-env
 env -n
 env qsh
 cd .

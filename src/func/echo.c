@@ -6,7 +6,7 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:25:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/18 10:53:37 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/20 10:52:36 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	echo(char **args, t_shell *sh)
 	size_t	i;
 	int		n_flag;
 
-	i = 1;
+	i = 0;
 	n_flag = 1;
-	if (args[i] && ft_strncmp(args[i], "-n", 3) == 0)
+	while (args[++i] && ft_strncmp(args[i], "-n", 3) == 0)
 	{
 		n_flag = 0;
-		i++;
+		continue ;
 	}
 	while (args[i])
 	{
