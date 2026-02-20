@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/15 18:33:29 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/20 12:17:12 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@
 # define SIG_BASE 128
 # define DEBUG "PROGRAM ERROR"
 # define WARNING "warning: "
+
+/**
+ * Reports a syntax quote error and updates shell status.
+ * @param {t_shell *} sh - Shell context.
+ * @param {char *} character that caused the syntax error.
+ */
+void	quote_error(t_shell *sh, char *c);
 
 /**
  * Reports a syntax error and updates shell status.

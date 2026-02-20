@@ -71,8 +71,6 @@ test_command() {
 	exit_code=$?
 	actual_stderr=$(cat "$mini_stderr_tmp")
 
-	rm -f "$bash_stderr_tmp" "$mini_stderr_tmp"
-
 	#expected_stderr_clean=$(echo "$expected_stderr" | sed 's/^bash: line [0-9]*: //')
 
 	local failed=0
@@ -104,6 +102,8 @@ test_command() {
 		pass "$cmd"
 		return 1
 	fi
+
+	rm -f "$bash_stderr_tmp" "$mini_stderr_tmp"
 }
 
 while IFS= read -r line; do
