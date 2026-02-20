@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 11:56:32 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/13 10:43:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/20 17:22:30 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include "token_utils.h"
 #include "tokens.h"
 #include <stdlib.h>
+#include "syntax/syntax.h"
+#include "../../error/err.h"
+
 
 static void	handle_quotes(char *s, ssize_t *i)
 {
@@ -70,6 +73,10 @@ int	tokenization(t_shell *sh)
 {
 	ssize_t	i;
 
+	if (!backslash_syntax(sh))
+		return (0);
+	if (!quote_syntax(sh))
+		return (0);
 	i = 0;
 	while (sh->line[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 15:33:32 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/20 17:05:11 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,6 @@ void	warning_hd(t_shell *sh)
 	free(s);
 }
 
-void	syntax_error(t_shell *sh, t_token_kw kw, int exitno)
-{
-	ft_putstr_fd("syntax error near unexpected token `", 2);
-	ft_putstr_fd(ft_token_to_char(kw), 2);
-	ft_putendl_fd("'", 2);
-	sh->status = -exitno;
-	if (exitno >= 0)
-	{
-		clean_shell(sh);
-		exit(exitno);
-	}
-}
-
 static char	*join_err(char *context, char *why)
 {
 	char	*s;
@@ -75,11 +62,59 @@ static char	*join_err(char *context, char *why)
 	return (s);
 }
 
+void	sanitize_copy(char **context, char **tmp, size_t count)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	(*tmp)[0] = '$';
+	(*tmp)[1] = '\'';
+	j = 2;
+	while ((*context)[i])
+	{
+		if ((*context)[i] == '\n')
+		{
+			(*tmp)[i + j] = '\\';
+			(*tmp)[i + (++j)] = 'n';
+		}
+		else
+			(*tmp)[i + j] = (*context)[i];
+		i++;
+	}
+	(*tmp)[i + count + 2] = '\'';
+	(*tmp)[i + count + 3] = '\0';
+}
+
+char *sanitize(char **context)
+{
+	char	*tmp;
+	size_t	i;
+	size_t	count;
+
+	count = 0;
+	i = -1;
+	while ((*context)[++i])
+		if ((*context)[i] == '\n')
+			count++;
+	if (!count)
+		return (NULL);
+	tmp = malloc(ft_strlen(*context) + count + 3 + 1);
+	if (!tmp)
+		return (NULL);
+	sanitize_copy(context, &tmp, count);
+	return (tmp);
+}
+
 void	error(t_shell *shell, char *context, char *why, int exitno)
 {
 	char	*s;
+	char	*tmp;
 
-	s = join_err(context, why);
+	tmp = sanitize(&context);
+	s = join_err(tmp, why);
+	if (tmp)
+		free(tmp);
 	if (!s)
 		write(2, MALLOC_FULL_ERR, ft_strlen(MALLOC_FULL_ERR));
 	else

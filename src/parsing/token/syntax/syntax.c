@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:18:16 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:34:02 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:10:05 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "syntax.h"
 #include "../../../error/err.h"
+#include "syntax.h"
 
 static int	redir_syntax(t_shell *sh)
 {
@@ -75,9 +75,9 @@ static int	parenth_syntax(t_shell *sh)
 		current = current->next;
 	}
 	if (count > 0)
-		syntax_error(sh, L_PARENTH, -MISUSE);
+		return (syntax_error(sh, L_PARENTH, -MISUSE), EXIT_FAILURE);
 	else if (count < 0)
-		syntax_error(sh, R_PARENTH, -MISUSE);
+		return (syntax_error(sh, R_PARENTH, -MISUSE), EXIT_FAILURE);
 	if (count != 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
