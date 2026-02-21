@@ -6,6 +6,7 @@ LIB = libft/libft.a -lreadline
 SRC = 	./minishell.c \
 		./src/error/err.c \
 		./src/error/err_syntax.c \
+		./src/error/err_utils.c \
 		./src/init/init_shell.c \
 		./src/clean/clean_utils.c \
 		./src/clean/clean_shell.c \

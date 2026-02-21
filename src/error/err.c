@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/20 17:05:11 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/20 18:36:31 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,6 @@ void	warning_hd(t_shell *sh)
 	free(s);
 }
 
-static char	*join_err(char *context, char *why)
-{
-	char	*s;
-	char	*sb;
-
-	s = ft_strjoin(PROMPT_MES, context);
-	s = ft_strjoin_char_p(&s, ':', 1, 1);
-	s = ft_strjoin_char_p(&s, ' ', 1, 1);
-	sb = ft_strjoin(s, why);
-	if (s)
-		free(s);
-	s = ft_strjoin_char_p(&sb, '\n', 1, 1);
-	return (s);
-}
-
 void	sanitize_copy(char **context, char **tmp, size_t count)
 {
 	size_t	i;
@@ -98,10 +83,11 @@ char *sanitize(char **context)
 		if ((*context)[i] == '\n')
 			count++;
 	if (!count)
-		return (NULL);
+	{
+		tmp = ft_strdup(*context);
+		return (tmp);
+	}
 	tmp = malloc(ft_strlen(*context) + count + 3 + 1);
-	if (!tmp)
-		return (NULL);
 	sanitize_copy(context, &tmp, count);
 	return (tmp);
 }
@@ -112,7 +98,7 @@ void	error(t_shell *shell, char *context, char *why, int exitno)
 	char	*tmp;
 
 	tmp = sanitize(&context);
-	s = join_err(tmp, why);
+	s = join_err(shell, tmp, why);
 	if (tmp)
 		free(tmp);
 	if (!s)
