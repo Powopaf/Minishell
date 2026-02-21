@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 11:26:09 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/20 12:16:46 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/20 18:41:52 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@
 
 void	syntax_error(t_shell *sh, t_token_kw kw, int exitno)
 {
+	char	*s;
+
+	if (!sh->tty)
+	{
+		ft_putstr_fd(PROMPT_MES, 2);
+		ft_putstr_fd("line ", 2);
+		s = ft_itoa(sh->line_cnt);
+		if (s)
+		{
+			ft_putstr_fd(s, 2);
+			free(s);
+		}
+		ft_putstr_fd(": ", 2);
+	}
 	ft_putstr_fd("syntax error near unexpected token `", 2);
 	ft_putstr_fd(ft_token_to_char(kw), 2);
 	ft_putendl_fd("'", 2);

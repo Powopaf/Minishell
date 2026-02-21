@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/20 12:17:12 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/20 18:28:00 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,16 @@ void	error(t_shell *shell, char *context, char *why, int exitno);
  * @param sh
  */
 void	warning_hd(t_shell *sh);
+
+/**
+ * @brief Helper function that return the line count for errors in non
+ * interactive terminals.
+ */
+char	*error_non_tty(t_shell *sh);
+
+/**
+ * @brief Helper function for error
+ */
+char	*join_err(t_shell *sh, char *context, char *why);
 
 #endif
