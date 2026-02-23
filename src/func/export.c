@@ -6,7 +6,7 @@
 /*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/16 18:44:02 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:03:26 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../libft/libft.h"
 #include "../error/err.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 static int	len(char **env)
 {
@@ -71,9 +72,7 @@ static int	join(char ***env, char *var)
 	}
 	dup = ft_strdup(var);
 	if (!dup)
-	{
 		return (free(new_env), EXIT_FAILURE);
-	}
 	new_env[i] = dup;
 	new_env[i + 1] = NULL;
 	free(*env);
@@ -109,20 +108,52 @@ void	export(char **args, t_shell *sh)
 {
 	int		i;
 	int		j;
+	char	*tmp;
 
 	i = 0;
+	if (!args[1])
+	{
+		i = 0;
+		while (sh->envp && sh->envp[i])
+		{
+			if (printf("export %s\n", sh->envp[i]) == -1)
+				return ;
+			i++;
+		}
+		return ;
+	}
 	while (args[++i])
 	{
 		j = -1;
 		if (!args[i][++j] || ((ft_isalnum(args[i][j]) && ft_isdigit(args[i][j]))
 				|| (!ft_isalnum(args[i][j]) && args[i][j] != '_')))
-			return (error(sh, "export", "not a valid identifier",
-					EXIT_FAILURE));
+		{
+			tmp = ft_strjoin("`", args[i]);
+			if (!tmp)
+				return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE));
+			char *suffix = "': not a valid identifier";
+			tmp = ft_strjoin_free(&tmp, &suffix, 1);
+			if (!tmp)
+				return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE));
+			error(sh, "export", tmp, EXIT_FAILURE);
+			free(tmp);
+			continue ;
+		}
 		while (args[i][++j] && args[i][j] != '=')
 		{
 			if (!ft_isalnum(args[i][j]) && args[i][j] != '_')
-				return (error(sh, "export", "not a valid identifier",
-						EXIT_FAILURE));
+			{
+				tmp = ft_strjoin("`", args[i]);
+				if (!tmp)
+					return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE));
+				char *suffix = "': not a valid identifier";
+				tmp = ft_strjoin_free(&tmp, &suffix, 1);
+				if (!tmp)
+					return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE));
+				error(sh, "export", tmp, EXIT_FAILURE);
+				free(tmp);
+				continue ;
+			}
 		}
 		if (set_var(args, i, j, sh) == EXIT_FAILURE)
 			return ;
