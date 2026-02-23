@@ -1,32 +1,47 @@
-echo "Hello, World!"
-echo -n "Hello, World!"
-echo -n -n "Hello, World!"
-echo -n -n -n "Hello, World!"
-pwd
-pwd -n
-pwd hi
-pwd -g -r
-pwd qsfds
-env
-env -n
-env qsh
 cd .
-cd
-cd Document
+pwd
+pwd
 cd ..
-export TEST1
-export TEST2=1 TEST3=2
-unset TEST1
-unset TEST2 TEST3
+pwd
+cd ../src
+pwd
+export Test=Hello
+env | grep Test
+export TESTA=hello
+echo $TESTA
+export A=1 B=2
+env | grep -E 'A=|B='
+export U1=1
+unset U1
+env | grep U1
+export U2=2 U3=3
+unset U2 U3
+env | grep -E 'U2|U3'
+export U4=4
+( unset U4 )
+env | grep U4
+cd . && pwd
+cd && pwd
+cd ../src && pwd
+cd / && pwd
+cd a b
+echo hello
+echo
+echo -n hello
+echo -n -n -n hello
+echo -n -n -n -n hello
+echo "a b c" ' d e f' "g h i"
+echo a | cat
+echo a | echo a
+env | grep PATH
+env foo
 exit
-exit 123
-exit +100
-exit +"100"
-exit "+100"
-exit -100
-exit -1
-exit 0
-exit hello
-exit 123 hello
-exit hello 123
-exit -a
+exit 42
+exit foo
+exit 1 2
+export | grep PATH
+export 1BAD=ok
+pwd
+pwd hi
+unset DOESNOTEXIST
+unset 1BAD
