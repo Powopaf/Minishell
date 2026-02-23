@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 17:18:24 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 23:02:44 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,11 @@ static char	*expand_var(t_shell *sh, char *s, char *expand)
 			squotes++;
 			expand = ft_strjoin_char(expand, s[i], 1, 1);
 		}
-		else if (s[i] == '$' && s[i + 1] == '?' && (squotes % 2 == 0))
+		else if (s[i] == '$' && (!i || s[i - 1] != '\\')
+			&& s[i + 1] == '?' && (squotes % 2 == 0))
 			expand = expand_status(sh, expand, &i);
-		else if (s[i] == '$' && (ft_isalnum(s[i + 1]) || s[i + 1] == '_')
+		else if (s[i] == '$' && (!i || s[i - 1] != '\\')
+			&& (ft_isalnum(s[i + 1]) || s[i + 1] == '_')
 			&& (squotes % 2 == 0))
 			expand = expand_env_var(sh, s, expand, &i);
 		else

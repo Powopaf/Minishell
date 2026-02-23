@@ -6,33 +6,54 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 17:08:24 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 14:36:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 20:12:12 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../libft/libft.h"
+#include "../../clean/clean_shell.h"
 #include "../../error/err.h"
 #include "../../exec/heredocs/heredoc.h"
 #include "../../signal/signal_handling.h"
-#include "../../clean/clean_shell.h"
 #include "../tokens.h"
 #include "syntax.h"
+
+size_t	count_backslash(t_shell *sh)
+{
+	int		i;
+	size_t	count;
+
+	if (!ft_strlen(sh->line))
+		return (0);
+	i = ft_strlen(sh->line) - 1;
+	count = 0;
+	while (i >= 0 && sh->line[i] == '\\')
+	{
+		count++;
+		i--;
+	}
+	return (count);
+}
 
 int	backslash_syntax(t_shell *sh)
 {
 	char	*add;
 
-	if (sh->line[ft_strlen(sh->line) - 1] == '\\')
+	if (count_backslash(sh) % 2 == 0)
+		return (1);
+	setup_heredoc_signals();
+	while (count_backslash(sh) % 2 == 1)
 	{
-		while (sh->line[ft_strlen(sh->line) - 1] == '\\')
-		{
-			sh->line[ft_strlen(sh->line) - 1] = '\0';
-			add = readline("> ");
-			sh->line = ft_strjoin_free(&sh->line, &add, 3);
-			if (!sh->line)
-				return (0);
-		}
+		sh->line[ft_strlen(sh->line) - 1] = '\0';
+		add = readline("> ");
+		if (!add)
+			break ;
+		sh->line = ft_strjoin_free(&sh->line, &add, 1);
+		free(add);
+		if (!sh->line)
+			return (error(sh, "malloc", strerror(errno), -1), 0);
 	}
+	setup_signals(sh);
 	return (1);
 }
 

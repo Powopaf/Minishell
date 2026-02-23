@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens_utils.c                                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 11:09:24 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 22:48:44 by flomulle         ###   ########.fr       */
+/*   Created: 2025/12/21 10:58:57 by flomulle          #+#    #+#             */
+/*   Updated: 2025/12/21 10:59:19 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token_utils.h"
+#include <stddef.h>
 
-int	isshspace(char c)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	if (c == ' ' || c == '\t')
-		return (1);
-	return (0);
-}
-
-int	isshbreak(char c)
-{
-	if (c == '\n') //|| c == '\\')
-		return (1);
-	return (0);
-}
-
-int	isshellkw(char c)
-{
-	if (c == '|' || c == '&' || c == '<' || c == '>' || c == '(' || c == ')'
-		|| c == ';')
-		return (1);
-	return (0);
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char)(*s1) - (unsigned char)(*s2));
 }

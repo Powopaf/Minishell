@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:38:52 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/17 13:02:38 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 00:05:28 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,5 +266,7 @@ int		ft_isdigit(int c);
  * Close a filedescriptor if this one is open, then set it to -1
  */
 void	ft_close_fd(int *fd);
+
+int	ft_strcmp(const char *s1, const char *s2);
 
 #endif

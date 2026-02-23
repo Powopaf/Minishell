@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_utils.c                                     :+:      :+:    :+:   */
+/*   expand_rm_backslash.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:47:19 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 15:27:51 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 23:40:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,58 +24,56 @@ static size_t	strslen(char **s)
 	return (i);
 }
 
-int	is_quoted(char *s)
+static int	quote_status(char *s, size_t pos)
 {
-	size_t	i;
 	size_t	squote;
 	size_t	dquote;
+	size_t	i;
 
+	i = 0;
 	squote = 0;
 	dquote = 0;
-	i = 0;
-	if (!s)
-		return (0);
-	while (i < ft_strlen(s))
+	while (i < pos)
 	{
-		if (s[i] == '\'' && !dquote)
-			squote++;
-		else if (s[i] == '\"' && !squote)
-			dquote++;
+		if (s[i] == '\'' && !dquote && (!i || s[i - 1] != '\\'))
+			squote = !squote;
+		if (s[i] == '\"' && !squote && (!i || s[i - 1] != '\\'))
+			dquote = !dquote;
 		i++;
 	}
-	return (squote + dquote);
+	if (squote || dquote)
+		return (1);
+	return (0);
 }
 
-char	*strdup_rm_quotes(char *s)
+static char	*strdup_rm_backslash(char *s)
 {
 	char	*dup;
 	size_t	i;
 	size_t	j;
-	size_t	squote;
-	size_t	dquote;
 
 	dup = (char *)malloc((ft_strlen(s) + 1) * sizeof(*dup));
-	if (dup == NULL)
+	if (!dup)
 		return (NULL);
-	squote = 0;
-	dquote = 0;
 	i = 0;
 	j = 0;
 	while (i < ft_strlen(s))
 	{
-		if (s[i] == '\'' && !dquote)
-			squote = !squote;
-		else if (s[i] == '\"' && !squote)
-			dquote = !dquote;
+		if (s[i] == '\\' && (!i || s[i - 1] != '\\') && !quote_status(s, i))
+			;
 		else
+		{
 			dup[j++] = s[i];
+			if (s[i] == '\\')
+				s[i] = ' ';
+		}
 		i++;
 	}
 	dup[j] = '\0';
 	return (dup);
 }
 
-int	arr_rm_quotes(char ***arr)
+int	arr_rm_backslash(char ***arr)
 {
 	char	**tmp;
 	size_t	i;
@@ -88,7 +86,7 @@ int	arr_rm_quotes(char ***arr)
 	i = 0;
 	while (i < strslen(*arr))
 	{
-		tmp[i] = strdup_rm_quotes((*arr)[i]);
+		tmp[i] = strdup_rm_backslash((*arr)[i]);
 		if (!tmp[i])
 			return (ft_free_array_strs(&tmp), 0);
 		i++;
