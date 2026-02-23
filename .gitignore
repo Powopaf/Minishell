@@ -5,7 +5,11 @@ minishell
 *.supp
 *.vscode
 *tester*
-
+a
+b
+c
+bonjour
+hola
 # Prerequisites
 *.d
 

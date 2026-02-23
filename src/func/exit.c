@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/18 16:02:38 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/23 15:32:02 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	ft_exit(char **args, t_shell *sh)
 			return (error(sh, "malloc", MALLOC_ERR, 1), -1);
 		else
 		{
-			error(sh, msg, "numeric argument required", 1);
+			error(sh, msg, "numeric argument required", -2);
 			free(msg);
-			sh->status = 2;
+			sh->exit = 2;
 			return (-1);
 		}
 	}

@@ -3,9 +3,6 @@ echo -n "Hello, World!"
 pwd
 pwd hi
 pwd qsfds
-cd .
-cd Document
-cd ..
 export TEST1
 export TEST2=1 TEST3=2
 unset TEST1
@@ -234,3 +231,30 @@ exit +'666'"666"666
 exit -'666'"666"666
 exit 9223372036854775807
 exit -9223372036854775808
+cd ..
+pwd
+cd src
+pwd
+cd nonexistent_dir
+cd func exec
+cd
+export TEST_EXPORT1=hello
+export TEST_EXPORT2
+export TEST_EXPORT3=foo TEST_EXPORT4=bar
+export TEST_EXPORT_EMPTY=
+export TEST_QUOTED="hello world"
+export TEST_SPACED='a b c'
+export _TEST_OK=1
+export 1INVALID=oops
+export INVALID-NAME=bad
+export
+unset TEST_EXPORT1 TEST_EXPORT2 TEST_EXPORT3 TEST_EXPORT4 TEST_EXPORT_EMPTY TEST_QUOTED TEST_SPACED _TEST_OK
+export UNSET1=one
+export UNSET2=two
+export UNSET3=three
+unset UNSET1
+env
+unset UNSET2 UNSET3
+env
+unset DOES_NOT_EXIST
+unset 1INVALID

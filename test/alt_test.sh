@@ -19,7 +19,7 @@ if [ $# -lt 1 ] || [ $# -gt 2 ]; then
 	exit 1
 fi
 
-TEST_FILE="${2:-test_cmd}"
+TEST_FILE="test_passed"
 
 if [ ! -f "$TEST_FILE" ]; then
 	echo "Error: Test file '$TEST_FILE' not found."
