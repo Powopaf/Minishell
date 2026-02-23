@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/22 23:43:44 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:00:58 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,14 @@ void	exec_cmd(t_shell *sh, t_ast *node)
 	if (!expand_cmd(sh, node))
 		return ;
 	handle_heredocs(sh, node);
-	if (node->args && node->args[0])
+	if (node->args && node->args[0] && (!node->parent
+			|| node->parent->astkw != AST_PIPE))
 	{
-		if (node->fd_in == -1 && node->fd_out == -1 && !node->redir)
+		if (is_builtin(node->args[0], sh, node->args) > 0)
 		{
-			if (is_builtin(node->args[0], sh, node->args) > 0)
-			{
-				if (ft_strncmp(node->args[0], "exit", 5) == 0
-					&& sh->exit != -1)
-					return ;//(sh->exit);
-				return ;//(sh->status);
-			}
+			if (ft_strncmp(node->args[0], "exit", 5) == 0 && sh->exit != -1)
+				return ;
+			return ;
 		}
 	}
 	node->pid = try_fork(sh);

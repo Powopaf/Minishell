@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:18:16 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 00:35:54 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 13:57:00 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ static int	parenth_syntax(t_shell *sh)
 		if (current->kw == L_PARENTH)
 		{
 			count++;
-			if (current->next->kw == R_PARENTH)
+			if (current->next && current->next->kw == R_PARENTH)
 				return (syntax_error(sh, R_PARENTH, -MISUSE), 0);
+			if (current->prev && current->prev->kw == WORD
+				&& (!current->prev->prev || !is_redir(current->prev->prev)))
+				return (syntax_error(sh, L_PARENTH, -MISUSE), 0);
 		}
 		else if (current->kw == R_PARENTH)
 			count--;

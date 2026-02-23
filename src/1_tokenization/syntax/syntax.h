@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:04:47 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/21 13:36:44 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 13:56:32 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ int	ampersand_syntax(t_shell *sh);
 int	and_syntax(t_shell *sh);
 
 int	syntax_completion(t_shell *sh);
+
+int	is_redir(t_token *token);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 08:05:36 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/05 23:03:16 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:47:20 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ t_ast	*create_ast_node(t_shell *sh, t_ast_node_type astkw)
 	node->status = -1;
 	node->left = NULL;
 	node->right = NULL;
+	node->parent = NULL;
 	return (node);
 }

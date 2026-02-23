@@ -9,6 +9,7 @@ SRC = 	./minishell.c \
 		./src/1_tokenization/syntax/syntax_p2.c \
 		./src/1_tokenization/syntax/syntax_quote.c \
 		./src/1_tokenization/syntax/syntax_complete.c \
+		./src/1_tokenization/syntax/syntax_utils.c \
 		./src/1_tokenization/put_token.c \
 		./src/1_tokenization/tokens.c \
 		./src/1_tokenization/tokens_add.c \

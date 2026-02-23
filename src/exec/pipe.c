@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:22:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 13:03:00 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 15:07:39 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int	setup_pipe(t_shell *sh, t_ast *node)
 		error(sh, "pipe", strerror(errno), -EXIT_FAILURE);
 		return (0);
 	}
-	if (pipe_left(sh, node, fd[1]) == EXIT_FAILURE)
+	if (!pipe_left(sh, node, fd[1]))
 		return (0);
-	if (pipe_right(sh, node, fd[0]) == EXIT_FAILURE)
+	if (!pipe_right(sh, node, fd[0]))
 		return (0);
 	return (1);
 }
