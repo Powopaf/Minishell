@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:57:30 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 15:16:19 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:40:36 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ static int	add_redir(t_shell *sh, t_ast *ast_node, t_token_kw kw, char *file)
 
 	new_redir = create_redir(sh, kw, file);
 	if (!new_redir)
-		return (EXIT_FAILURE);
+		return (0);
 	rediradd_back(&ast_node->redir, new_redir);
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 int	parse_redir(t_shell *sh, t_ast *ast_node, t_token **token)
 {
 	char	*file;
 
-	if (!token || !*token || !ast_node)
-		return (EXIT_FAILURE);
+	if (!token || !*token)
+		return (1);
 	file = NULL;
 	while ((*token)->kw >= REDIR_IN && (*token)->kw <= REDIR_APP)
 	{
@@ -88,15 +88,15 @@ int	parse_redir(t_shell *sh, t_ast *ast_node, t_token **token)
 		if (!file)
 		{
 			error(sh, "malloc", MALLOC_ERR, -FAIL);
-			return (EXIT_FAILURE);
+			return (0);
 		}
-		if (add_redir(sh, ast_node, (*token)->kw, file))
+		if (!add_redir(sh, ast_node, (*token)->kw, file))
 		{
 			free(file);
-			return (EXIT_FAILURE);
+			return (0);
 		}
 		free(file);
 		(*token) = (*token)->next->next;
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }

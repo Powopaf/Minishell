@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:05:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:35:14 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/22 23:48:37 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_UTILS_H
 # define TOKEN_UTILS_H
 
-# include "../../../struct.h"
+# include "../../struct.h"
 
 # define EXIT_FAILURE 1
 # define EXIT_SUCCESS 0

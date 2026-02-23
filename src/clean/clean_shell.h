@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_shell.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:36:15 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:36:34 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/21 12:19:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ void	redir_clear(t_redir **redir, void (*del)(t_redir *));
  * @param {void (*)(t_token *)} del - Node free callback.
  */
 void	tokens_clear(t_token **token, void (*del)(t_token *));
+
+void	clean_token(t_token	*tk);
 
 #endif

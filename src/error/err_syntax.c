@@ -6,13 +6,13 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 11:26:09 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/20 18:41:52 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/21 13:41:00 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
 #include "../clean/clean_shell.h"
-#include "../parsing/token/tokens.h"
+#include "../1_tokenization/tokens.h"
 #include "err.h"
 #include <stdlib.h>
 #include <unistd.h>
@@ -21,9 +21,9 @@ void	syntax_error(t_shell *sh, t_token_kw kw, int exitno)
 {
 	char	*s;
 
+	ft_putstr_fd(PROMPT_MES, 2);
 	if (!sh->tty)
 	{
-		ft_putstr_fd(PROMPT_MES, 2);
 		ft_putstr_fd("line ", 2);
 		s = ft_itoa(sh->line_cnt);
 		if (s)

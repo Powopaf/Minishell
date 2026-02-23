@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 22:59:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 17:20:54 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/22 23:25:01 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 static int	redir_hd(t_shell *sh, t_redir *redir)
 {
 	if (redir->fd_in < 0)
-		return (EXIT_FAILURE);
+		return (0);
 	if (dup2(redir->fd_in, STDIN_FILENO) < 0)
 	{
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 static int	redir_in(t_shell *sh, t_redir *redir)
@@ -37,14 +37,14 @@ static int	redir_in(t_shell *sh, t_redir *redir)
 	if (redir->fd_in < 0)
 	{
 		error(sh, redir->file, strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	if (dup2(redir->fd_in, STDIN_FILENO) < 0)
 	{
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 static int	redir_out(t_shell *sh, t_redir *redir)
@@ -54,14 +54,14 @@ static int	redir_out(t_shell *sh, t_redir *redir)
 	if (redir->fd_out < 0)
 	{
 		error(sh, redir->file, strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	if (dup2(redir->fd_out, STDOUT_FILENO) < 0)
 	{
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 static int	redir_app(t_shell *sh, t_redir *redir)
@@ -71,14 +71,14 @@ static int	redir_app(t_shell *sh, t_redir *redir)
 	if (redir->fd_out < 0)
 	{
 		error(sh, redir->file, strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	if (dup2(redir->fd_out, STDOUT_FILENO) < 0)
 	{
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 int	redir(t_shell *sh, t_redir *redir)
@@ -87,25 +87,25 @@ int	redir(t_shell *sh, t_redir *redir)
 	{
 		if (redir->kw == REDIR_HD)
 		{
-			if (redir_hd(sh, redir) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+			if (!redir_hd(sh, redir))
+				return (0);
 		}
 		else if (redir->kw == REDIR_IN)
 		{
-			if (redir_in(sh, redir) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+			if (!redir_in(sh, redir))
+				return (0);
 		}
 		else if (redir->kw == REDIR_OUT)
 		{
-			if (redir_out(sh, redir) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+			if (!redir_out(sh, redir))
+				return (0);
 		}
 		else if (redir->kw == REDIR_APP)
 		{
-			if (redir_app(sh, redir) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
+			if (!redir_app(sh, redir))
+				return (0);
 		}
 		redir = redir->next;
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }

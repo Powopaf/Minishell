@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:02:15 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/11 18:27:00 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 00:54:36 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_bin_rights(t_shell *sh, t_ast *node, char *cmd)
 	if (!access(cmd, F_OK))
 	{
 		if (!access(cmd, X_OK))
-			return (SUCCESS);
+			return (1);
 		else
 		{
 			if (is_dir(cmd))
@@ -51,7 +51,7 @@ static int	check_bin_rights(t_shell *sh, t_ast *node, char *cmd)
 			error(sh, node->args[0], strerror(errno), CMD_PERM_DND);
 		}
 	}
-	return (FAIL);
+	return (0);
 }
 
 static char	*search_cmd(t_shell *sh, t_ast *node)
@@ -73,14 +73,14 @@ static char	*search_cmd(t_shell *sh, t_ast *node)
 			ft_empty_array_strs(paths);
 			error(sh, "malloc", MALLOC_ERR, FAIL);
 		}
-		if (check_bin_rights(sh, node, full_cmd) == SUCCESS)
+		if (check_bin_rights(sh, node, full_cmd))
 		{
 			return (ft_empty_array_strs(paths), full_cmd);
 		}
 		free(full_cmd);
 	}
 	ft_empty_array_strs(paths);
-	return (error(sh, node->args[0], strerror(errno), CMD_NOT_FND), NULL);
+	return (error(sh, node->args[0], CMD_NOT_FND_ERR, CMD_NOT_FND), NULL);
 }
 
 static char	*local_cmd(t_shell *sh, t_ast *node)
@@ -91,17 +91,14 @@ static char	*local_cmd(t_shell *sh, t_ast *node)
 	if (access(node->args[0], F_OK))
 	{
 		error(sh, node->args[0], strerror(errno), CMD_NOT_FND);
-		return (NULL);
 	}
 	if (is_dir(node->args[0]))
 	{
 		error(sh, node->args[0], ISDIR, CMD_PERM_DND);
-		return (NULL);
 	}
 	if (access(node->args[0], X_OK))
 	{
 		error(sh, node->args[0], strerror(errno), CMD_PERM_DND);
-		return (NULL);
 	}
 	cmd = ft_strdup(node->args[0]);
 	if (!cmd)
@@ -115,6 +112,8 @@ char	*parse_cmd(t_shell *sh, t_ast *node)
 
 	if (!node || !node->args || !node->args[0])
 		return (NULL);
+	if (!node->args[0][0])
+		return (error(sh, node->args[0], CMD_NOT_FND_ERR, CMD_NOT_FND), NULL);
 	if (ft_strncmp(node->args[0], "echo", 5) == 0
 		|| ft_strncmp(node->args[0], "cd", 3) == 0
 		|| ft_strncmp(node->args[0], "pwd", 4) == 0

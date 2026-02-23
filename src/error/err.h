@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/20 18:28:00 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 00:25:13 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define AMB_REDIR "ambiguous redirect"
 # define PROMPT_MES "minishell: " // TODO: shoulb equlal to argv[0]
 # define CMD_NOT_FND 127
+# define CMD_NOT_FND_ERR "command not found"
 # define CMD_PERM_DND 126
 # define MISUSE 2
 # define PRG_ERR 666

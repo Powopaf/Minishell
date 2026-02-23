@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 09:36:17 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 16:18:56 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/21 13:24:39 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	write_heredoc(t_shell *sh, t_redir *redir, int fd)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	return (setup_signals(sh), close(fd), EXIT_SUCCESS);
+	return (setup_signals(sh), close(fd), 1);
 }
 
 static int	heredoc(t_shell *sh, t_redir *redir)
@@ -73,25 +73,25 @@ static int	heredoc(t_shell *sh, t_redir *redir)
 
 	id = ft_ptoa(redir->eofkw);
 	if (!id)
-		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE), EXIT_FAILURE);
+		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE), 0);
 	hdfile = ft_strjoin(HEREDOC, id);
 	free(id);
 	if (!hdfile)
-		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE), EXIT_FAILURE);
+		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE), 0);
 	fd = open(hdfile, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd < 0)
 		return (free(hdfile), error(sh, "here_doc", strerror(errno),
-				EXIT_FAILURE), -EXIT_FAILURE);
+				-EXIT_FAILURE), 0);
 	redir->fd_in = open(hdfile, O_RDONLY);
 	if (redir->fd_in < 0)
 		return (free(hdfile), error(sh, "here_doc", strerror(errno),
-				EXIT_FAILURE), -EXIT_FAILURE);
+				-EXIT_FAILURE), 0);
 	unlink(hdfile);
 	free(hdfile);
-	if (write_heredoc(sh, redir, fd) == EXIT_FAILURE)
-		return (FAIL);
+	if (!write_heredoc(sh, redir, fd))
+		return (0);
 	setup_signals(sh);
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 static void	collect_heredocs(t_shell *sh, t_redir *redir)

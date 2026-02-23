@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_command.c                                  :+:      :+:    :+:   */
+/*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 12:30:03 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/20 11:05:05 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:38:45 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ static int	add_arg(t_shell *sh, t_ast *node, char *arg)
 	if (!node->args)
 	{
 		error(sh, "malloc", MALLOC_ERR, -FAIL);
-		return (EXIT_FAILURE);
+		return (0);
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 int	parse_command_args(t_shell *sh, t_ast *node, t_token **tokens)
 {
 	while (*tokens && (*tokens)->kw == WORD)
 	{
-		if (add_arg(sh, node, (*tokens)->token))
-			return (EXIT_FAILURE);
+		if (!add_arg(sh, node, (*tokens)->token))
+			return (0);
 		(*tokens) = (*tokens)->next;
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_shell.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:12:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 15:17:33 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/21 12:19:06 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	ast_clear(t_ast **ast, void (*del)(t_ast	*))
 	*ast = NULL;
 }
 
-static void	clean_token(t_token	*tk)
+void	clean_token(t_token	*tk)
 {
 	if (tk && tk->token)
 	{

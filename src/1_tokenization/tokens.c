@@ -6,18 +6,16 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 11:56:32 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/20 17:22:30 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/22 23:48:26 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../libft/libft.h"
-#include "../../error/err.h"
+#include "../../libft/libft.h"
+#include "../error/err.h"
+#include "syntax/syntax.h"
 #include "token_utils.h"
 #include "tokens.h"
 #include <stdlib.h>
-#include "syntax/syntax.h"
-#include "../../error/err.h"
-
 
 static void	handle_quotes(char *s, ssize_t *i)
 {
@@ -89,8 +87,8 @@ int	tokenization(t_shell *sh)
 		else
 			i = add_word_token(sh, i);
 		if (i == -1)
-			return (EXIT_FAILURE);
+			return (0);
 	}
 	add_token(sh, NULL, EOFKW);
-	return (EXIT_SUCCESS);
+	return (1);
 }
