@@ -4,24 +4,20 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
 LIB = libft/libft.a -lreadline
 SRC = 	./minishell.c \
-		./src/error/err.c \
-		./src/error/err_syntax.c \
-		./src/error/err_utils.c \
-		./src/init/init_shell.c \
-		./src/clean/clean_utils.c \
-		./src/clean/clean_shell.c \
-		./src/parsing/parsing.c \
-		./src/parsing/parsing_cmd.c \
-		./src/parsing/parsing_redir.c \
-		./src/parsing/ast/ast_utils.c \
-		./src/parsing/token/syntax/syntax.c \
-		./src/parsing/token/syntax/syntax_quote.c \
-		./src/parsing/token/syntax/syntax_backslash.c \
-		./src/parsing/token/put_token.c \
-		./src/parsing/token/tokens.c \
-		./src/parsing/token/tokens_add.c \
-		./src/parsing/token/tokens_lst_utils.c \
-		./src/parsing/token/tokens_utils.c \
+		./src/0_init/init_shell.c \
+		./src/1_tokenization/syntax/syntax_p1.c \
+		./src/1_tokenization/syntax/syntax_p2.c \
+		./src/1_tokenization/syntax/syntax_quote.c \
+		./src/1_tokenization/syntax/syntax_complete.c \
+		./src/1_tokenization/put_token.c \
+		./src/1_tokenization/tokens.c \
+		./src/1_tokenization/tokens_add.c \
+		./src/1_tokenization/tokens_lst_utils.c \
+		./src/1_tokenization/tokens_utils.c \
+		./src/2_parsing_ast/parsing.c \
+		./src/2_parsing_ast/parsing_cmd.c \
+		./src/2_parsing_ast/parsing_redir.c \
+		./src/2_parsing_ast/ast/ast_utils.c \
 		./src/exec/expand/expand.c \
 		./src/exec/expand/expand_var.c \
 		./src/exec/expand/expand_args_split.c \
@@ -38,9 +34,6 @@ SRC = 	./minishell.c \
 		./src/exec/exec_utils.c \
 		./src/exec/parser_cmd/utils_parse_cmd.c \
 		./src/exec/parser_cmd/parser_cmd.c \
-		./src/signal/signal.c \
-		./src/signal/signal_fork.c \
-		./src/signal/signal_utils.c \
 		./src/func/cd.c \
 		./src/func/echo.c \
 		./src/func/env.c \
@@ -48,6 +41,14 @@ SRC = 	./minishell.c \
 		./src/func/export.c \
 		./src/func/pwd.c \
 		./src/func/unset.c \
+		./src/signal/signal.c \
+		./src/signal/signal_fork.c \
+		./src/signal/signal_utils.c \
+		./src/clean/clean_utils.c \
+		./src/clean/clean_shell.c \
+		./src/error/err.c \
+		./src/error/err_syntax.c \
+		./src/error/err_utils.c \
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:38:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/20 09:12:02 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:41:22 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static t_ast	*parse_subshell(t_shell *sh, t_token **tokens)
 	if (!*tokens || (*tokens)->kw != R_PARENTH)
 		return (NULL);
 	(*tokens) = (*tokens)->next;
-	if (parse_redir(sh, node, tokens))
+	if (!parse_redir(sh, node, tokens))
 		return (NULL);
 	return (node);
 }
@@ -81,9 +81,9 @@ static t_ast	*parse_command(t_shell *sh, t_token **tokens)
 		|| (*tokens)->kw == REDIR_HD || (*tokens)->kw == REDIR_OUT
 		|| (*tokens)->kw == REDIR_APP))
 	{
-		if (parse_redir(sh, node, tokens))
+		if (!parse_redir(sh, node, tokens))
 			return (NULL);
-		if (parse_command_args(sh, node, tokens))
+		if (!parse_command_args(sh, node, tokens))
 			return (NULL);
 	}
 	return (node);
@@ -118,7 +118,7 @@ t_ast	*parser(t_shell *sh, t_token **tokens)
 	t_ast	*node;
 
 	node = parse_logical_operators(sh, tokens);
-	if (!node || (tokens && (*tokens)->kw != EOFKW))
+	if (!node || (*tokens && (*tokens)->kw != EOFKW))
 		return (NULL);
 	return (node);
 }

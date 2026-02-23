@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax.c                                           :+:      :+:    :+:   */
+/*   syntax_p1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:18:16 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/20 14:10:05 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 00:35:54 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../error/err.h"
+#include "../../error/err.h"
 #include "syntax.h"
 
 static int	redir_syntax(t_shell *sh)
@@ -18,20 +18,20 @@ static int	redir_syntax(t_shell *sh)
 	t_token	*current;
 
 	current = sh->tokens;
-	while (current->next)
+	while (current)
 	{
 		if (current->kw == REDIR_IN || current->kw == REDIR_HD
 			|| current->kw == REDIR_OUT || current->kw == REDIR_APP)
 		{
-			if (!current->next || (current->next && current->next->kw != WORD))
+			if (current->next && current->next->kw != WORD)
 			{
 				syntax_error(sh, current->next->kw, -MISUSE);
-				return (EXIT_FAILURE);
+				return (0);
 			}
 		}
 		current = current->next;
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 static int	pipe_syntax(t_shell *sh)
@@ -39,24 +39,23 @@ static int	pipe_syntax(t_shell *sh)
 	t_token	*current;
 
 	current = sh->tokens;
-	while (current->next)
+	while (current)
 	{
 		if (current->kw == PIPE)
 		{
-			if (!current->prev)
+			if (!current->prev || current->prev->kw == PIPE
+				|| current->prev->kw == L_PARENTH || current->prev->kw == AND
+				|| current->prev->kw == OR)
 			{
 				syntax_error(sh, PIPE, -MISUSE);
-				return (EXIT_FAILURE);
+				return (0);
 			}
-			if (current->next && current->next->kw == PIPE)
-			{
-				syntax_error(sh, PIPE, -MISUSE);
-				return (EXIT_FAILURE);
-			}
+			if (!current->next || current->next->kw == EOFKW)
+				return (syntax_completion(sh));
 		}
 		current = current->next;
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 static int	parenth_syntax(t_shell *sh)
@@ -69,29 +68,39 @@ static int	parenth_syntax(t_shell *sh)
 	while (current)
 	{
 		if (current->kw == L_PARENTH)
+		{
 			count++;
+			if (current->next->kw == R_PARENTH)
+				return (syntax_error(sh, R_PARENTH, -MISUSE), 0);
+		}
 		else if (current->kw == R_PARENTH)
 			count--;
+		if (count < 0)
+			return (syntax_error(sh, R_PARENTH, -MISUSE), 0);
 		current = current->next;
 	}
 	if (count > 0)
-		return (syntax_error(sh, L_PARENTH, -MISUSE), EXIT_FAILURE);
-	else if (count < 0)
-		return (syntax_error(sh, R_PARENTH, -MISUSE), EXIT_FAILURE);
-	if (count != 0)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (syntax_completion(sh));
+	return (1);
 }
 
 int	check_syntax(t_shell *sh)
 {
 	if (!sh->tokens)
-		return (EXIT_FAILURE);
-	if (redir_syntax(sh))
-		return (EXIT_FAILURE);
-	if (pipe_syntax(sh))
-		return (EXIT_FAILURE);
-	if (parenth_syntax(sh))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (0);
+	if (!redir_syntax(sh))
+		return (0);
+	if (!or_syntax(sh))
+		return (0);
+	if (!pipe_syntax(sh))
+		return (0);
+	if (!parenth_syntax(sh))
+		return (0);
+	if (!and_syntax(sh))
+		return (0);
+	if (!semicolon_syntax(sh))
+		return (0);
+	if (!ampersand_syntax(sh))
+		return (0);
+	return (1);
 }

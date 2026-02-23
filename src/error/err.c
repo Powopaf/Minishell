@@ -6,13 +6,13 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/20 18:36:31 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/21 14:43:27 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
 #include "../clean/clean_shell.h"
-#include "../parsing/token/tokens.h"
+#include "../1_tokenization/tokens.h"
 #include "err.h"
 #include <errno.h>
 #include <stdlib.h>
@@ -47,7 +47,7 @@ void	warning_hd(t_shell *sh)
 	free(s);
 }
 
-void	sanitize_copy(char **context, char **tmp, size_t count)
+static void	sanitize_copy(char **context, char **tmp, size_t count)
 {
 	size_t	i;
 	size_t	j;
@@ -71,7 +71,7 @@ void	sanitize_copy(char **context, char **tmp, size_t count)
 	(*tmp)[i + count + 3] = '\0';
 }
 
-char *sanitize(char **context)
+static char *sanitize(char **context)
 {
 	char	*tmp;
 	size_t	i;

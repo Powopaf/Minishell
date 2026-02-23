@@ -6,18 +6,18 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 11:34:58 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 00:09:16 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <readline/readline.h>
-#include "src/init/init_shell.h"
+#include "src/0_init/init_shell.h"
 #include <readline/history.h>
-#include "src/parsing/token/tokens.h"
-#include "src/parsing/token/syntax/syntax.h"
+#include "src/1_tokenization/tokens.h"
+#include "src/1_tokenization/syntax/syntax.h"
 #include "src/exec/exec.h"
 #include <stdio.h>
-#include "src/parsing/parsing.h"
+#include "src/2_parsing_ast/parsing.h"
 #include "src/clean/clean_shell.h"
 #include "signal.h"
 #include "src/signal/signal_handling.h"
@@ -37,15 +37,15 @@ static int	process_line(t_shell *shell, char *line)
 		g_signal = 0;
 	}
 	shell->line = line;
-	if (tokenization(shell))
-		return (EXIT_FAILURE);
-	if (check_syntax(shell))
-		return (0);
+	if (!tokenization(shell))
+		return (clean_prompt(shell), 0);
+	if (!check_syntax(shell))
+		return (clean_prompt(shell), 0);
 	tokens = shell->tokens;
 	shell->ast = parser(shell, &tokens);
 	if (!shell->ast)
-		return (EXIT_FAILURE);
-	shell->status = exec_root(shell, shell->ast);
+		return (clean_prompt(shell), 0);
+	exec_root(shell, shell->ast);
 	clean_prompt(shell);
 	return (shell->exit != -1);
 }

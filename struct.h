@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 15:21:43 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/22 11:15:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ typedef enum e_token_kw
 	PIPE,
 	L_PARENTH,
 	R_PARENTH,
-	SEMICOLON,
-	AMPERSAND,
 	AND,
 	OR,
-	WORD,
-	FLAG,
-	VAR,
+	SEMICOLON,
+	AMPERSAND,
+	WORD
 }	t_token_kw;
 
 typedef enum e_ast_node

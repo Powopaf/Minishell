@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:20 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:09:12 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/22 23:20:36 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@
  * @param {t_ast *} node - AST root node.
  * @returns {int} Exit status of the executed pipeline.
  */
-int	exec_root(t_shell *sh, t_ast *node);
+void	exec_root(t_shell *sh, t_ast *node);
 
 #endif

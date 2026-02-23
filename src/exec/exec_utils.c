@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/12 16:09:55 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/22 23:33:17 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	try_pipe(t_shell *sh, int fd[2])
 	if (pipe(fd) < 0)
 	{
 		error(sh, "pipe", strerror(errno), -EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 int	restore_std(t_shell *sh)
@@ -45,37 +45,42 @@ int	restore_std(t_shell *sh)
 	if (dup2(sh->stdin_fd, STDIN_FILENO) < 0)
 	{
 		error(sh, "dup2", strerror(errno), -EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	if (dup2(sh->stdout_fd, STDOUT_FILENO) < 0)
 	{
 		error(sh, "dup2", strerror(errno), -EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 int	wait_ast(t_ast *node)
 {
 	int	status;
-	int	exit;
+	int	exit_status;
 
-	exit = EXIT_SUCCESS;
+	exit_status = EXIT_SUCCESS;
 	if (!node)
-		return (exit);
-	if (node->left)
+		return (exit_status);
+	if (node->left && node )
 		status = wait_ast(node->left);
 	if (node->right)
 		status = wait_ast(node->right);
 	if (node->pid > 0)
 	{
-		waitpid(node->pid, &status, 0);
-		if (WIFEXITED(status))
-			exit = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			exit = WTERMSIG(status) + SIG_BASE;
+		if (node->astkw == AST_SUBSHELL)
+			exit_status = node->status;
+		else
+		{
+			waitpid(node->pid, &status, 0);
+			if (WIFEXITED(status))
+				exit_status = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				exit_status = WTERMSIG(status) + SIG_BASE;
+		}
 	}
-	return (exit);
+	return (exit_status);
 }
 
 int	is_dir(char *path)

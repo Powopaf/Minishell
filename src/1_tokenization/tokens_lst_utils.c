@@ -6,13 +6,13 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 08:05:00 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/24 15:22:03 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 00:03:58 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token_utils.h"
-#include "../../error/err.h"
-#include "../../../libft/libft.h"
+#include "../error/err.h"
+#include "../../libft/libft.h"
 #include <stdlib.h>
 
 static void	token_add_back(t_token **token, t_token *new)
@@ -66,7 +66,7 @@ int	add_token(t_shell *sh, char *token, t_token_kw kw)
 
 	new_tk = create_token(sh, token, kw);
 	if (!new_tk)
-		return (EXIT_FAILURE);
+		return (0);
 	token_add_back(&sh->tokens, new_tk);
-	return (EXIT_SUCCESS);
+	return (1);
 }

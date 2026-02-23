@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:09:07 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 17:23:59 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/22 23:43:37 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  * @param {t_ast *} node - AST command node.
  * @returns {int} Exit status.
  */
-int		exec_cmd(t_shell *sh, t_ast *node);
+void		exec_cmd(t_shell *sh, t_ast *node);
 
 /**
  * Forks the current process with error handling.

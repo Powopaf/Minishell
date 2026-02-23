@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 16:22:39 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/22 23:43:44 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ static int	pipe_redir(t_shell *sh, t_ast *node)
 	if (node->fd_in > -1 && dup2(node->fd_in, STDIN_FILENO) < 0)
 	{
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	if (node->fd_out > -1 && dup2(node->fd_out, STDOUT_FILENO) < 0)
 	{
 		error(sh, "dup2", strerror(errno), EXIT_FAILURE);
-		return (EXIT_FAILURE);
+		return (0);
 	}
 	ft_close_fd(&node->fd_in);
 	ft_close_fd(&node->fd_out);
-	return (EXIT_SUCCESS);
+	return (1);
 }
 
 static void	exec_bin(t_shell *sh, t_ast *node)
@@ -76,19 +76,19 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 static void	exec_forked(t_shell *sh, t_ast *node)
 {
 	setup_child_signals(sh);
-	if (pipe_redir(sh, node) != EXIT_SUCCESS)
+	if (!pipe_redir(sh, node))
 		exit(EXIT_FAILURE);
-	if (redir(sh, node->redir) != EXIT_SUCCESS)
+	if (!redir(sh, node->redir))
 		exit(EXIT_FAILURE);
 	exec_bin(sh, node);
 }
 
-int	exec_cmd(t_shell *sh, t_ast *node)
+void	exec_cmd(t_shell *sh, t_ast *node)
 {
 	if (!node)
-		return (EXIT_SUCCESS);
+		return ;
 	if (!expand_cmd(sh, node))
-		return (EXIT_FAILURE);
+		return ;
 	handle_heredocs(sh, node);
 	if (node->args && node->args[0])
 	{
@@ -98,17 +98,16 @@ int	exec_cmd(t_shell *sh, t_ast *node)
 			{
 				if (ft_strncmp(node->args[0], "exit", 5) == 0
 					&& sh->exit != -1)
-					return (sh->exit);
-				return (sh->status);
+					return ;//(sh->exit);
+				return ;//(sh->status);
 			}
 		}
 	}
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
-		return (error(sh, "fork", strerror(errno),
-				-EXIT_FAILURE), EXIT_FAILURE);
+		return ;
 	if (node->pid == 0)
 		exec_forked(sh, node);
 	return (ignore_signals(), ft_close_fd(&node->fd_in),
-		ft_close_fd(&node->fd_out), EXIT_SUCCESS);
+		ft_close_fd(&node->fd_out));
 }
