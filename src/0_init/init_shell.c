@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 12:12:06 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 20:08:47 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "../error/err.h"
 #include "../signal/signal_handling.h"
 #include "init_shell.h"
-#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>

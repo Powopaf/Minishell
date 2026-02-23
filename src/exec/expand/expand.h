@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:03:22 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/18 15:27:12 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 00:13:41 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ int		is_quoted(char *s);
 
 char	*strdup_rm_quotes(char *s);
 
+int		arr_rm_backslash(char ***arr);
+
 // expand_wildcards_utils.c
 /**
  * Checks if a string contains at least one unquoted wildcard character ('*')
@@ -121,5 +123,7 @@ char	*strdup_rm_quotes(char *s);
  * @return 1 if an unquoted wildcard is found, 0 otherwise.
  */
 int		include_wildcard(char *s);
+
+void	sort_ascii(char **s);
 
 #endif

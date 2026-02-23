@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/23 00:25:13 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 20:08:42 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ERR_H
 
 # include "../../struct.h"
+# include <errno.h>
 
 # define SUCCESS 0
 # define FAIL 1

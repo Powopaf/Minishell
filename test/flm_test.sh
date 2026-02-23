@@ -67,17 +67,19 @@ test_command() {
 
 	echo -e "${YELLOW}$> $1 ${NC}"
 
+	bash_stdout_tmp=$(mktemp)
+	mini_stdout_tmp=$(mktemp)
 	bash_stderr_tmp=$(mktemp)
 	mini_stderr_tmp=$(mktemp)
 
-	expected_stdout=$(echo "$cmd" | bash --posix 2>"$bash_stderr_tmp")
+	echo "$cmd" | bash --posix >"$bash_stdout_tmp" 2>"$bash_stderr_tmp"
 	expected_code=$?
-	# expected_stderr=$(cat "$bash_stderr_tmp")
+	expected_stdout=$(cat "$bash_stdout_tmp")
 	expected_stderr=$(head -n 1 "$bash_stderr_tmp" | sed 's/^bash: line [0-9]*: //')
 
-	actual_stdout=$(echo \'$cmd\' | "$MINISHELL" 2>"$mini_stderr_tmp")
+	echo "$cmd" | "$MINISHELL" >"$mini_stdout_tmp" 2>"$mini_stderr_tmp"
 	exit_code=$?
-	# actual_stderr=$(cat "$mini_stderr_tmp")
+	actual_stdout=$(cat "$mini_stdout_tmp")
 	actual_stderr=$(head -n 1 "$mini_stderr_tmp" | sed 's/^minishell: line [0-9]*: //')
 
 	#expected_stderr_clean=$(echo "$expected_stderr" | sed 's/^bash: line [0-9]*: //')
@@ -91,6 +93,7 @@ test_command() {
 	if [ "$expected_code" -eq "$exit_code" ]; then
 		pass_exitcode "$expected_code"
 	fi
+
 	if [ "$expected_stdout" != "$actual_stdout" ]; then
 		failed=1
 		error_stdout "$expected_stdout" "$actual_stdout"
@@ -98,6 +101,7 @@ test_command() {
 	if [ "$expected_stdout" = "$actual_stdout" ]; then
 		pass_stdout "$expected_stdout"
 	fi
+
 	if [ "$expected_stderr" != "$actual_stderr" ]; then
 		failed=1
 		error_stderr "$expected_stderr" "$actual_stderr"
@@ -106,7 +110,7 @@ test_command() {
 		pass_stderr "$expected_stderr"
 	fi
 
-	rm -f "$bash_stderr_tmp" "$mini_stderr_tmp"
+	rm -f "$bash_stderr_tmp" "$mini_stderr_tmp" "$bash_stdout_tmp" "$mini_stdout_tmp"
 
 	if [ "$failed" -eq 1 ]; then
 		failed_tests=$((failed_tests + 1))
