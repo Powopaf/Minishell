@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/18 15:30:14 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/23 13:35:08 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../../libft/libft.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static int	verif(char *new_pwd, t_shell *sh)
 {
@@ -28,9 +29,19 @@ static int	is_full_path(t_shell *sh, char *path, char **new_pwd)
 {
 	char	*home;
 
+	if (!path || path[0] == '\0')
+	{
+		home = get_env(sh, "HOME");
+		if (!home)
+			return (error(sh, "cd", "HOME not set", 1), 1);
+		*new_pwd = ft_strdup(home);
+		return (free(home), verif(*new_pwd, sh));
+	}
 	if (path[0] == '~')
 	{
 		home = get_env(sh, "HOME");
+		if (!home)
+			return (error(sh, "cd", "HOME not set", 1), 1);
 		*new_pwd = ft_strjoin(home, path + 1);
 		return (free(home), verif(*new_pwd, sh));
 	}
