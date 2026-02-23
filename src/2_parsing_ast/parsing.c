@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:38:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 14:41:22 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:57:02 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,12 @@ static t_ast	*parse_pipelines(t_shell *sh, t_token **tokens)
 		if (!node)
 			return (NULL);
 		node->left = left;
+		node->left->parent = node;
 		(*tokens) = (*tokens)->next;
 		node->right = parse_command(sh, tokens);
 		if (!node->right)
 			return (NULL);
+		node->right->parent = node;
 		left = node;
 	}
 	return (left);

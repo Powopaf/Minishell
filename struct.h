@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/22 11:15:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:44:22 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_ast
 	int				status;
 	struct s_ast	*left;
 	struct s_ast	*right;
+	struct s_ast	*parent;
 }	t_ast;
 
 typedef struct s_token
