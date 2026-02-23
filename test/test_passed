@@ -1,0 +1,236 @@
+echo "Hello, World!"
+echo -n "Hello, World!"
+pwd
+pwd hi
+pwd qsfds
+cd .
+cd Document
+cd ..
+export TEST1
+export TEST2=1 TEST3=2
+unset TEST1
+unset TEST2 TEST3
+exit
+exit 123
+exit +100
+exit +"100"
+exit "+100"
+exit -100
+exit -1
+exit 0
+exit 123 hello
+>
+<
+>>
+<<
+>>>>>
+>>>>>>>>>>>>>>>
+<<<<<
+> > > >
+>> >> >> >>
+>>>> >> >> >>
+/
+//
+/.
+/./../../../../..
+///////
+-
+|
+| hola
+| | |
+||
+|||||
+|||||||||||||
+>>|><
+&&
+&&&&&
+&&&&&&&&&&&&&&
+()
+( ( ) )
+( ( ( ( ) ) ) )
+""
+"hola"
+hola'
+'
+*/*
+*/*
+hola
+hola que tal
+Makefile
+ls *
+ls *.*
+ls *.hola
+cat M*le
+cat M*ee
+cat Make*file
+echo
+echo -n
+echo Hola
+echoHola
+echo-nHola
+echo -n Hola
+echo "-n" Hola
+echo -nHola
+echo Hola -n
+echo Hola Que Tal
+echo         Hola
+echo    Hola     Que    Tal
+""''echo hola""'''' que""'' tal""''
+echo -p
+echo -n-nnn -nnnn
+echo -n -nnn-nnnn
+echo --------n
+echo $
+echo $?
+echo $?$
+echo $HOME
+echo my shit terminal is [$TERM4
+echo my shit terminal is [$TERM4]
+echo $HOME9
+echo $HOME%
+echo Le path de mon HOME est $HOME
+echo > <
+echo | |
+EechoE
+.echo.
+>echo>
+<echo<
+>>echo>>
+|echo|
+|echo -n hola
+echo '*'
+echo D*
+echo *Z
+echo *t hola
+echo *t
+echo "$"""
+echo '$'''
+echo "$HO"ME
+echo '$HO'ME
+echo "$HO""ME"
+echo '$HO''ME'
+echo ""$HOME
+echo "" $HOME
+echo ''$HOME
+echo '' $HOME
+echo "$"HOME
+echo $=HOME
+echo $DONTEXIST Hola
+echo "hola"
+echo 'hola'
+echo ''hola''
+echo ''h'o'la''
+echo "''h'o'la''"
+echo "'"h'o'la"'"
+echo"'hola'"
+echo "'hola'"
+echo '''ho"''''l"a'''
+echo hola""""""""""""
+echo hola"''''''''''"
+echo hola''''''''''''
+echo hola'""""""""""'
+e"cho hola"
+e'cho hola'
+echo ""hola
+echo "" hola
+echo ""             hola
+echo ""hola
+echo "" hola
+echo hola""bonjour
+"e"'c'ho 'b'"o"nj"o"'u'r
+""e"'c'ho 'b'"o"nj"o"'u'r"
+echo "$DONTEXIST"Makefile
+echo "$DONTEXIST""Makefile"
+echo "$DONTEXIST" "Makefile"
+$?
+$?$?
+?$HOME
+$
+$HOME
+"$HOMEdskjhfkdshfsd"
+$HOMEdskjhfkdshfsd'
+'
+/bin/echo
+/bin/echo Hola Que Tal
+ls | exit
+echo hola > bonjour cat -e bonjour | exit
+echo | echo
+cd ./test
+echo hola || cat
+echo hola ||| cat
+export HOLA=bonjour | cat -e | cat -e
+unset HOLA | cat -e
+echo hola > a >>b echo que tal cat a | <b cat | cat > c | cat
+pwd || ls
+echo hola || echo bonjour
+echo hola && echo bonjour
+echo bonjour || echo hola
+echo bonjour && echo hola
+echo -n bonjour && echo -n hola
+pwd || ls && echo hola
+pwd || ls || echo hola
+ls || export ""
+ls || ;
+; || ls
+ls && ;
+; && ls
+ls || <
+ls && <
+cat | echo || ls
+ls || cat | echo
+ls && cat | echo
+(ls)
+( ( ls ) )
+( ( ) ls )
+ls && (ls)
+(ls && pwd)
+( ( ls&&pwd ) )
+( ( ls ) &&pwd )
+cat hola
+> hola ls && pwd
+(< pwd)
+( ( ( ( ( pwd) ) ) ) )
+() pwd
+(ls||pwd)&&(ls||pwd)
+cat hola
+cat hola
+echo hey > hola
+echo hey > hola
+echo hey > hola
+cat hola
+cat Docs/hey
+cat hola
+cat Docs/hey
+cd ../.. && pwd && pwd
+(cd ../.. && pwd) && pwd
+exit
+exit 42
+exit 000042
+exit 666
+exit 666 666
+exit -666 666
+exit 666 666 666 666
+exit 666 hola 666
+exit 259
+exit -4
+exit -42
+exit -0000042
+exit -259
+exit -666
+exit +666
+exit 0
+exit +0
+exit -0
+exit +42
+exit -69 -96
+exit "666"
+exit '666'
+exit '-666'
+exit '+666'
+exit '6'66
+exit '2'66'32'
+exit '666'"666"666
+exit +'666'"666"666
+exit -'666'"666"666
+exit 9223372036854775807
+exit -9223372036854775808
