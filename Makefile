@@ -18,6 +18,7 @@ SRC = 	./minishell.c \
 		./src/2_parsing_ast/parsing.c \
 		./src/2_parsing_ast/parsing_cmd.c \
 		./src/2_parsing_ast/parsing_redir.c \
+		./src/2_parsing_ast/parsing_utils.c \
 		./src/2_parsing_ast/ast/ast_utils.c \
 		./src/exec/expand/expand.c \
 		./src/exec/expand/expand_var.c \

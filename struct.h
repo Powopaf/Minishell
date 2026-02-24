@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/23 14:44:22 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 07:32:00 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef enum e_ast_node
 	AST_AND,
 	AST_OR,
 	AST_SUBSHELL,
-	AST_FUNC
+	AST_THEN
 }	t_ast_node_type;
 
 typedef struct s_ast
