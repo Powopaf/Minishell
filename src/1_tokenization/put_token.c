@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 12:02:23 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 11:10:37 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 07:36:49 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ char	*ft_astkw_to_char(t_ast_node_type kw)
 		return ("||");
 	if (kw == AST_SUBSHELL)
 		return ("SUBSHELL");
+	if (kw == AST_THEN)
+		return (";");
 	return ("Error in AST");
 }

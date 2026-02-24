@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:04:47 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/23 13:56:32 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 08:17:51 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int	check_syntax(t_shell *sh);
  */
 int	quote_syntax(t_shell *sh);
 
-int	semicolon_syntax(t_shell *sh);
+int	semicolon_syntax(t_shell *sh, t_token *current);
 
-int	or_syntax(t_shell *sh);
+int	or_syntax(t_shell *sh, t_token *current);
 
-int	ampersand_syntax(t_shell *sh);
+int	ampersand_syntax(t_shell *sh, t_token *current);
 
-int	and_syntax(t_shell *sh);
+int	and_syntax(t_shell *sh, t_token *current);
 
 int	syntax_completion(t_shell *sh);
 

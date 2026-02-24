@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:38:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 14:57:02 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 07:44:25 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ static t_ast	*parse_logical_operators(t_shell *sh, t_token **tokens)
 	left = parse_pipelines(sh, tokens);
 	if (!left)
 		return (NULL);
-	while ((*tokens) && ((*tokens)->kw == AND || (*tokens)->kw == OR))
+	while ((*tokens) && (is_logop((*tokens))))
 	{
 		if ((*tokens)->kw == AND)
 			node = create_ast_node(sh, AST_AND);
-		else
+		else if ((*tokens)->kw == OR)
 			node = create_ast_node(sh, AST_OR);
+		else
+			node = create_ast_node(sh, AST_THEN);
 		if (!node)
 			return (NULL);
 		node->left = left;

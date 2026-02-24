@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/22 23:49:25 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 07:46:53 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	exec(t_shell *sh, t_ast *node)
 		exec_cmd(sh, node);
 	if (node->astkw == AST_PIPE)
 		exec_pipe(sh, node);
-	if (node->astkw == AST_AND || node->astkw == AST_OR)
+	if (node->astkw == AST_AND || node->astkw == AST_OR
+			|| node->astkw == AST_THEN)
 		exec_logop(sh, node);
 	if (node->astkw == AST_SUBSHELL)
 		exec_sub(sh, node);
@@ -93,6 +94,8 @@ static void	exec_logop(t_shell *sh, t_ast *node)
 			return (exec(sh, node->right));
 		return ;
 	}
+	else if (node->astkw == AST_THEN)
+		return (exec(sh, node->right));
 	return ;
 }
 
@@ -107,7 +110,8 @@ void	exec_root(t_shell *sh, t_ast *node)
 		exec_cmd(sh, node);
 	if (node->astkw == AST_PIPE)
 		exec_pipe(sh, node);
-	if (node->astkw == AST_AND || node->astkw == AST_OR)
+	if (node->astkw == AST_AND || node->astkw == AST_OR
+			|| node->astkw == AST_THEN)
 		exec_logop(sh, node);
 	if (node->astkw == AST_SUBSHELL)
 		exec_sub(sh, node);

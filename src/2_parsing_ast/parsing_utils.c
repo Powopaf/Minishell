@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 23:01:47 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 07:43:45 by flomulle         ###   ########.fr       */
+/*   Created: 2026/02/24 07:41:02 by flomulle          #+#    #+#             */
+/*   Updated: 2026/02/24 07:43:51 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#include "parsing.h"
 
-# include "../../struct.h"
-/**
- * Builds an AST from the token list.
- * @param {t_shell *} sh - Shell context.
- * @param {t_token **} tokens - Pointer to token list.
- * @returns {t_ast*} Root of the AST or NULL on failure.
- */
-t_ast	*parser(t_shell *sh, t_token **tokens);
-
-int		is_logop(t_token *token);
-
-#endif
+int	is_logop(t_token *token)
+{
+	if (token && (token->kw == AND || token->kw == OR
+			|| token->kw == SEMICOLON))
+		return (1);
+	return (0);
+}
