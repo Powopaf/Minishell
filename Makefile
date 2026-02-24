@@ -29,6 +29,7 @@ SRC = 	./minishell.c \
 		./src/exec/expand/expand_env.c \
 		./src/exec/expand/expand_rm_quotes.c \
 		./src/exec/expand/expand_rm_backslash.c \
+		./src/exec/expand/expand_utils.c \
 		./src/exec/heredocs/heredoc.c \
 		./src/exec/exec.c \
 		./src/exec/pipe.c \
