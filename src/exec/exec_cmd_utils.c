@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   exec_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 23:08:20 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 16:35:15 by flomulle         ###   ########.fr       */
+/*   Created: 2026/02/24 16:24:31 by flomulle          #+#    #+#             */
+/*   Updated: 2026/02/24 16:47:13 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "../../libft/libft.h"
+#include "../clean/clean_shell.h"
+#include "exec.h"
+#include <stdlib.h>
 
-# include "../../struct.h"
+void	clean_forked_proc(t_ast *node, char *cmd, char **args, char **envp)
+{
+	int	status;
 
-/**
- * Executes the AST starting at the root node.
- * @param {t_shell *} sh - Shell context.
- * @param {t_ast *} node - AST root node.
- * @returns {int} Exit status of the executed pipeline.
- */
-void	exec_root(t_shell *sh, t_ast *node);
-
-void	clean_forked_proc(t_ast *node, char *cmd, char **args, char **envp);
-
-#endif
+	status = node->shell->status;
+	if (cmd)
+		free(cmd);
+	if (args)
+		ft_free_array_strs(&args);
+	if (envp)
+		ft_free_array_strs(&envp);
+	clean_shell(node->shell);
+	exit(status);
+}
