@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 07:32:00 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 08:35:10 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum e_token_kw
 	AND,
 	OR,
 	SEMICOLON,
+	D_SEMICOLON,
 	AMPERSAND,
 	WORD
 }	t_token_kw;

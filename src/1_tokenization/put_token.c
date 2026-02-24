@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 12:02:23 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 07:36:49 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 08:34:45 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	*ft_token_to_char(t_token_kw kw)
 		return (")");
 	if (kw == SEMICOLON)
 		return (";");
+	if (kw == D_SEMICOLON)
+		return (";;");
 	if (kw == AMPERSAND)
 		return ("&");
 	if (kw == PIPE)
