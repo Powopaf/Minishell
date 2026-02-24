@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 10:11:01 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 08:37:20 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 10:30:16 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,5 @@ int	ampersand_syntax(t_shell *sh, t_token *current)
 		syntax_error(sh, AMPERSAND, -MISUSE);
 		return (0);
 	}
-	current = current->next;
 	return (1);
 }

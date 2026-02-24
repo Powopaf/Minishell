@@ -6,12 +6,13 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 09:09:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/19 12:23:06 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:29:28 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expand.h"
 #include "expand_custom_split.h"
+#include "../../../libft/libft.h"
 
 void	handle_quotes(char *s, size_t *i)
 {
@@ -54,46 +55,6 @@ static int	ft_count_words(char *s)
 	return (count);
 }
 
-static char	*ft_strndup(char *s, size_t n)
-{
-	size_t	len;
-	size_t	i;
-	char	*dup;
-
-	if (s == NULL)
-		return (NULL);
-	len = 0;
-	while (s[len])
-		len++;
-	if (n > len)
-		n = len;
-	dup = (char *)malloc((n + 1) * sizeof(*dup));
-	if (dup == NULL)
-		return (NULL);
-	i = 0;
-	while (i < n)
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[n] = '\0';
-	return (dup);
-}
-
-static char	**ft_freeall(char **p, size_t w)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < w)
-	{
-		free(p[i]);
-		i++;
-	}
-	free(p);
-	return (NULL);
-}
-
 static size_t	ft_lenbnext(char *s, size_t n)
 {
 	size_t	i;
@@ -129,7 +90,7 @@ char	**split(char *s)
 			break ;
 		p[w] = ft_strndup((s + i), ft_lenbnext(s, i));
 		if (!p[w])
-			return (ft_freeall(p, w));
+			return (ft_free_array_strs(&p), NULL);
 		w++;
 		i += ft_lenbnext(s, i);
 	}

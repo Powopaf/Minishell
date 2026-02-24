@@ -28,6 +28,7 @@ SRC = ./ft_add_str_array.c \
 	  ./ft_strncmp.c \
 	  ./ft_strrchr.c \
 	  ./ft_strsdup.c \
+	  ./ft_strndup.c \
 	  ./ft_substr.c \
 	  ./gnl/ft_get_next_line.c \
 	  ./gnl/ft_get_next_line_utils.c \

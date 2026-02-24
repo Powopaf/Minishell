@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:38:52 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 00:05:28 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 11:41:01 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,8 @@ int		ft_isdigit(int c);
  */
 void	ft_close_fd(int *fd);
 
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
+
+char	*ft_strndup(char *s, size_t n);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 16:06:40 by flomulle          #+#    #+#             */
-/*   Updated: 2025/12/11 13:26:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 12:05:00 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_count_words(char const *s, char c)
 	return (count);
 }
 
-static char	*ft_strndup(const char *s, size_t n)
+static char	*ft_strndup_split(const char *s, size_t n)
 {
 	size_t	len;
 	size_t	i;
@@ -101,7 +101,7 @@ char	**ft_split(char const *s, char c)
 			i++;
 		if (!s[i])
 			break ;
-		p[w] = ft_strndup((s + i), ft_lenbnext(s, i, c));
+		p[w] = ft_strndup_split((s + i), ft_lenbnext(s, i, c));
 		if (!p[w])
 			return (ft_freeall(p, w));
 		w++;
