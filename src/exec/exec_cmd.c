@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 12:48:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 08:40:43 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,23 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	char	**args;
 	char	**envp;
 
+	cmd = NULL;
+	args = NULL;
+	envp = NULL;
 	cmd = parse_cmd(sh, node);
+	if (!cmd)
+		clean_exit_forked_cmd(node, cmd, args, envp);
 	args = ft_strsdup(node->args);
 	if (!args)
-		error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
+		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE),
+			clean_exit_forked_cmd(node, cmd, args, envp));
 	envp = ft_strsdup(sh->envp);
 	if (!envp)
-		error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE);
+		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE),
+			clean_exit_forked_cmd(node, cmd, args, envp));
 	if (is_builtin(cmd, sh, args) > 0)
-	{
-		ft_free_array_strs(&args);
-		ft_free_array_strs(&envp);
-		if (cmd && ft_strncmp(cmd, "exit", 5) == 0)
-			exit(sh->exit);
-		exit(sh->status);
-	}
+		clean_exit_forked_cmd(node, cmd, args, envp);
 	clean_shell(sh);
-	if (!cmd)
-	{
-		ft_free_array_strs(&args);
-		ft_free_array_strs(&envp);
-		exit(sh->status);
-	}
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
 }
@@ -89,17 +84,11 @@ void	exec_cmd(t_shell *sh, t_ast *node)
 		return ;
 	expand_cmd(sh, node);
 	handle_heredocs(sh, node);
-	if (!node->args)
-		return (ft_close_fd(&node->fd_in), ft_close_fd(&node->fd_out));
 	if (node->args && node->args[0] && (!node->parent
 			|| node->parent->astkw != AST_PIPE))
 	{
-		if (is_builtin(node->args[0], sh, node->args) > 0)
-		{
-			if (ft_strncmp(node->args[0], "exit", 5) == 0 && sh->exit != -1)
-				return ;
-			return ;
-		}
+		if (!ft_strncmp(node->args[0], "exit", 5))
+			ft_exit(node->args, sh);
 	}
 	node->pid = try_fork(sh);
 	if (node->pid < 0)

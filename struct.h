@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 08:35:10 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/24 16:46:57 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <sys/types.h>
 # include <termios.h>
+
+typedef struct s_shell	t_shell;
+typedef struct s_ast	t_ast;
 
 typedef enum e_token_kw
 {
@@ -56,7 +59,8 @@ typedef struct s_ast
 	struct s_ast	*left;
 	struct s_ast	*right;
 	struct s_ast	*parent;
-}	t_ast;
+	t_shell			*shell;
+}					t_ast;
 
 typedef struct s_token
 {
@@ -82,6 +86,6 @@ typedef struct s_shell
 	struct termios	original_termios;
 	t_token			*tokens;
 	t_ast			*ast;
-}	t_shell;
+}					t_shell;
 
 #endif

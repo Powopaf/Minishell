@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:20 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/22 23:20:36 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 08:29:08 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@
  * @returns {int} Exit status of the executed pipeline.
  */
 void	exec_root(t_shell *sh, t_ast *node);
+
+void	clean_exit_forked_cmd(t_ast *node, char *cmd, char **args, char **envp);
 
 #endif
