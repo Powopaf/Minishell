@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:12:37 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 14:06:47 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/25 19:14:31 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*join_err(t_shell *sh, char *context, char *why)
 		if (s)
 			free(s);
 		s = ft_strjoin(tmp, context);
+		free(tmp);
 	}
 	s = ft_strjoin_char_p(&s, ':', 1, 1);
 	s = ft_strjoin_char_p(&s, ' ', 1, 1);

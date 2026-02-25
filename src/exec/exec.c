@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 13:59:44 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/25 19:52:10 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	exec_logop(t_shell *sh, t_ast *node)
 	if (!node)
 		return ;
 	exec(sh, node->left);
+	sh->status = wait_ast(node->left);
 	if (sh->exit != -1)
 		return ;
 	if (node->astkw == AST_AND)

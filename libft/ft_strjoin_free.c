@@ -6,17 +6,24 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 12:41:45 by flomulle          #+#    #+#             */
-/*   Updated: 2026/01/14 17:34:39 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 00:09:45 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
 static void	ft_free_param(char **s1, char **s2, int param)
 {
 	if (!param)
 		return ;
+	if (s1 && s2 && *s1 == *s2)
+	{
+		free(*s1);
+		*s1 = NULL;
+		*s2 = NULL;
+		return ;
+	}
 	if ((param == 1 || param == 3) && s1 && *s1)
 	{
 		free(*s1);
@@ -62,7 +69,10 @@ char	*ft_strjoin_free(char **s1, char **s2, int param)
 	char	*p;
 
 	if ((!s1 || !*s1) && (!s2 || !*s2))
+	{
+		ft_free_param(s1, s2, param);
 		return (NULL);
+	}
 	slen = 0;
 	if (s1 && *s1)
 		slen += ft_strlen(*s1);

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 16:56:35 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 00:10:24 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../error/err.h"
 #include "exec_utils.h"
 #include <errno.h>
-#include <unistd.h>
-#include "../error/err.h"
 #include <string.h>
-#include <sys/wait.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 pid_t	try_fork(t_shell *sh)
 {
@@ -60,7 +60,7 @@ int	wait_ast(t_ast *node)
 	int	status;
 	int	exit_status;
 
-	exit_status = EXIT_SUCCESS;
+	exit_status = node->shell->status;
 	if (!node)
 		return (exit_status);
 	if (node->left && node)
