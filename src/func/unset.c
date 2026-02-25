@@ -6,7 +6,7 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 10:34:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 13:58:29 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/25 16:14:56 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ static void	error_unset(char *arg)
 		return (error(NULL, "malloc", strerror(errno), -FAIL));
 	error(NULL, "unset", msg, -FAIL);
 	free(msg);
-}
-
-static int	len(t_shell *sh)
-{
-	int	i;
-
-	i = 0;
-	while (sh->envp[i])
-		i++;
-	return (i);
 }
 
 static int	exist(t_shell *sh, char *var_name)
@@ -65,7 +55,7 @@ static int	unset_var(t_shell *sh, char *var_name)
 
 	if (exist(sh, var_name) == 0)
 		return (EXIT_SUCCESS);
-	new_envp = malloc(sizeof(char *) * len(sh));
+	new_envp = malloc(sizeof(char *) * (ft_strlendouble(sh->envp) + 1));
 	if (!new_envp)
 		return (error(sh, "malloc", strerror(errno), -FAIL), EXIT_FAILURE);
 	len_name = ft_strlen(var_name);
@@ -76,16 +66,13 @@ static int	unset_var(t_shell *sh, char *var_name)
 		if (ft_strncmp(sh->envp[i], var_name, len_name) == 0
 			&& sh->envp[i][len_name] == '=')
 		{
-			free(sh->envp[i]);
-			i++;
+			free(sh->envp[i++]);
 			continue ;
 		}
 		new_envp[j++] = sh->envp[i++];
 	}
 	new_envp[j] = NULL;
-	free(sh->envp);
-	sh->envp = new_envp;
-	return (EXIT_SUCCESS);
+	return (free(sh->envp), sh->envp = new_envp, EXIT_SUCCESS);
 }
 
 void	unset(char **args, t_shell *sh)
