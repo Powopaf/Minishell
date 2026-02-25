@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   put_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 12:02:23 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 08:34:45 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 16:24:06 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokens.h"
+
+static char	*ft_token_to_char_2(t_token_kw kw)
+{
+	if (kw == AMPERSAND)
+		return ("&");
+	if (kw == PIPE)
+		return ("|");
+	if (kw == AND)
+		return ("&&");
+	if (kw == OR)
+		return ("||");
+	return ("Word");
+}
 
 char	*ft_token_to_char(t_token_kw kw)
 {
@@ -32,15 +45,7 @@ char	*ft_token_to_char(t_token_kw kw)
 		return (";");
 	if (kw == D_SEMICOLON)
 		return (";;");
-	if (kw == AMPERSAND)
-		return ("&");
-	if (kw == PIPE)
-		return ("|");
-	if (kw == AND)
-		return ("&&");
-	if (kw == OR)
-		return ("||");
-	return ("Word");
+	return (ft_token_to_char_2(kw));
 }
 
 char	*ft_astkw_to_char(t_ast_node_type kw)
