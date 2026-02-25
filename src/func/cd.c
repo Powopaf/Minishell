@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 18:01:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 00:10:35 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
 #include "../error/err.h"
+#include "../exec/exec_utils.h"
 #include "../exec/parser_cmd/parser_cmd.h"
 #include "func.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "../exec/exec_utils.h"
 
 static int	complete_path(t_shell *sh, char *path, char **new_wd)
 {
@@ -91,6 +91,7 @@ static int	replace_oldpwd(t_shell *sh, char *wd)
 	}
 	if (!ft_addstr_arr(&sh->envp, entry))
 		return (free(entry), 0);
+	free(entry);
 	return (1);
 }
 
@@ -98,6 +99,7 @@ void	cd(t_shell *sh, char **args)
 {
 	char	*wd;
 	char	*new_wd;
+	char	*err;
 
 	if (args[1] && args[2])
 		return (error(sh, "cd", "too many arguments", -FAIL));
@@ -109,9 +111,9 @@ void	cd(t_shell *sh, char **args)
 		return (free(wd));
 	if (chdir(new_wd) == -1)
 	{
-		new_wd = error_mess(new_wd, "cd");
-		error(sh, new_wd, strerror(errno), -FAIL);
-		return (free(wd), free(new_wd));
+		err = error_mess("cd", new_wd);
+		error(sh, err, strerror(errno), -FAIL);
+		return (free(wd), free(new_wd), free(err));
 	}
 	free(new_wd);
 	new_wd = get_cwd(sh);

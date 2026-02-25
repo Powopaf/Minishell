@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 13:32:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/12 16:32:40 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/25 19:46:34 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ char	*get_env(t_shell *sh, char *var_name);
  * @returns: 1 if the command is a builtin, 0 otherwise
  */
 int		is_builtin(char *cmd, t_shell *sh, char **args);
+
+int		is_builtin_main(char *cmd, t_shell *sh, char **args);
 
 #endif

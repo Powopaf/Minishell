@@ -6,22 +6,22 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 00:09:16 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 00:10:55 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
+#include "./libft/libft.h"
+#include "signal.h"
 #include "src/0_init/init_shell.h"
-#include <readline/history.h>
-#include "src/1_tokenization/tokens.h"
 #include "src/1_tokenization/syntax/syntax.h"
-#include "src/exec/exec.h"
-#include <stdio.h>
+#include "src/1_tokenization/tokens.h"
 #include "src/2_parsing_ast/parsing.h"
 #include "src/clean/clean_shell.h"
-#include "signal.h"
+#include "src/exec/exec.h"
 #include "src/signal/signal_handling.h"
-#include "./libft/libft.h"
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <stdio.h>
 
 volatile sig_atomic_t	g_signal = 0;
 
@@ -30,7 +30,7 @@ static int	process_line(t_shell *shell, char *line)
 	t_token	*tokens;
 
 	if (!*line)
-		return (0);
+		return (1);
 	if (g_signal == SIGINT)
 	{
 		shell->status = SIGINT_STATUS;
@@ -38,16 +38,16 @@ static int	process_line(t_shell *shell, char *line)
 	}
 	shell->line = line;
 	if (!tokenization(shell))
-		return (clean_prompt(shell), 0);
+		return (clean_prompt(shell), 1);
 	if (!check_syntax(shell))
-		return (clean_prompt(shell), 0);
+		return (clean_prompt(shell), 1);
 	tokens = shell->tokens;
 	shell->ast = parser(shell, &tokens);
 	if (!shell->ast)
-		return (clean_prompt(shell), 0);
+		return (clean_prompt(shell), 1);
 	exec_root(shell, shell->ast);
 	clean_prompt(shell);
-	return (shell->exit != -1);
+	return (shell->exit == -1);
 }
 
 static void	shell_process_non_tty(t_shell *shell)
@@ -61,7 +61,7 @@ static void	shell_process_non_tty(t_shell *shell)
 			break ;
 		trim_newline(line);
 		shell->line_cnt++;
-		if (process_line(shell, line))
+		if (!process_line(shell, line))
 			break ;
 	}
 }
@@ -81,7 +81,7 @@ static void	shell_process_tty(t_shell *shell)
 		}
 		add_history(line);
 		shell->line_cnt++;
-		if (process_line(shell, line))
+		if (!process_line(shell, line))
 			break ;
 	}
 }
@@ -89,6 +89,8 @@ static void	shell_process_tty(t_shell *shell)
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
+	int		status;
+	int		exit;
 
 	(void)argc;
 	initialize_shell(&shell, envp, argv);
@@ -96,9 +98,11 @@ int	main(int argc, char **argv, char **envp)
 		shell_process_tty(&shell);
 	else
 		shell_process_non_tty(&shell);
+	exit = shell.exit;
+	status = shell.status;
 	clean_shell(&shell);
 	rl_clear_history();
-	if (shell.exit == -1)
-		return (shell.status);
-	return (shell.exit);
+	if (exit == -1)
+		return (status);
+	return (exit);
 }

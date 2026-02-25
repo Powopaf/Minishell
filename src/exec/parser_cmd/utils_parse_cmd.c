@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 10:39:22 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 19:36:03 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,21 @@ int	is_builtin(char *cmd, t_shell *sh, char **args)
 		return (export(args, sh), 1);
 	if (!ft_strncmp(cmd, "env", 4))
 		return (env(args, sh), 1);
+	if (!ft_strncmp(cmd, "unset", 6))
+		return (unset(args, sh), 1);
+	return (0);
+}
+
+int	is_builtin_main(char *cmd, t_shell *sh, char **args)
+{
+	if (!cmd)
+		return (0);
+	if (!ft_strncmp(cmd, "exit", 5))
+		return (ft_exit(args, sh), 1);
+	if (!ft_strncmp(cmd, "cd", 3))
+		return (cd(sh, args), 1);
+	if (!ft_strncmp(cmd, "export", 7))
+		return (export(args, sh), 1);
 	if (!ft_strncmp(cmd, "unset", 6))
 		return (unset(args, sh), 1);
 	return (0);

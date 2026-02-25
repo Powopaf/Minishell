@@ -6,27 +6,28 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:37:44 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 17:25:23 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 00:10:47 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
-#include <sys/stat.h>
 #include "../../struct.h"
-#include <unistd.h>
 #include "../exec/parser_cmd/parser_cmd.h"
+#include <sys/stat.h>
+#include <unistd.h>
 
 char	*error_mess(char *program, char *argument)
 {
 	char	*prog;
 	char	*sep;
+	char	*arg;
 
 	sep = ft_strdup(": ");
 	prog = ft_strdup(program);
-	prog = ft_strjoin_free(&prog, &sep, 1);
-	argument = ft_strjoin_free(&prog, &argument, 3);
-	argument = ft_strjoin_free(&argument, &sep, 3);
-	return (argument);
+	arg = ft_strdup(argument);
+	prog = ft_strjoin_free(&prog, &sep, 3);
+	arg = ft_strjoin_free(&prog, &arg, 3);
+	return (arg);
 }
 
 char	*get_cwd(t_shell *sh)
