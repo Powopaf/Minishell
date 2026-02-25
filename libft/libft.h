@@ -6,7 +6,7 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:38:52 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 14:07:23 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/25 15:56:56 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,5 +270,7 @@ void	ft_close_fd(int *fd);
 int		ft_strcmp(const char *s1, const char *s2);
 
 char	*ft_strndup(char *s, size_t n);
+
+int		ft_strlendouble(char **tab);
 
 #endif

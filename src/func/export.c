@@ -6,7 +6,7 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 14:47:37 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/25 15:57:28 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 #include "../error/err.h"
 #include <stdlib.h>
 #include <stdio.h>
-
-static int	len(char **env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
 
 static int	exist(char *var, char ***env)
 {
@@ -61,7 +51,7 @@ static int	join(char ***env, char *var)
 
 	if (exist(var, env) == EXIT_SUCCESS)
 		return (EXIT_SUCCESS);
-	new_env = malloc(sizeof(char *) * (len(*env) + 2));
+	new_env = malloc(sizeof(char *) * (ft_strlendouble(*env) + 2));
 	if (!new_env)
 		return (EXIT_FAILURE);
 	i = 0;
@@ -97,25 +87,20 @@ static int	set_var(char **args, int i, int j, t_shell *sh)
 			return (error(sh, "malloc", strerror(errno), EXIT_FAILURE),
 				EXIT_FAILURE);
 		if (join(&sh->envp, tmp) == EXIT_FAILURE)
-			return (free(tmp), error(sh, "malloc", strerror(errno), EXIT_FAILURE),
+			return (free(tmp), error(sh, "malloc",
+					strerror(errno), EXIT_FAILURE),
 				EXIT_FAILURE);
 		free(tmp);
 	}
 	return (EXIT_SUCCESS);
 }
 
-void	export(char **args, t_shell *sh)
+static int	add_var(char **args, t_shell *sh)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	if (!args[1])
-	{
-		while (sh->envp && sh->envp[++i])
-			printf("export %s\n", sh->envp[i]);
-		return (sh->status = EXIT_SUCCESS);
-	}
 	while (args[++i])
 	{
 		j = -1;
@@ -134,7 +119,25 @@ void	export(char **args, t_shell *sh)
 			}
 		}
 		if (set_var(args, i, j, sh) == EXIT_FAILURE)
-			return (sh->status = EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
-	sh->status = EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
+}
+
+void	export(char **args, t_shell *sh)
+{
+	int		i;
+
+	i = 0;
+	if (!args[1])
+	{
+		while (sh->envp && sh->envp[++i])
+			printf("export %s\n", sh->envp[i]);
+		sh->status = EXIT_SUCCESS;
+		return ;
+	}
+	if (add_var(args, sh) == EXIT_FAILURE)
+		sh->status = EXIT_FAILURE;
+	else
+		sh->status = EXIT_SUCCESS;
 }
