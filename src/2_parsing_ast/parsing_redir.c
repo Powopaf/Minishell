@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:57:30 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 14:40:36 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:38:21 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ static t_redir	*create_redir(t_shell *sh, t_token_kw kw, char *file)
 
 	redir_struct = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir_struct)
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
+		return (error(sh, "malloc", strerror(errno), -FAIL), NULL);
 	redir_struct->kw = kw;
 	redir_struct->file = ft_strdup(file);
 	if (!redir_struct->file)
 	{
 		free(redir_struct);
-		error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", strerror(errno), -FAIL);
 		return (NULL);
 	}
 	redir_struct->eofkw = NULL;
@@ -87,7 +87,7 @@ int	parse_redir(t_shell *sh, t_ast *ast_node, t_token **token)
 		file = ft_strdup((*token)->next->token);
 		if (!file)
 		{
-			error(sh, "malloc", MALLOC_ERR, -FAIL);
+			error(sh, "malloc", strerror(errno), -FAIL);
 			return (0);
 		}
 		if (!add_redir(sh, ast_node, (*token)->kw, file))

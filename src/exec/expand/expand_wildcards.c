@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:40:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 00:13:44 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:38 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	**expand_wildcards_str(t_shell *sh, char *s, size_t *count)
 	while (entry)
 	{
 		if (!check_match(&files, s, entry->d_name, count))
-			return (error(sh, "malloc", MALLOC_ERR, -FAIL), files);
+			return (error(sh, "malloc", strerror(errno), -FAIL), files);
 		entry = readdir(dir);
 	}
 	closedir(dir);

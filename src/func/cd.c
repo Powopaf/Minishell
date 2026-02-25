@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/23 13:35:08 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:25 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 static int	verif(char *new_pwd, t_shell *sh)
 {
 	if (!new_pwd)
-		return (error(sh, "cd", MALLOC_ERR, 1), 1);
+		return (error(sh, "cd", strerror(errno), 1), 1);
 	return (0);
 }
 
@@ -57,11 +57,11 @@ static int	replace_envp(t_shell *sh)
 
 	new_pwd = getcwd(NULL, 0);
 	if (!new_pwd)
-		return (error(sh, "malloc", MALLOC_ERR, 1), 1);
+		return (error(sh, "malloc", strerror(errno), 1), 1);
 	entry = ft_strjoin("PWD=", new_pwd);
 	free(new_pwd);
 	if (!entry)
-		return (error(sh, "malloc", MALLOC_ERR, 1), 1);
+		return (error(sh, "malloc", strerror(errno), 1), 1);
 	i = -1;
 	while (sh->envp && sh->envp[++i])
 	{
@@ -81,7 +81,7 @@ static int	replace_oldpwd(t_shell *sh, char *w_dir)
 
 	entry = ft_strjoin("OLDPWD=", w_dir);
 	if (!entry)
-		return (error(sh, "malloc", MALLOC_ERR, 1), 1);
+		return (error(sh, "malloc", strerror(errno), 1), 1);
 	i = -1;
 	while (sh->envp && sh->envp[++i])
 	{
@@ -105,7 +105,7 @@ void	cd(t_shell *sh, char **args)
 		return (error(sh, "cd", "too many arguments", 1));
 	w_dir = getcwd(NULL, 0);
 	if (w_dir == NULL)
-		return (error(sh, "malloc", MALLOC_ERR, 1));
+		return (error(sh, "malloc", strerror(errno), 1));
 	new_pwd = NULL;
 	if (is_full_path(sh, args[1], &new_pwd))
 		return (free(w_dir));

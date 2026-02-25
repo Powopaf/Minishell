@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 08:40:43 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:41:23 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 		clean_exit_forked_cmd(node, cmd, args, envp);
 	args = ft_strsdup(node->args);
 	if (!args)
-		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE),
+		return (error(sh, "malloc", strerror(errno), -EXIT_FAILURE),
 			clean_exit_forked_cmd(node, cmd, args, envp));
 	envp = ft_strsdup(sh->envp);
 	if (!envp)
-		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE),
+		return (error(sh, "malloc", strerror(errno), -EXIT_FAILURE),
 			clean_exit_forked_cmd(node, cmd, args, envp));
 	if (is_builtin(cmd, sh, args) > 0)
 		clean_exit_forked_cmd(node, cmd, args, envp);

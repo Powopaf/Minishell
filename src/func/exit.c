@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/23 15:32:02 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:34 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_exit(char **args, t_shell *sh)
 	{
 		msg = ft_strjoin("exit: ", args[1]);
 		if (!msg)
-			return (error(sh, "malloc", MALLOC_ERR, 1), -1);
+			return (error(sh, "malloc", strerror(errno), 1), -1);
 		else
 		{
 			error(sh, msg, "numeric argument required", -2);

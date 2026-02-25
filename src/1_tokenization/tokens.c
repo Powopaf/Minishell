@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 11:56:32 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 22:47:57 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:38:10 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static ssize_t	add_word_token(t_shell *sh, ssize_t i)
 	{
 		word = ft_substr(sh->line, beginning, i - beginning);
 		if (!word)
-			return (error(sh, "malloc", MALLOC_ERR, -FAIL), i);
+			return (error(sh, "malloc", strerror(errno), -FAIL), i);
 		add_token(sh, word, WORD);
 		free(word);
 	}

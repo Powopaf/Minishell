@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 12:46:49 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:12 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ static int	expand_args(t_shell *sh, t_ast *current_node)
 		return (0);
 	expand_wildcards_arg(sh, current_node);
 	if (!arr_rm_backslash(&current_node->args))
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL), 0);
+		return (error(sh, "malloc", strerror(errno), -FAIL), 0);
 	if (!arr_rm_quotes(&current_node->args))
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL), 0);
+		return (error(sh, "malloc", strerror(errno), -FAIL), 0);
 	return (1);
 }
 

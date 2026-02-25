@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 09:08:27 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:22 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ char	*get_env(t_shell *sh, char *var_name)
 			var = ft_substr(sh->envp[i], ft_strlen(var_name) + 1,
 					ft_strlen(sh->envp[i]) - (ft_strlen(var_name) + 1));
 			if (!var)
-				error(sh, "malloc", MALLOC_ERR, -FAIL);
+				error(sh, "malloc", strerror(errno), -FAIL);
 			return (var);
 		}
 		i++;
 	}
 	var = ft_strdup("");
 	if (!var)
-		error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", strerror(errno), -FAIL);
 	return (var);
 }
 

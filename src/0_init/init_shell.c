@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 20:08:47 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:05:27 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ static void	copy_envp(t_shell *shell, char **envp)
 	{
 		shell->envp = (char **)malloc(sizeof(*shell->envp));
 		if (!shell->envp)
-			error(shell, "malloc", MALLOC_ERR, FAIL);
+			error(shell, "malloc", strerror(errno), FAIL);
 		shell->envp[0] = NULL;
 		return ;
 	}
 	shell->envp = ft_strsdup(envp);
 	if (!shell->envp)
-		error(shell, "malloc", MALLOC_ERR, FAIL);
+		error(shell, "malloc", strerror(errno), FAIL);
 }
 
 static void	get_shell_name(t_shell *shell, char **argv)
@@ -66,22 +66,25 @@ static void	get_shell_name(t_shell *shell, char **argv)
 	if (!argv || !*argv)
 	{
 		shell->name = STD_PROMPT;
+		shell->name_err = ERR_PROMPT;
 		return ;
 	}
 	tmp = ft_strrchr(*argv, '/');
 	if (!tmp)
 	{
 		shell->name = ft_strjoin(*argv, PROMPT_HD);
-		if (!shell->name)
-			shell->name = STD_PROMPT;
-		return ;
+		shell->name_err = ft_strjoin(*argv, PROMPT_ERR);
 	}
 	if (tmp && tmp[0] && tmp[1])
 	{
 		shell->name = ft_strjoin(tmp + 1, PROMPT_HD);
+		shell->name_err = ft_strjoin(tmp + 1, PROMPT_ERR);
 	}
 	if (!shell->name)
+	{
 		shell->name = STD_PROMPT;
+		shell->name_err = ERR_PROMPT;
+	}
 }
 
 void	initialize_shell(t_shell *shell, char **envp, char **argv)
@@ -95,7 +98,6 @@ void	initialize_shell(t_shell *shell, char **envp, char **argv)
 	if (shell->stdout_fd == -1)
 		error(shell, "dup", strerror(errno), FAIL);
 	shell->hd_fd = -1;
-	shell->file = NULL;
 	shell->line_cnt = 0;
 	shell->line = NULL;
 	shell->tokens = NULL;
