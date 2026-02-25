@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:12:37 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/20 18:37:45 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:54:18 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ char	*join_err(t_shell *sh, char *context, char *why)
 	char *tmp;
 
 	if (sh->tty)
-		s = ft_strjoin(PROMPT_MES, context);
+		s = ft_strjoin(sh->name_err, context);
 	else
 	{
 		s = error_non_tty(sh);
-		tmp = ft_strjoin(PROMPT_MES, s);
+		tmp = ft_strjoin(sh->name_err, s);
 		if (s)
 			free(s);
 		s = ft_strjoin(tmp, context);

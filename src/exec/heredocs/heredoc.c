@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 09:36:17 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 13:24:39 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:16 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ static int	heredoc(t_shell *sh, t_redir *redir)
 
 	id = ft_ptoa(redir->eofkw);
 	if (!id)
-		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE), 0);
+		return (error(sh, "malloc", strerror(errno), -EXIT_FAILURE), 0);
 	hdfile = ft_strjoin(HEREDOC, id);
 	free(id);
 	if (!hdfile)
-		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE), 0);
+		return (error(sh, "malloc", strerror(errno), -EXIT_FAILURE), 0);
 	fd = open(hdfile, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd < 0)
 		return (free(hdfile), error(sh, "here_doc", strerror(errno),

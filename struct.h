@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 16:46:57 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:05:37 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,12 @@ typedef struct s_shell
 {
 	char			**envp;
 	char			*name;
+	char			*name_err;
 	int				status;
 	int				exit;
 	int				stdin_fd;
 	int				stdout_fd;
 	int				hd_fd;
-	char			*file;
 	char			*line;
 	int				line_cnt;
 	int				tty;

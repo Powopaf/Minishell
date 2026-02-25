@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 08:05:00 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 00:03:58 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:38:03 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_token	*create_token(t_shell *sh, char *token_str, t_token_kw token_kw)
 	token_struct = malloc(sizeof(t_token));
 	if (!token_struct)
 	{
-		error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", strerror(errno), -FAIL);
 		return (NULL);
 	}
 	token_struct->token = NULL;
@@ -52,7 +52,7 @@ static t_token	*create_token(t_shell *sh, char *token_str, t_token_kw token_kw)
 		if (!token_struct->token)
 		{
 			free(token_struct);
-			error(sh, "malloc", MALLOC_ERR, -FAIL);
+			error(sh, "malloc", strerror(errno), -FAIL);
 			return (NULL);
 		}
 	}

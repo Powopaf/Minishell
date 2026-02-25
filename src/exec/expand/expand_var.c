@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 12:27:49 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:09 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static char	*expand_status(t_shell *sh, char *expand, size_t *i)
 	exit = ft_itoa(sh->status);
 	if (!exit)
 	{
-		error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", strerror(errno), -FAIL);
 		return (NULL);
 	}
 	s = ft_strjoin(expand, exit);
 	if (!s)
 	{
-		error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", strerror(errno), -FAIL);
 		return (NULL);
 	}
 	free(exit);
@@ -50,7 +50,7 @@ static char	*expand_env_var(t_shell *sh, char *s, char *expand, size_t *i)
 	var_name = ft_substr(s, start, (*i) - start);
 	if (!var_name)
 	{
-		error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", strerror(errno), -FAIL);
 		return (NULL);
 	}
 	var = collect_env_var(sh, var_name);
@@ -95,7 +95,7 @@ char	*expand_str(t_shell *sh, char *s)
 
 	expand = ft_strdup("");
 	if (!expand)
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL), NULL);
+		return (error(sh, "malloc", strerror(errno), -FAIL), NULL);
 	expand = expand_var(sh, s, expand);
 	return (expand);
 }

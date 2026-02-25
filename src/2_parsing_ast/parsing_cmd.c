@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 12:30:03 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 14:38:45 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:38:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	add_arg(t_shell *sh, t_ast *node, char *arg)
 	node->args = tmp;
 	if (!node->args)
 	{
-		error(sh, "malloc", MALLOC_ERR, -FAIL);
+		error(sh, "malloc", strerror(errno), -FAIL);
 		return (0);
 	}
 	return (1);

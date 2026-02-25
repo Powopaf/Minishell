@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:02:15 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 08:55:19 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:18 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static char	**parse_path(t_shell *sh, t_ast *node)
 	paths = ft_split(path, ':');
 	free(path);
 	if (!paths)
-		error(sh, "malloc", MALLOC_ERR, FAIL);
+		error(sh, "malloc", strerror(errno), FAIL);
 	return (paths);
 }
 
@@ -71,7 +71,7 @@ static char	*search_cmd(t_shell *sh, t_ast *node)
 		if (!full_cmd)
 		{
 			ft_empty_array_strs(paths);
-			error(sh, "malloc", MALLOC_ERR, FAIL);
+			error(sh, "malloc", strerror(errno), FAIL);
 		}
 		if (check_bin_rights(sh, node, full_cmd))
 		{
@@ -102,7 +102,7 @@ static char	*local_cmd(t_shell *sh, t_ast *node)
 	}
 	cmd = ft_strdup(node->args[0]);
 	if (!cmd)
-		error(sh, "malloc", MALLOC_ERR, FAIL);
+		error(sh, "malloc", strerror(errno), FAIL);
 	return (cmd);
 }
 

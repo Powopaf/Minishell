@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 10:34:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/18 15:29:41 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:31 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	error_unset(char *arg)
 
 	msg = ft_strjoin("unset: `", arg);
 	if (!msg)
-		return (error(NULL, "malloc", MALLOC_ERR, -FAIL));
+		return (error(NULL, "malloc", strerror(errno), -FAIL));
 	error(NULL, "unset", msg, -FAIL);
 	free(msg);
 }
@@ -67,7 +67,7 @@ static int	unset_var(t_shell *sh, char *var_name)
 		return (EXIT_SUCCESS);
 	new_envp = malloc(sizeof(char *) * len(sh));
 	if (!new_envp)
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL), EXIT_FAILURE);
+		return (error(sh, "malloc", strerror(errno), -FAIL), EXIT_FAILURE);
 	len_name = ft_strlen(var_name);
 	i = 0;
 	j = 0;

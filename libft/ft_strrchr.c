@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:49:11 by flomulle          #+#    #+#             */
-/*   Updated: 2025/11/10 16:48:41 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:47:14 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strrchr(const char *s, int c)
 {
 	size_t	len;
 
+	if (!s)
+		return (NULL);
 	len = 0;
 	while (s[len] != '\0')
 	{

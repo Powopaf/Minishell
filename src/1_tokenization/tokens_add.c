@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:03:51 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 00:03:35 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:55:12 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static ssize_t	ft_add_key_tokenquad(t_shell *sh, ssize_t i)
 			return (-1);
 		return (++i);
 	}
-	error(sh, "token", DEBUG, PRG_ERR);
 	return (-1);
 }
 

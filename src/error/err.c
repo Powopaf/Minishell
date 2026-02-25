@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 14:43:27 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:54:28 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,21 @@ void	warning_hd(t_shell *sh)
 
 	txt1 = "here-document at line ";
 	txt2 = " delimited by end-of-file (wanted `eof')\n";
-	s = ft_strjoin(PROMPT_MES, WARNING);
+	s = ft_strjoin(sh->name_err, WARNING);
 	if (!s)
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+		return (error(sh, "malloc", strerror(errno), -FAIL));
 	s = ft_strjoin_free(&s, &txt1, 1);
 	if (!s)
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+		return (error(sh, "malloc", strerror(errno), -FAIL));
 	line_count = ft_itoa(sh->line_cnt);
 	if (!line_count)
-		return (free(s), error(sh, "malloc", MALLOC_ERR, -FAIL));
+		return (free(s), error(sh, "malloc", strerror(errno), -FAIL));
 	s = ft_strjoin_free(&s, &line_count, 3);
 	if (!s)
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+		return (error(sh, "malloc", strerror(errno), -FAIL));
 	s = ft_strjoin_free(&s, &txt2, 1);
 	if (!s)
-		return (error(sh, "malloc", MALLOC_ERR, -FAIL));
+		return (error(sh, "malloc", strerror(errno), -FAIL));
 	write(1, "\n", 1);
 	write(2, s, ft_strlen(s));
 	free(s);

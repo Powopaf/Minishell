@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 11:26:09 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 13:41:00 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:54:08 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	syntax_error(t_shell *sh, t_token_kw kw, int exitno)
 {
 	char	*s;
 
-	ft_putstr_fd(PROMPT_MES, 2);
+	ft_putstr_fd(sh->name_err, 2);
 	if (!sh->tty)
 	{
 		ft_putstr_fd("line ", 2);
@@ -48,7 +48,7 @@ void	quote_error(t_shell *sh, char *c)
 {
 	char	*s;
 
-	ft_putstr_fd(PROMPT_MES, 2);
+	ft_putstr_fd(sh->name_err, 2);
 	if (!sh->tty)
 	{
 		ft_putstr_fd("line ", 2);

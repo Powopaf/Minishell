@@ -6,16 +6,16 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:12:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 12:19:06 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 11:05:09 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../libft/libft.h"
 #include "clean_shell.h"
 #include <stdlib.h>
 #include <unistd.h>
-#include "../../libft/libft.h"
 
-static void	clean_ast(t_ast	*node)
+static void	clean_ast(t_ast *node)
 {
 	if (!node)
 		return ;
@@ -26,7 +26,7 @@ static void	clean_ast(t_ast	*node)
 	free(node);
 }
 
-static void	ast_clear(t_ast **ast, void (*del)(t_ast	*))
+static void	ast_clear(t_ast **ast, void (*del)(t_ast *))
 {
 	if (!ast || !*ast)
 		return ;
@@ -38,7 +38,7 @@ static void	ast_clear(t_ast **ast, void (*del)(t_ast	*))
 	*ast = NULL;
 }
 
-void	clean_token(t_token	*tk)
+void	clean_token(t_token *tk)
 {
 	if (tk && tk->token)
 	{
@@ -53,10 +53,12 @@ void	clean_shell(t_shell *shell)
 	ft_close_fd(&shell->stdin_fd);
 	ft_close_fd(&shell->stdout_fd);
 	ft_close_fd(&shell->hd_fd);
-	if (shell->file)
-		free(shell->file);
-	free(shell->name);
-	free(shell->line);
+	if (shell->name)
+		free(shell->name);
+	if (shell->name_err)
+		free(shell->name_err);
+	if (shell->line)
+		free(shell->line);
 	tokens_clear(&shell->tokens, clean_token);
 	ast_clear(&shell->ast, clean_ast);
 }
@@ -64,11 +66,6 @@ void	clean_shell(t_shell *shell)
 void	clean_prompt(t_shell *shell)
 {
 	ft_close_fd(&shell->hd_fd);
-	if (shell->file)
-	{
-		free(shell->file);
-		shell->file = NULL;
-	}
 	if (shell->line)
 	{
 		free(shell->line);

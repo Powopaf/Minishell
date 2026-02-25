@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/23 20:08:42 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:56:32 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,19 @@
 
 # include "../../struct.h"
 # include <errno.h>
+# include <string.h>
 
 # define SUCCESS 0
 # define FAIL 1
-# define MALLOC_ERR "Memory allocation failed"
 # define MALLOC_FULL_ERR "minishell: malloc: Memory allocation failed"
 # define QUOTE_ERR "expected end-quote"
-# define PARENTH_ERR "missing a parenthesis"
-# define PIPE_ERR "piping wrong"
 # define AMB_REDIR "ambiguous redirect"
-# define PROMPT_MES "minishell: " // TODO: shoulb equlal to argv[0]
 # define CMD_NOT_FND 127
 # define CMD_NOT_FND_ERR "command not found"
 # define CMD_PERM_DND 126
 # define MISUSE 2
-# define PRG_ERR 666
 # define ISDIR "Is a directory"
 # define SIG_BASE 128
-# define DEBUG "PROGRAM ERROR"
 # define WARNING "warning: "
 
 /**

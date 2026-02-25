@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/23 15:03:26 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/25 10:39:28 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,17 @@ static int	set_var(char **args, int i, int j, t_shell *sh)
 	if (args[i][j] == '=')
 	{
 		if (join(&sh->envp, args[i]) == EXIT_FAILURE)
-			return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE),
+			return (error(sh, "malloc", strerror(errno), EXIT_FAILURE),
 				EXIT_FAILURE);
 	}
 	else
-	{	
+	{
 		tmp = ft_strjoin_char(args[i], '=', 1, 0);
 		if (!tmp)
-			return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE),
+			return (error(sh, "malloc", strerror(errno), EXIT_FAILURE),
 				EXIT_FAILURE);
 		if (join(&sh->envp, tmp) == EXIT_FAILURE)
-			return (free(tmp), error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE),
+			return (free(tmp), error(sh, "malloc", strerror(errno), EXIT_FAILURE),
 				EXIT_FAILURE);
 		free(tmp);
 	}
@@ -130,11 +130,11 @@ void	export(char **args, t_shell *sh)
 		{
 			tmp = ft_strjoin("`", args[i]);
 			if (!tmp)
-				return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE));
+				return (error(sh, "malloc", strerror(errno), EXIT_FAILURE));
 			char *suffix = "': not a valid identifier";
 			tmp = ft_strjoin_free(&tmp, &suffix, 1);
 			if (!tmp)
-				return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE));
+				return (error(sh, "malloc", strerror(errno), EXIT_FAILURE));
 			error(sh, "export", tmp, EXIT_FAILURE);
 			free(tmp);
 			continue ;
@@ -145,11 +145,11 @@ void	export(char **args, t_shell *sh)
 			{
 				tmp = ft_strjoin("`", args[i]);
 				if (!tmp)
-					return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE));
+					return (error(sh, "malloc", strerror(errno), EXIT_FAILURE));
 				char *suffix = "': not a valid identifier";
 				tmp = ft_strjoin_free(&tmp, &suffix, 1);
 				if (!tmp)
-					return (error(sh, "malloc", MALLOC_ERR, EXIT_FAILURE));
+					return (error(sh, "malloc", strerror(errno), EXIT_FAILURE));
 				error(sh, "export", tmp, EXIT_FAILURE);
 				free(tmp);
 				continue ;
