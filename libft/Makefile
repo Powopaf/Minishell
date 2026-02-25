@@ -35,7 +35,8 @@ SRC = ./ft_add_str_array.c \
 	  ./ft_memcpy.c \
 	  ./ft_atoi.c \
 	  ./ft_isdigit.c \
-	  ./ft_close_fd.c
+	  ./ft_close_fd.c \
+	  ./ft_strlendouble.c
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

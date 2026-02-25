@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_custom_split.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 09:19:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/19 12:12:34 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:03:45 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,3 @@ char	**split(char *s);
 void	split_args(t_shell *sh, t_ast *node);
 
 #endif
-
