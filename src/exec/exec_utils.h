@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:09:07 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/22 23:43:37 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 08:29:08 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ int		setup_pipe(t_shell *sh, t_ast *node);
  * @returns {int} 1 if directory, otherwise 0.
  */
 int		is_dir(char *path);
+
+void	clean_exit_forked_cmd(t_ast *node, char *cmd, char **args, char **envp);
 
 #endif

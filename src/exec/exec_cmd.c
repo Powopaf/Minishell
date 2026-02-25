@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 16:45:23 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 08:40:43 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	args = NULL;
 	envp = NULL;
 	cmd = parse_cmd(sh, node);
+	if (!cmd)
+		clean_exit_forked_cmd(node, cmd, args, envp);
 	args = ft_strsdup(node->args);
 	if (!args)
 		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE),
-			clean_forked_proc(sh, cmd, args, envp));
+			clean_exit_forked_cmd(node, cmd, args, envp));
 	envp = ft_strsdup(sh->envp);
 	if (!envp)
 		return (error(sh, "malloc", MALLOC_ERR, -EXIT_FAILURE),
-			clean_forked_proc(sh, cmd, args, envp));
+			clean_exit_forked_cmd(node, cmd, args, envp));
 	if (is_builtin(cmd, sh, args) > 0)
-		clean_forked_proc(sh, cmd, args, envp);
-	if (!cmd)
-		clean_forked_proc(sh, cmd, args, envp);
+		clean_exit_forked_cmd(node, cmd, args, envp);
 	clean_shell(sh);
 	execve(cmd, args, envp);
 	error(sh, node->args[0], strerror(errno), EXIT_FAILURE);
@@ -88,7 +88,7 @@ void	exec_cmd(t_shell *sh, t_ast *node)
 			|| node->parent->astkw != AST_PIPE))
 	{
 		if (!ft_strncmp(node->args[0], "exit", 5))
-			ft_exit(node->args[0], sh);
+			ft_exit(node->args, sh);
 	}
 	node->pid = try_fork(sh);
 	if (node->pid < 0)

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:20 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 16:35:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 08:29:08 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@
  */
 void	exec_root(t_shell *sh, t_ast *node);
 
-void	clean_forked_proc(t_ast *node, char *cmd, char **args, char **envp);
+void	clean_exit_forked_cmd(t_ast *node, char *cmd, char **args, char **envp);
 
 #endif

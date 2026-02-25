@@ -3,60 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:25:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/23 12:53:43 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/02/25 09:59:50 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
 #include "../error/err.h"
 #include "func.h"
-#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-static int	trim(char *str)
+static void printout(char **args, size_t i)
 {
-	size_t	i;
-
-	if (str[0] != '"')
-		return (printf("%s", str));
-	i = 1;
-	while (str[i] != '"')
+	while (args[i])
 	{
-		if (printf("%c", str[i]) == -1)
-			return (-1);
+		write(STDOUT_FILENO, args[i], ft_strlen(args[i]));
+		if (args[i + 1])
+			write(STDOUT_FILENO, " ", 1);
 		i++;
 	}
-	return (0);
 }
 
 void	echo(char **args, t_shell *sh)
 {
 	size_t	i;
+	size_t	j;
 	int		n_flag;
 
 	i = 0;
 	n_flag = 1;
-	while (args[++i] && ft_strncmp(args[i], "-n", 3) == 0)
+	while (args[++i] && args[i][0] == '-')
 	{
-		n_flag = 0;
-		continue ;
+		j = 1;
+		while (args[i][j] == 'n')
+			j++;
+		if (!args[i][j])
+			n_flag = 0;
+		if (args[i][j] && args[i][j] != 'n')
+			break ;
 	}
-	while (args[i])
-	{
-		if (trim(args[i]) == -1)
-		{
-			error(sh, "echo", "printf error", 1);
-			return ;
-		}
-		if (args[i + 1] && printf(" ") == -1)
-			error(sh, "echo", "printf error", 1);
-		i++;
-	}
-	if (n_flag && printf("\n") == -1)
-		error(sh, "echo", "printf error", 1);
+	printout(args, i);
+	if (n_flag)
+		write(STDOUT_FILENO, "\n", 1);
 	sh->status = EXIT_SUCCESS;
-	return ;
 }

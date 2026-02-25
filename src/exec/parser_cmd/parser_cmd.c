@@ -6,18 +6,18 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:02:15 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/23 00:54:36 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 08:55:19 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser_cmd.h"
-#include "../../error/err.h"
-#include <errno.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
 #include "../../../libft/libft.h"
+#include "../../error/err.h"
 #include "../exec_utils.h"
+#include "parser_cmd.h"
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 static char	**parse_path(t_shell *sh, t_ast *node)
 {
@@ -110,19 +110,21 @@ char	*parse_cmd(t_shell *sh, t_ast *node)
 {
 	char	*cmd;
 
+		cmd = NULL;
 	if (!node || !node->args || !node->args[0])
 		return (NULL);
 	if (!node->args[0][0])
 		return (error(sh, node->args[0], CMD_NOT_FND_ERR, CMD_NOT_FND), NULL);
-	if (ft_strncmp(node->args[0], "echo", 5) == 0
-		|| ft_strncmp(node->args[0], "cd", 3) == 0
-		|| ft_strncmp(node->args[0], "pwd", 4) == 0
+	if (ft_strncmp(node->args[0], "echo", 5) == 0 || ft_strncmp(node->args[0],
+			"cd", 3) == 0 || ft_strncmp(node->args[0], "pwd", 4) == 0
 		|| ft_strncmp(node->args[0], "export", 7) == 0
 		|| ft_strncmp(node->args[0], "unset", 6) == 0
-		|| ft_strncmp(node->args[0], "env", 4) == 0
-		|| ft_strncmp(node->args[0], "exit", 5) == 0)
-		return (node->args[0]);
-	cmd = NULL;
+		|| ft_strncmp(node->args[0], "env", 4) == 0 || ft_strncmp(node->args[0],
+			"exit", 5) == 0)
+	{
+		cmd = ft_strdup(node->args[0]);
+		return (cmd);
+	}
 	if (ft_strchr(node->args[0], '/'))
 		cmd = local_cmd(sh, node);
 	else
