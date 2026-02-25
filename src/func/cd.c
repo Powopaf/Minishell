@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 17:50:18 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 18:01:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,30 +18,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "../exec/exec_utils.h"
-
-// char *get_parent_dir(char *new_wd, char *wd)
-// {
-// 	char *tmp;
-// 	char *parent;
-
-// 	if (ft_strcmp(new_wd, ".."))
-// 		return (new_wd);
-// 	if (!ft_strcmp(wd, "/"))
-// 		return (free(new_wd), ft_strdup(wd));
-// 	if (new_wd)
-// 		free(new_wd);
-// 	parent = ft_strdup(wd);
-// 	tmp = ft_strrchr(parent, '/');
-// 	if (!tmp)
-// 	{
-// 		free(parent);
-// 		return (ft_strdup("/"));
-// 	}
-// 	tmp[0] = '\0';
-// 	new_wd = ft_strdup (parent);
-// 	free(parent);
-// 	return (new_wd);
-// }
 
 static int	complete_path(t_shell *sh, char *path, char **new_wd)
 {
