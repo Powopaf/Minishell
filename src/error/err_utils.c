@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:12:37 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 10:54:18 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:06:47 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ char	*error_non_tty(t_shell *sh)
 
 char	*join_err(t_shell *sh, char *context, char *why)
 {
-	char *s;
-	char *sb;
-	char *tmp;
+	char	*s;
+	char	*sb;
+	char	*tmp;
 
 	if (sh->tty)
 		s = ft_strjoin(sh->name_err, context);

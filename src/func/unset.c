@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 10:34:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 10:39:31 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:58:29 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,3 @@ void	unset(char **args, t_shell *sh)
 	}
 	sh->status = EXIT_SUCCESS;
 }
-

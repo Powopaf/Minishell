@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:02:15 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 10:39:18 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:00:02 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*parse_cmd(t_shell *sh, t_ast *node)
 {
 	char	*cmd;
 
-		cmd = NULL;
+	cmd = NULL;
 	if (!node || !node->args || !node->args[0])
 		return (NULL);
 	if (!node->args[0][0])

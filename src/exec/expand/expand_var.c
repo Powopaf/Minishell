@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 10:39:09 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:04:11 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static char	*expand_var(t_shell *sh, char *s, char *expand)
 			&& !is_dquoted (s, i) && (s[i + 1] == '\"' || s[i + 1] == '\''))
 			;
 		else if (s[i] == '$' && (!i || s[i - 1] != '\\') && (ft_isalnum(s[i
-					+ 1]) || s[i + 1] == '_') && !is_squoted(s, i))
+						+ 1]) || s[i + 1] == '_') && !is_squoted(s, i))
 			expand = expand_env_var(sh, s, expand, &i);
 		else
 			expand = ft_strjoin_char(expand, s[i], 1, 1);

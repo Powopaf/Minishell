@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 10:39:25 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:57:38 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	replace_envp(t_shell *sh)
 	}
 	return (free(entry), 0);
 }
+
 static int	replace_oldpwd(t_shell *sh, char *w_dir)
 {
 	char	*entry;

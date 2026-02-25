@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:09:07 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 08:29:08 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:58:54 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
  * @param {t_ast *} node - AST command node.
  * @returns {int} Exit status.
  */
-void		exec_cmd(t_shell *sh, t_ast *node);
+void	exec_cmd(t_shell *sh, t_ast *node);
 
 /**
  * Forks the current process with error handling.

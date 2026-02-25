@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:38:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 07:44:25 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:50:51 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ static t_ast	*parse_command(t_shell *sh, t_token **tokens)
 	if (!node)
 		return (NULL);
 	while ((*tokens) && ((*tokens)->kw == WORD || (*tokens)->kw == REDIR_IN
-		|| (*tokens)->kw == REDIR_HD || (*tokens)->kw == REDIR_OUT
-		|| (*tokens)->kw == REDIR_APP))
+			|| (*tokens)->kw == REDIR_HD || (*tokens)->kw == REDIR_OUT
+			|| (*tokens)->kw == REDIR_APP))
 	{
 		if (!parse_redir(sh, node, tokens))
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 10:14:12 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/21 14:32:00 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:06:18 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int	complete_line(t_shell *sh, char c)
 
 static int	missing_quote(t_shell *sh, size_t squote, size_t dquote)
 {
-	char c;
+	char	c;
+
 	if (!sh->tty)
 	{
 		if (squote)
@@ -61,7 +62,8 @@ static int	missing_quote(t_shell *sh, size_t squote, size_t dquote)
 	return (complete_line(sh, c));
 }
 
-static int	search_next_quote(t_shell *sh, size_t *squote, size_t *dquote, size_t *i)
+static int	search_next_quote(t_shell *sh, size_t *squote,
+	size_t *dquote, size_t *i)
 {
 	if (*squote)
 	{

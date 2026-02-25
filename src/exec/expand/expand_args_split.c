@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_args_split.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 20:37:42 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 10:39:02 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:03:21 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	split_args(t_shell *sh, t_ast *node)
 		{
 			ft_add_arr_arr(&new_args, splitted);
 			if (!new_args)
-				return (error(sh, "malloc",	strerror(errno), -FAIL));
+				return (error(sh, "malloc", strerror(errno), -FAIL));
 		}
 		i++;
 	}
