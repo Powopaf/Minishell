@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 10:56:32 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 14:15:19 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,10 @@ char	*error_non_tty(t_shell *sh);
  * @brief Helper function for error
  */
 char	*join_err(t_shell *sh, char *context, char *why);
+
+/**
+ * @brief Create error message for export.
+ */
+void	export_msg(t_shell *sh, char *context);
 
 #endif
