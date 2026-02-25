@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:25:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 10:36:17 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 12:24:21 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,6 @@ void	echo(char **args, t_shell *sh)
 	printout(args, i);
 	if (n_flag)
 		if (write(STDOUT_FILENO, "\n", 1) == -1)
-			error(sh, "write", strerror(errno), FAIL);
-	sh->status = EXIT_SUCCESS;
+			error(sh, "write", strerror(errno), -FAIL);
+	sh->status = SUCCESS;
 }
