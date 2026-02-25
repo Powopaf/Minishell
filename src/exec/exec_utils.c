@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/22 23:33:17 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:59:19 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	wait_ast(t_ast *node)
 	exit_status = EXIT_SUCCESS;
 	if (!node)
 		return (exit_status);
-	if (node->left && node )
+	if (node->left && node)
 		status = wait_ast(node->left);
 	if (node->right)
 		status = wait_ast(node->right);

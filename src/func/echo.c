@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:25:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 10:36:17 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:57:19 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void printout(char **args, size_t i)
+static void	printout(char **args, size_t i)
 {
 	while (args[i])
 	{

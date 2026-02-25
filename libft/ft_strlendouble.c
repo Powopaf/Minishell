@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokens_utils.c                                     :+:      :+:    :+:   */
+/*   ft_strlendouble.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/15 11:09:24 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 14:04:36 by paf              ###   ########.fr       */
+/*   Created: 2026/02/25 15:12:28 by paf               #+#    #+#             */
+/*   Updated: 2026/02/25 15:57:04 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "token_utils.h"
+#include "libft.h"
 
-int	isshspace(char c)
+int	ft_strlendouble(char **tab)
 {
-	if (c == ' ' || c == '\t')
-		return (1);
-	return (0);
-}
+	int	i;
 
-int	isshbreak(char c)
-{
-	if (c == '\n')
-		return (1);
-	return (0);
-}
-
-int	isshellkw(char c)
-{
-	if (c == '|' || c == '&' || c == '<' || c == '>' || c == '(' || c == ')'
-		|| c == ';')
-		return (1);
-	return (0);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }

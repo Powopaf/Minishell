@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 07:46:53 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 13:59:44 by paf              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	exec(t_shell *sh, t_ast *node)
 	if (node->astkw == AST_PIPE)
 		exec_pipe(sh, node);
 	if (node->astkw == AST_AND || node->astkw == AST_OR
-			|| node->astkw == AST_THEN)
+		|| node->astkw == AST_THEN)
 		exec_logop(sh, node);
 	if (node->astkw == AST_SUBSHELL)
 		exec_sub(sh, node);
@@ -111,7 +111,7 @@ void	exec_root(t_shell *sh, t_ast *node)
 	if (node->astkw == AST_PIPE)
 		exec_pipe(sh, node);
 	if (node->astkw == AST_AND || node->astkw == AST_OR
-			|| node->astkw == AST_THEN)
+		|| node->astkw == AST_THEN)
 		exec_logop(sh, node);
 	if (node->astkw == AST_SUBSHELL)
 		exec_sub(sh, node);
