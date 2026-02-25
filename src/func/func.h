@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:54 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 11:58:30 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/25 17:24:02 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,13 @@ void	cd(t_shell *sh, char **args);
 void	env(char **args, t_shell *sh);
 void	export(char **args, t_shell *sh);
 void	unset(char **args, t_shell *sh);
+
+/**
+ * @brief compile an error message, ex : program "cd", argument strerror(errno)
+ * gives "cd: error: "
+ */
+char	*error_mess(char *program, char *argument);
+
+char	*get_cwd(t_shell *sh);
 
 #endif

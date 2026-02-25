@@ -6,121 +6,117 @@
 /*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 13:57:38 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/25 18:01:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../libft/libft.h"
 #include "../error/err.h"
 #include "../exec/parser_cmd/parser_cmd.h"
 #include "func.h"
-#include "../../libft/libft.h"
-#include <unistd.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "../exec/exec_utils.h"
 
-static int	verif(char *new_pwd, t_shell *sh)
-{
-	if (!new_pwd)
-		return (error(sh, "cd", strerror(errno), 1), 1);
-	return (0);
-}
-
-static int	is_full_path(t_shell *sh, char *path, char **new_pwd)
+static int	complete_path(t_shell *sh, char *path, char **new_wd)
 {
 	char	*home;
 
-	if (!path || path[0] == '\0')
+	if (!path || path[0] == '\0' || (path[0] == '~' && !path[1])
+		|| (path[0] == '~' && path[1] == '/'))
 	{
 		home = get_env(sh, "HOME");
 		if (!home)
-			return (error(sh, "cd", "HOME not set", 1), 1);
-		*new_pwd = ft_strdup(home);
-		return (free(home), verif(*new_pwd, sh));
+			return (error(sh, "cd", "HOME not set", -FAIL), 0);
+		if (!path || path[0] == '\0')
+			*new_wd = ft_strdup(home);
+		if (path && ((path[0] == '~' && !path[1]) || (path[0] == '~'
+					&& path[1] == '/')))
+			*new_wd = ft_strjoin(home, path + 1);
+		free(home);
+		if (!*new_wd)
+			return (error(sh, "cd", strerror(errno), -FAIL), 0);
+		return (1);
 	}
-	if (path[0] == '~')
-	{
-		home = get_env(sh, "HOME");
-		if (!home)
-			return (error(sh, "cd", "HOME not set", 1), 1);
-		*new_pwd = ft_strjoin(home, path + 1);
-		return (free(home), verif(*new_pwd, sh));
-	}
-	*new_pwd = ft_strdup(path);
-	return (verif(*new_pwd, sh));
+	*new_wd = ft_strdup(path);
+	if (!*new_wd)
+		return (error(sh, "cd", strerror(errno), -FAIL), 0);
+	return (1);
 }
 
-static int	replace_envp(t_shell *sh)
+static int	update_envp(t_shell *sh, char *new_wd)
 {
-	char	*new_pwd;
 	char	*entry;
 	size_t	i;
 
-	new_pwd = getcwd(NULL, 0);
-	if (!new_pwd)
-		return (error(sh, "malloc", strerror(errno), 1), 1);
-	entry = ft_strjoin("PWD=", new_pwd);
-	free(new_pwd);
+	entry = ft_strjoin("PWD=", new_wd);
+	free(new_wd);
 	if (!entry)
-		return (error(sh, "malloc", strerror(errno), 1), 1);
-	i = -1;
-	while (sh->envp && sh->envp[++i])
+		return (error(sh, "cd", strerror(errno), -FAIL), 0);
+	i = 0;
+	while (sh->envp && sh->envp[i])
 	{
 		if (!ft_strncmp("PWD", sh->envp[i], 3) && sh->envp[i][3] == '=')
 		{
 			free(sh->envp[i]);
 			sh->envp[i] = entry;
-			return (0);
+			return (1);
 		}
+		i++;
 	}
-	return (free(entry), 0);
+	if (!ft_addstr_arr(&sh->envp, entry))
+		return (free(entry), 0);
+	return (1);
 }
-
-static int	replace_oldpwd(t_shell *sh, char *w_dir)
+static int	replace_oldpwd(t_shell *sh, char *wd)
 {
 	char	*entry;
 	size_t	i;
 
-	entry = ft_strjoin("OLDPWD=", w_dir);
+	entry = ft_strjoin("OLDPWD=", wd);
+	free(wd);
 	if (!entry)
-		return (error(sh, "malloc", strerror(errno), 1), 1);
-	i = -1;
-	while (sh->envp && sh->envp[++i])
+		return (error(sh, "malloc", strerror(errno), -FAIL), 0);
+	i = 0;
+	while (sh->envp && sh->envp[i])
 	{
 		if (!ft_strncmp("OLDPWD", sh->envp[i], 6) && sh->envp[i][6] == '=')
 		{
 			free(sh->envp[i]);
 			sh->envp[i] = entry;
-			return (0);
+			return (1);
 		}
+		i++;
 	}
-	return (free(entry), 0);
+	if (!ft_addstr_arr(&sh->envp, entry))
+		return (free(entry), 0);
+	return (1);
 }
 
 void	cd(t_shell *sh, char **args)
 {
-	char	*w_dir;
-	char	*new_pwd;
-	char	*err_msg;
+	char	*wd;
+	char	*new_wd;
 
 	if (args[1] && args[2])
-		return (error(sh, "cd", "too many arguments", 1));
-	w_dir = getcwd(NULL, 0);
-	if (w_dir == NULL)
-		return (error(sh, "malloc", strerror(errno), 1));
-	new_pwd = NULL;
-	if (is_full_path(sh, args[1], &new_pwd))
-		return (free(w_dir));
-	if (chdir(new_pwd) == -1)
+		return (error(sh, "cd", "too many arguments", -FAIL));
+	wd = get_cwd(sh);
+	if (wd == NULL)
+		return (error(sh, "cd", strerror(errno), -FAIL));
+	new_wd = NULL;
+	if (!complete_path(sh, args[1], &new_wd))
+		return (free(wd));
+	if (chdir(new_wd) == -1)
 	{
-		err_msg = ft_strjoin(new_pwd, ": No such file or directory");
-		return (error(sh, "cd", err_msg, 1), free(err_msg), free(w_dir),
-			free(new_pwd));
+		new_wd = error_mess(new_wd, "cd");
+		error(sh, new_wd, strerror(errno), -FAIL);
+		return (free(wd), free(new_wd));
 	}
-	if (replace_oldpwd(sh, w_dir) || replace_envp(sh))
-		error(sh, "cd", "can not update PWD", 1);
-	else
-	{
-		sh->status = 0;
-	}
-	return (free(w_dir), free(new_pwd));
+	free(new_wd);
+	new_wd = get_cwd(sh);
+	replace_oldpwd(sh, wd);
+	update_envp(sh, new_wd);
+	sh->status = 0;
+	return ;
 }

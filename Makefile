@@ -46,6 +46,7 @@ SRC = 	./minishell.c \
 		./src/func/export.c \
 		./src/func/pwd.c \
 		./src/func/unset.c \
+		./src/func/func_utils.c \
 		./src/signal/signal.c \
 		./src/signal/signal_fork.c \
 		./src/signal/signal_utils.c \
