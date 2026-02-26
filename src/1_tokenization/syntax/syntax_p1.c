@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:18:16 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 08:18:24 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:35:28 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,29 @@ static int	pipe_syntax(t_shell *sh, t_token *current)
 	return (1);
 }
 
-static int	parenth_syntax(t_shell *sh)
+static int	parenth_syntax(t_shell *sh, t_token *current)
+{
+	if (current->kw == L_PARENTH)
+	{
+		if (current->prev && (current->prev->kw == R_PARENTH
+				|| current->prev->kw == WORD))
+			return (syntax_error(sh, L_PARENTH, -MISUSE), 0);
+	}
+	if (current->kw == R_PARENTH)
+	{
+		if (!current->prev || current->prev->kw == PIPE
+			|| current->prev->kw == L_PARENTH || current->prev->kw == AND
+			|| current->prev->kw == OR || current->prev->kw == SEMICOLON)
+			return (syntax_error(sh, R_PARENTH, -MISUSE), 0);
+		if (current->next && current->next->kw == WORD)
+			return (syntax_error_word(sh, current->next->token, -MISUSE), 0);
+		if (current->next && current->next->kw == L_PARENTH)
+			return (syntax_error(sh, current->next->kw, -MISUSE), 0);
+	}
+	return (1);
+}
+
+static int	parenth_syntax_count(t_shell *sh)
 {
 	t_token	*current;
 	int		count;
@@ -54,14 +76,7 @@ static int	parenth_syntax(t_shell *sh)
 	while (current)
 	{
 		if (current->kw == L_PARENTH)
-		{
 			count++;
-			if (current->next && current->next->kw == R_PARENTH)
-				return (syntax_error(sh, R_PARENTH, -MISUSE), 0);
-			if (current->prev && current->prev->kw == WORD
-				&& (!current->prev->prev || !is_redir(current->prev->prev)))
-				return (syntax_error(sh, L_PARENTH, -MISUSE), 0);
-		}
 		else if (current->kw == R_PARENTH)
 			count--;
 		if (count < 0)
@@ -79,12 +94,14 @@ int	check_syntax(t_shell *sh)
 
 	if (!sh->tokens)
 		return (0);
-	if (!parenth_syntax(sh))
+	if (!parenth_syntax_count(sh))
 		return (0);
 	current = sh->tokens;
 	while (current)
 	{
 		if (!redir_syntax(sh, current))
+			return (0);
+		if (!parenth_syntax(sh, current))
 			return (0);
 		if (!or_syntax(sh, current))
 			return (0);

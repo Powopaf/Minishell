@@ -6,48 +6,53 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 10:39:34 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:48:54 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "func.h"
 #include "../../libft/libft.h"
+#include "../clean/clean_shell.h"
 #include "../error/err.h"
+#include "func.h"
+#include <limits.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-static int	nb_args(char **args)
+int	ft_isnumber(char *s)
 {
-	int	i;
-
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
+	if (!s || !*s)
+		return (0);
+	if (*s == '-' || *s == '+')
+		s++;
+	while (*s)
+	{
+		if (!ft_isdigit(*s))
+			return (0);
+		s++;
+	}
+	return (1);
 }
 
-int	ft_exit(char **args, t_shell *sh)
+void	ft_exit(char **args, t_shell *sh)
 {
-	char	*msg;
+	unsigned int	exitno;
 
-	if (args && args[1] && !ft_isdigit(args[1][0]) &&
-		args[1][0] != '-' && args[1][0] != '+')
+	if (args && args[1] && !ft_isnumber(args[1]))
 	{
-		msg = ft_strjoin("exit: ", args[1]);
-		if (!msg)
-			return (error(sh, "malloc", strerror(errno), 1), -1);
-		else
-		{
-			error(sh, msg, "numeric argument required", -2);
-			free(msg);
-			sh->exit = 2;
-			return (-1);
-		}
+		error(sh, error_mess("exit", args[1]), "numeric argument required",
+			MISUSE);
 	}
-	else if (nb_args(args) > 2)
-		return (error(sh, "exit", "too many arguments", 1), sh->status = 1, -1);
+	else if (args && args[1] && args[2])
+		error(sh, "exit", "too many arguments", FAIL);
 	else if (args && args[1])
-		sh->exit = (unsigned char)ft_atoi(args[1]);
+	{
+		exitno = ft_atoi(args[1]) % 256;
+	}
 	else
-		sh->exit = sh->status;
-	return (sh->exit);
+		exitno = sh->status;
+	if (sh->tty)
+		write(STDOUT_FILENO, "exit\n", 5);
+	clean_shell(sh);
+	close_std_fds();
+	exit(exitno);
 }

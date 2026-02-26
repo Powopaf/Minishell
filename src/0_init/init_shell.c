@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 19:46:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 11:05:27 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:47:11 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	initialize_shell(t_shell *shell, char **envp, char **argv)
 	shell->tokens = NULL;
 	shell->ast = NULL;
 	get_shell_name(shell, argv);
-	shell->exit = -1;
 	init_terminal(shell);
 	setup_signals(shell);
 }

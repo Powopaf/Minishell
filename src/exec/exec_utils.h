@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:09:07 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 15:53:23 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/26 19:34:16 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1
 
-# include "../../struct.h"
 # include "../../redir.h"
+# include "../../struct.h"
 
 /**
  * Executes a command node (builtins or external).
@@ -49,6 +49,8 @@ int		redir(t_shell *sh, t_redir *redir);
  */
 int		wait_ast(t_ast *node);
 
+int		wait_pid(t_ast *node);
+
 /**
  * Sets up a pipe between AST nodes.
  * @param {t_shell *} sh - Shell context.
@@ -65,5 +67,7 @@ int		setup_pipe(t_shell *sh, t_ast *node);
 int		is_dir(char *path);
 
 void	clean_exit_forked_cmd(t_ast *node, char *cmd, char **args, char **envp);
+
+int		pipe_redir(t_shell *sh, t_ast *node);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 00:10:55 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:47:39 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	process_line(t_shell *shell, char *line)
 		return (clean_prompt(shell), 1);
 	exec_root(shell, shell->ast);
 	clean_prompt(shell);
-	return (shell->exit == -1);
+	return (1);
 }
 
 static void	shell_process_non_tty(t_shell *shell)
@@ -90,7 +90,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 	int		status;
-	int		exit;
 
 	(void)argc;
 	initialize_shell(&shell, envp, argv);
@@ -98,11 +97,8 @@ int	main(int argc, char **argv, char **envp)
 		shell_process_tty(&shell);
 	else
 		shell_process_non_tty(&shell);
-	exit = shell.exit;
 	status = shell.status;
 	clean_shell(&shell);
 	rl_clear_history();
-	if (exit == -1)
-		return (status);
-	return (exit);
+	return (status);
 }

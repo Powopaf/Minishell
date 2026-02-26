@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 12:43:23 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 13:18:57 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:24:07 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*create_entry(t_shell *sh, char *var, char *value)
 	return (entry);
 }
 
-static char	*export_err_var(char *s)
+char	*export_err_var(char *s)
 {
 	char	*tmp;
 	char	*err;
@@ -58,7 +58,7 @@ int	is_valid_var_name(t_shell *sh, char *s)
 {
 	size_t	i;
 
-	if (!s || !*s)
+	if (!s)
 		return (0);
 	if (!ft_isalpha(*s) && *s != '_')
 	{

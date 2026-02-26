@@ -36,6 +36,7 @@ SRC = 	./minishell.c \
 		./src/exec/exec_cmd.c \
 		./src/exec/exec_cmd_utils.c \
 		./src/exec/exec_redir.c \
+		./src/exec/exec_wait.c \
 		./src/exec/exec_utils.c \
 		./src/exec/parser_cmd/utils_parse_cmd.c \
 		./src/exec/parser_cmd/parser_cmd.c \

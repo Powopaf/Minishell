@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 13:58:52 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 19:34:27 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #include <string.h>
 #include <unistd.h>
 
-static int	pipe_redir(t_shell *sh, t_ast *node)
+int	pipe_redir(t_shell *sh, t_ast *node)
 {
 	if (node->fd_in > -1 && dup2(node->fd_in, STDIN_FILENO) < 0)
 	{
