@@ -6,24 +6,12 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 16:23:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/16 17:49:38 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 12:51:13 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
-
-static size_t	ft_strslen(char **s)
-{
-	size_t	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 static char	**ft_util(char **arr, char *s)
 {

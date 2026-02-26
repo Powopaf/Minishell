@@ -8,6 +8,7 @@ SRC = ./ft_add_str_array.c \
 	  ./ft_free_array_strs.c \
 	  ./ft_add_arr_arr.c \
 	  ./ft_addstr_arr.c \
+	  ./ft_isalpha.c \
 	  ./ft_isalnum.c \
 	  ./ft_itoa.c \
 	  ./ft_ptoa.c \
@@ -36,7 +37,8 @@ SRC = ./ft_add_str_array.c \
 	  ./ft_atoi.c \
 	  ./ft_isdigit.c \
 	  ./ft_close_fd.c \
-	  ./ft_strlendouble.c
+	  ./ft_strlendouble.c \
+	  ./ft_strslen.c
 
 OBJ_DIR = .obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

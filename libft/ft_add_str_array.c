@@ -3,27 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_add_str_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/19 18:36:37 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/18 10:47:37 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/26 12:50:26 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
-
-static size_t	ft_strslen(char **s)
-{
-	size_t	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 static char	**ft_single_str_array(char *s)
 {

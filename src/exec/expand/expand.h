@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:03:22 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/24 10:38:42 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:33:46 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int		arr_rm_backslash(char ***arr);
  */
 int		include_wildcard(char *s);
 
-void	sort_ascii(char **s);
+void	sort_ascii_case_insensitive(char **s);
 
 int		is_dquoted(char *s, size_t pos);
 

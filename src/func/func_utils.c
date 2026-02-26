@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/25 16:37:44 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 00:10:47 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 12:42:57 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,31 @@ char	*get_cwd(t_shell *sh)
 	if (!cwd)
 		return (ft_strdup("/"));
 	return (cwd);
+}
+
+void	sort_ascii(char **s)
+{
+	size_t	i;
+	size_t	j;
+	char	*tmp;
+
+	if (!s || !*s)
+		return ;
+	i = 0;
+	j = 1;
+	while (s[i])
+	{
+		while (s[j])
+		{
+			if (ft_strcmp(s[i], s[j]) > 0)
+			{
+				tmp = s[i];
+				s[i] = s[j];
+				s[j] = tmp;
+			}
+			j++;
+		}
+		i++;
+		j = i + 1;
+	}
 }

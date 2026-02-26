@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:40:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 10:39:38 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:33:46 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static char	**expand_wildcards_str(t_shell *sh, char *s, size_t *count)
 	closedir(dir);
 	if (!(*count))
 		ft_addstr_arr(&files, s);
-	sort_ascii(files);
+	sort_ascii_case_insensitive(files);
 	return (files);
 }
 

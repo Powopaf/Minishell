@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 09:20:44 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/24 00:32:42 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:33:46 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	strcmp_lowercase(char *s1, char *s2)
 	return ((unsigned char)lowercase(*s1) - (unsigned char)lowercase(*s2));
 }
 
-void	sort_ascii(char **s)
+void	sort_ascii_case_insensitive(char **s)
 {
 	size_t	i;
 	size_t	j;

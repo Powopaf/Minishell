@@ -6,24 +6,12 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 17:20:39 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/17 13:02:32 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 12:52:59 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
-
-static size_t	ft_strslen(char **s)
-{
-	size_t	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 static void	copy_array(char **dest, char **src, int start, int len)
 {
