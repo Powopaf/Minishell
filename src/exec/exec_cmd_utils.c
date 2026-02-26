@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/24 16:24:31 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 00:20:30 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 14:01:39 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	clean_exit_forked_cmd(t_ast *node, char *cmd, char **args, char **envp)
 {
 	int	status;
 
-	status = 0;
+	status = node->shell->status;
 	if (cmd)
 		free(cmd);
 	if (args)

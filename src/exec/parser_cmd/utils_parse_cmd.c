@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 13:15:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 14:06:52 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,51 @@ char	*get_env(t_shell *sh, char *var_name)
 	return (var);
 }
 
+static int	is_builtin_p2(char *cmd, t_shell *sh, char **args)
+{
+	if (!ft_strncmp(cmd, "pwd", 4))
+	{
+		sh->status = pwd(args, sh);
+		return (1);
+	}
+	if (!ft_strncmp(cmd, "export", 7))
+	{
+		sh->status = export(args, sh);
+		return (1);
+	}
+	if (!ft_strncmp(cmd, "env", 4))
+	{
+		sh->status = env(args, sh);
+		return (1);
+	}
+	if (!ft_strncmp(cmd, "unset", 6))
+	{
+		sh->status = unset(args, sh);
+		return (1);
+	}
+	return (0);
+}
+
 int	is_builtin(char *cmd, t_shell *sh, char **args)
 {
 	if (!cmd)
 		return (0);
 	if (!ft_strncmp(cmd, "exit", 5))
-		return (ft_exit(args, sh), 1);
+	{
+		sh->status = ft_exit(args, sh);
+		return (1);
+	}
 	if (!ft_strncmp(cmd, "echo", 5))
-		return (echo(args, sh), 1);
+	{
+		sh->status = echo(args, sh);
+		return (1);
+	}
 	if (!ft_strncmp(cmd, "cd", 3))
-		return (cd(sh, args), 1);
-	if (!ft_strncmp(cmd, "pwd", 4))
-		return (pwd(args, sh), 1);
-	if (!ft_strncmp(cmd, "export", 7))
-		return (export(args, sh), 1);
-	if (!ft_strncmp(cmd, "env", 4))
-		return (env(args, sh), 1);
-	if (!ft_strncmp(cmd, "unset", 6))
-		return (unset(args, sh), 1);
-	return (0);
+	{
+		sh->status = cd(sh, args);
+		return (1);
+	}
+	return (is_builtin_p2(cmd, sh, args));
 }
 
 int	is_builtin_main(t_shell *sh, t_ast *node, char *cmd, char **args)

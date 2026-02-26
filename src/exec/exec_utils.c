@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 01:40:21 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:51:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	wait_ast(t_ast *node)
 		exit_status = node->status;
 	else if (node->astkw == AST_CMD && node->pid == -1)
 		exit_status = node->status;
-	else if (node->pid > 0)
+	if (node->pid > 0)
 	{
 			waitpid(node->pid, &status, 0);
 			if (WIFEXITED(status))

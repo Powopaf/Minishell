@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 13:07:10 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:44:40 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	add_env_var(t_shell *sh, char *arg)
 		status = !add_to_env(sh, var, value);
 	else
 		status = !add_to_env(sh, var, NULL);
-	return (free(var), free(value), !status);
+	return (free(var), free(value), status);
 }
 
 int	printout_env(t_shell *sh)
@@ -122,13 +122,17 @@ int	export(char **args, t_shell *sh)
 	int		status;
 
 	if (!args[1])
-		return (printout_env(sh));
+	{
+		if (printout_env(sh))
+			return (SUCCESS);
+		return (FAIL);
+	}
 	i = 1;
-	status = 0;
+	status = SUCCESS;
 	while (args[i])
 	{
-		if (!add_env_var(sh, args[i]))
-			status = 1;
+		if (add_env_var(sh, args[i]))
+			status = FAIL;
 		i++;
 	}
 	return (status);
