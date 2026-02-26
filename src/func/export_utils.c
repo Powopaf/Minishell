@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 12:43:23 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 12:49:36 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:18:57 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ char	*create_entry(t_shell *sh, char *var, char *value)
 	char	*tmp;
 	char	*entry;
 
-	tmp = ft_strjoin(var, "=");
+	tmp = ft_strjoin(var, "=\"");
 	if (!tmp)
 		return (error(sh, "export", strerror(errno), -FAIL), NULL);
 	entry = ft_strjoin(tmp, value);
+	entry = ft_strjoin_char(entry, '\"', 1, 1);
 	free(tmp);
 	return (entry);
 }
@@ -48,7 +49,7 @@ static char	*export_err_var(char *s)
 	char	*err;
 
 	tmp = ft_strjoin("`", s);
-	err = ft_strjoin(tmp, "\"");
+	err = ft_strjoin(tmp, "\'");
 	free(tmp);
 	return (err);
 }
@@ -66,7 +67,7 @@ int	is_valid_var_name(t_shell *sh, char *s)
 		return (0);
 	}
 	i = 1;
-	while (s[i])
+	while (s[i] && s[i] != '=')
 	{
 		if (!ft_isalnum(s[i]) && s[i] != '_')
 		{

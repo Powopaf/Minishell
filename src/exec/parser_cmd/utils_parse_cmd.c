@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 09:41:18 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:15:04 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	is_builtin_main(t_shell *sh, t_ast *node, char *cmd, char **args)
 		node->status = cd(sh, args);
 		return (1);
 	}
-	if (!ft_strncmp(cmd, "export", 7) && !args[1])
+	if (!ft_strncmp(cmd, "export", 7) && args[1])
 	{
 		node->status = export(args, sh);
 		return (1);

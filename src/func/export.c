@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 12:48:38 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:07:10 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	add_env_var(t_shell *sh, char *arg)
 		var = ft_strndup(arg, equal - arg);
 		value = ft_strdup(equal + 1);
 	}
-	if (!is_valid_var_name(sh, var))
+	if (!is_valid_var_name(sh, arg))
 		status = 1;
 	else if (equal)
 		status = !add_to_env(sh, var, value);
@@ -110,6 +110,7 @@ int	printout_env(t_shell *sh)
 			free(sorted);
 			return (0);
 		}
+		i++;
 	}
 	free(sorted);
 	return (1);
@@ -128,6 +129,7 @@ int	export(char **args, t_shell *sh)
 	{
 		if (!add_env_var(sh, args[i]))
 			status = 1;
+		i++;
 	}
 	return (status);
 }
