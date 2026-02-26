@@ -65,8 +65,6 @@ test_command() {
 
 	cmd=$1
 
-	echo -e "${YELLOW}$> $1 ${NC}"
-
 	bash_stdout_tmp=$(mktemp)
 	mini_stdout_tmp=$(mktemp)
 	bash_stderr_tmp=$(mktemp)
@@ -88,38 +86,39 @@ test_command() {
 
 	if [ "$expected_code" -ne "$exit_code" ]; then
 		failed=1
-		error_exitcode "$expected_code" "$exit_code"
 	fi
-	if [ "$expected_code" -eq "$exit_code" ]; then
-		pass_exitcode "$expected_code"
-	fi
+	# if [ "$expected_code" -eq "$exit_code" ]; then
+	# 	pass_exitcode "$expected_code"
+	# fi
 
 	if [ "$expected_stdout" != "$actual_stdout" ]; then
 		failed=1
-		error_stdout "$expected_stdout" "$actual_stdout"
 	fi
-	if [ "$expected_stdout" = "$actual_stdout" ]; then
-		pass_stdout "$expected_stdout"
-	fi
+	# if [ "$expected_stdout" = "$actual_stdout" ]; then
+	# 	pass_stdout "$expected_stdout"
+	# fi
 
 	if [ "$expected_stderr" != "$actual_stderr" ]; then
 		failed=1
-		error_stderr "$expected_stderr" "$actual_stderr"
-	fi
-	if [ "$expected_stderr" = "$actual_stderr" ]; then
-		pass_stderr "$expected_stderr"
-	fi
 
-	rm -f "$bash_stderr_tmp" "$mini_stderr_tmp" "$bash_stdout_tmp" "$mini_stdout_tmp"
+	fi
+	# if [ "$expected_stderr" = "$actual_stderr" ]; then
+	# 	pass_stderr "$expected_stderr"
+	# fi
 
 	if [ "$failed" -eq 1 ]; then
+		echo -e "${YELLOW}$> $1 ${NC}"
+		error_exitcode "$expected_code" "$exit_code"
+		error_stdout "$expected_stdout" "$actual_stdout"
+		error_stderr "$expected_stderr" "$actual_stderr"
 		failed_tests=$((failed_tests + 1))
 		return 0
-	else
-		pass "$cmd"
-		passed_tests=$((passed_tests + 1))
-		return 1
+	# else
+	# 	pass "$cmd"
+	# 	passed_tests=$((passed_tests + 1))
+	# 	return 1
 	fi
+	rm -f "$bash_stderr_tmp" "$mini_stderr_tmp" "$bash_stdout_tmp" "$mini_stdout_tmp"
 }
 
 while IFS= read -r line; do

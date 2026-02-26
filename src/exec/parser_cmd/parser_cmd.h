@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 13:32:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 19:46:34 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 08:46:26 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ char	*get_env(t_shell *sh, char *var_name);
  */
 int		is_builtin(char *cmd, t_shell *sh, char **args);
 
-int		is_builtin_main(char *cmd, t_shell *sh, char **args);
+int	is_builtin_main(t_shell *sh, t_ast *node, char *cmd, char **args);
 
 #endif

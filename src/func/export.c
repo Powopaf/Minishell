@@ -3,141 +3,137 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 15:57:28 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/26 13:44:40 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "func.h"
 #include "../../libft/libft.h"
 #include "../error/err.h"
-#include <stdlib.h>
+#include "func.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-static int	exist(char *var, char ***env)
+int	new_entry_to_env(t_shell *sh, char *var, char *value)
 {
-	int		key_len;
-	char	*dup;
-	int		i;
-
-	key_len = 0;
-	while (var[key_len] && var[key_len] != '=')
-		key_len++;
-	i = 0;
-	while ((*env)[i])
-	{
-		if (!ft_strncmp((*env)[i], var, key_len)
-			&& (*env)[i][key_len] == '=')
-		{
-			dup = ft_strdup(var);
-			if (!dup)
-				return (EXIT_FAILURE);
-			free((*env)[i]);
-			(*env)[i] = dup;
-			return (EXIT_SUCCESS);
-		}
-		i++;
-	}
-	return (EXIT_FAILURE);
-}
-
-static int	join(char ***env, char *var)
-{
+	size_t	i;
 	char	**new_env;
-	char	*dup;
-	int		i;
 
-	if (exist(var, env) == EXIT_SUCCESS)
-		return (EXIT_SUCCESS);
-	new_env = malloc(sizeof(char *) * (ft_strlendouble(*env) + 2));
+	new_env = malloc((ft_strslen(sh->envp) + 2) * sizeof(char *));
 	if (!new_env)
-		return (EXIT_FAILURE);
+		return (error(sh, "export", strerror(errno), -FAIL), 0);
 	i = 0;
-	while ((*env)[i])
+	while (i < ft_strslen(sh->envp))
 	{
-		new_env[i] = (*env)[i];
+		new_env[i] = sh->envp[i];
 		i++;
 	}
-	dup = ft_strdup(var);
-	if (!dup)
-		return (free(new_env), EXIT_FAILURE);
-	new_env[i] = dup;
+	new_env[i] = create_entry(sh, var, value);
 	new_env[i + 1] = NULL;
-	free(*env);
-	*env = new_env;
-	return (EXIT_SUCCESS);
+	free(sh->envp);
+	sh->envp = new_env;
+	return (1);
 }
 
-static int	set_var(char **args, int i, int j, t_shell *sh)
+int	add_to_env(t_shell *sh, char *var, char *value)
 {
-	char	*tmp;
+	size_t	i;
 
-	if (args[i][j] == '=')
+	i = 0;
+	while (sh->envp[i])
 	{
-		if (join(&sh->envp, args[i]) == EXIT_FAILURE)
-			return (error(sh, "malloc", strerror(errno), EXIT_FAILURE),
-				EXIT_FAILURE);
+		if (!varcmp(sh->envp[i], var))
+		{
+			free(sh->envp[i]);
+			sh->envp[i] = create_entry(sh, var, value);
+			if (!sh->envp[i])
+				return (0);
+			return (1);
+		}
+		i++;
 	}
+	if (!new_entry_to_env(sh, var, value))
+		return (0);
+	return (1);
+}
+
+int	add_env_var(t_shell *sh, char *arg)
+{
+	char	*equal;
+	char	*var;
+	char	*value;
+	int		status;
+
+	equal = ft_strchr(arg, '=');
+	if (!equal)
+	{
+		var = ft_strdup(arg);
+		value = malloc(1);
+	}
+	if (equal)
+	{
+		var = ft_strndup(arg, equal - arg);
+		value = ft_strdup(equal + 1);
+	}
+	if (!is_valid_var_name(sh, arg))
+		status = 1;
+	else if (equal)
+		status = !add_to_env(sh, var, value);
 	else
-	{
-		tmp = ft_strjoin_char(args[i], '=', 1, 0);
-		if (!tmp)
-			return (error(sh, "malloc", strerror(errno), EXIT_FAILURE),
-				EXIT_FAILURE);
-		if (join(&sh->envp, tmp) == EXIT_FAILURE)
-			return (free(tmp), error(sh, "malloc",
-					strerror(errno), EXIT_FAILURE),
-				EXIT_FAILURE);
-		free(tmp);
-	}
-	return (EXIT_SUCCESS);
+		status = !add_to_env(sh, var, NULL);
+	return (free(var), free(value), status);
 }
 
-static int	add_var(char **args, t_shell *sh)
+int	printout_env(t_shell *sh)
 {
-	int		i;
-	int		j;
+	size_t	len;
+	char	**sorted;
+	size_t	i;
 
+	len = ft_strslen(sh->envp);
+	sorted = malloc((len + 1) * sizeof(char *));
+	if (!sorted)
+		return (error(sh, "malloc", strerror(errno), -FAIL), 0);
+	i = -1;
+	while (++i < len)
+		sorted[i] = sh->envp[i];
+	sorted[i] = NULL;
+	sort_ascii(sorted);
 	i = 0;
-	while (args[++i])
+	while (sorted[i])
 	{
-		j = -1;
-		if (!args[i][++j] || ((ft_isalnum(args[i][j]) && ft_isdigit(args[i][j]))
-				|| (!ft_isalnum(args[i][j]) && args[i][j] != '_')))
+		if (!printout_env_line(sh, sorted[i]))
 		{
-			export_msg(sh, args[i]);
-			continue ;
+			free(sorted);
+			return (0);
 		}
-		while (args[i][++j] && args[i][j] != '=')
-		{
-			if (!ft_isalnum(args[i][j]) && args[i][j] != '_')
-			{
-				export_msg(sh, args[i]);
-				continue ;
-			}
-		}
-		if (set_var(args, i, j, sh) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		i++;
 	}
-	return (EXIT_SUCCESS);
+	free(sorted);
+	return (1);
 }
 
-void	export(char **args, t_shell *sh)
+int	export(char **args, t_shell *sh)
 {
-	int		i;
+	size_t	i;
+	int		status;
 
-	i = 0;
 	if (!args[1])
 	{
-		while (sh->envp && sh->envp[++i])
-			printf("export %s\n", sh->envp[i]);
-		sh->status = EXIT_SUCCESS;
-		return ;
+		if (printout_env(sh))
+			return (SUCCESS);
+		return (FAIL);
 	}
-	if (add_var(args, sh) == EXIT_FAILURE)
-		sh->status = EXIT_FAILURE;
-	else
-		sh->status = EXIT_SUCCESS;
+	i = 1;
+	status = SUCCESS;
+	while (args[i])
+	{
+		if (add_env_var(sh, args[i]))
+			status = FAIL;
+		i++;
+	}
+	return (status);
 }

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 00:10:35 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 08:55:00 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,30 +95,30 @@ static int	replace_oldpwd(t_shell *sh, char *wd)
 	return (1);
 }
 
-void	cd(t_shell *sh, char **args)
+int	cd(t_shell *sh, char **args)
 {
 	char	*wd;
 	char	*new_wd;
 	char	*err;
 
 	if (args[1] && args[2])
-		return (error(sh, "cd", "too many arguments", -FAIL));
+		return (error(sh, "cd", "too many arguments", -FAIL), FAIL);
 	wd = get_cwd(sh);
 	if (wd == NULL)
-		return (error(sh, "cd", strerror(errno), -FAIL));
+		return (error(sh, "cd", strerror(errno), -FAIL), FAIL);
 	new_wd = NULL;
 	if (!complete_path(sh, args[1], &new_wd))
-		return (free(wd));
+		return (free(wd), FAIL);
 	if (chdir(new_wd) == -1)
 	{
 		err = error_mess("cd", new_wd);
 		error(sh, err, strerror(errno), -FAIL);
-		return (free(wd), free(new_wd), free(err));
+		return (free(wd), free(new_wd), free(err), FAIL);
 	}
 	free(new_wd);
 	new_wd = get_cwd(sh);
 	replace_oldpwd(sh, wd);
 	update_envp(sh, new_wd);
 	sh->status = 0;
-	return ;
+	return (SUCCESS);
 }

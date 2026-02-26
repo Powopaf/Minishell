@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 00:10:17 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 13:58:52 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,7 @@ void	exec_cmd(t_shell *sh, t_ast *node)
 	if (node->args && node->args[0] && (!node->parent
 			|| node->parent->astkw != AST_PIPE))
 	{
-		if (is_builtin_main(node->args[0], sh, node->args) > 0)
-			return (ft_close_fd(&node->fd_in), ft_close_fd(&node->fd_out));
+		is_builtin_main(sh, node, node->args[0], node->args);
 	}
 	node->pid = try_fork(sh);
 	if (node->pid < 0)

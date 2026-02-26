@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:38:52 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 15:56:56 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/26 12:09:19 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,8 @@ int		ft_isalnum(int c);
  * Returns NULL on end-of-file or error.
  * @param {int} fd - File descriptor to read from.
 
- * @returns {char*} Pointer to a newly allocated string containing the next line,
+
+	* @returns {char*} Pointer to a newly allocated string containing the next line,
  * including the newline character if present. Returns NULL on EOF or error.
  * The caller is responsible for freeing the returned string.
  */
@@ -272,5 +273,9 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(char *s, size_t n);
 
 int		ft_strlendouble(char **tab);
+
+size_t	ft_strslen(char **s);
+
+int		ft_isalpha(int c);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 10:34:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 16:14:56 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/26 09:27:29 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,23 @@ static int	unset_var(t_shell *sh, char *var_name)
 	return (free(sh->envp), sh->envp = new_envp, EXIT_SUCCESS);
 }
 
-void	unset(char **args, t_shell *sh)
+int	unset(char **args, t_shell *sh)
 {
 	int	i;
 
 	if (!args[0] || !args[1])
-		return ;
+		return (EXIT_SUCCESS);
 	i = 1;
 	while (args[i])
 	{
 		if (args[i][0] == '-' && args[i][1])
 		{
 			error_unset(args[i]);
-			return ;
+			return (EXIT_FAILURE);
 		}
 		if (unset_var(sh, args[i]) == EXIT_FAILURE)
-			return ;
+			return (EXIT_FAILURE);
 		i++;
 	}
-	sh->status = EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }

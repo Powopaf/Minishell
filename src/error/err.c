@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 23:22:26 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:01:55 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,6 @@ void	error(t_shell *shell, char *context, char *why, int exitno)
 		return ;
 	}
 	clean_shell(shell);
+	close_std_fds();
 	exit(exitno);
 }
