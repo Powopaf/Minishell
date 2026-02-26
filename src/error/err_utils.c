@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 18:12:37 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 19:14:31 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 10:01:31 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,11 @@ char	*join_err(t_shell *sh, char *context, char *why)
 		free(s);
 	s = ft_strjoin_char_p(&sb, '\n', 1, 1);
 	return (s);
+}
+
+void	close_std_fds(void)
+{
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 }

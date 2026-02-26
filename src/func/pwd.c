@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/11 13:18:42 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 12:17:40 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:58:28 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	pwd(char **args, t_shell *sh)
+int	pwd(char **args, t_shell *sh)
 {
 	char	*cwd;
 
@@ -30,9 +30,8 @@ void	pwd(char **args, t_shell *sh)
 		write(1, cwd, ft_strlen(cwd));
 		if (cwd)
 			free(cwd);
-		sh->status = 0;
-		return ;
+		return (SUCCESS);
 	}
 	error(sh, "pwd", strerror(errno), -FAIL);
-	return ;
+	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:25:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 12:24:21 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:58:36 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	printout(char **args, size_t i)
 	}
 }
 
-void	echo(char **args, t_shell *sh)
+int	echo(char **args, t_shell *sh)
 {
 	size_t	i;
 	size_t	j;
@@ -49,5 +49,5 @@ void	echo(char **args, t_shell *sh)
 	if (n_flag)
 		if (write(STDOUT_FILENO, "\n", 1) == -1)
 			error(sh, "write", strerror(errno), -FAIL);
-	sh->status = SUCCESS;
+	return (SUCCESS);
 }

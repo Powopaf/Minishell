@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:54 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 08:55:57 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:58:09 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 # include "../../struct.h"
 
 int		ft_exit(char **args, t_shell *sh);
-void	echo(char **args, t_shell *sh);
-void	pwd(char **args, t_shell *sh);
+int		echo(char **args, t_shell *sh);
+int		pwd(char **args, t_shell *sh);
 int		cd(t_shell *sh, char **args);
-void	env(char **args, t_shell *sh);
+int		env(char **args, t_shell *sh);
 int		export(char **args, t_shell *sh);
 int		unset(char **args, t_shell *sh);
 
