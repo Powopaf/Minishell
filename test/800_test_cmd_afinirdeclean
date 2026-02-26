@@ -7,11 +7,11 @@
 <
 >>
 <<
-<>
+# <>
 >>>>>
 >>>>>>>>>>>>>>>
 <<<<<
-<<<<<<<<<<<<<<<
+# <<<<<<<<<<<<<<<
 > > > >
 >> >> >> >>
 >>>> >> >> >>
@@ -276,12 +276,12 @@ cat Makefile | grep pr | head -n 5
 cat Makefile | grep pr | head -n 5 | hello
 export HOLA=bonjour | cat -e | cat -e
 unset HOLA | cat -e
-export HOLA | echo hola env | grep PROUT
+export HOLA | echo hola env | grep whatever
 export | echo hola
 # sleep 3 | sleep 3
 # time sleep 3 | sleep 3
-# sleep 3 | exit
-# exit | sleep 3
+sleep 1 | exit
+exit | sleep 1
 echo hola > a >>b echo que tal cat a | <b cat | cat > c | cat
 
 ==================== LOGICAL OPERATORS ====================
@@ -397,7 +397,7 @@ ls -z || (cd ../../..&&pwd)
 # # cat bonjour
 # # > bonjour | echo hola
 # # cat bonjour
-# # prout hola > bonjour
+# # whatever hola > bonjour
 # # ls
 # # echo hola > hello >> hello >> hello
 # # ls
@@ -502,45 +502,45 @@ ls -z || (cd ../../..&&pwd)
 # # echo hola > bonjour hey ls
 # # cat bonjour cat hey
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello >srcs/bonjour >srcs/hello <prout cat srcs/bonjour srcs/hello
+# # echo hey > srcs/hello >srcs/bonjour >srcs/hello <whatever cat srcs/bonjour srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello rm srcs/bonjour srcs/hello >srcs/bonjour >srcs/hello <prout ls srcs cat srcs/bonjour srcs/hello
+# # echo hey > srcs/hello rm srcs/bonjour srcs/hello >srcs/bonjour >srcs/hello <whatever ls srcs cat srcs/bonjour srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello >srcs/bonjour <prout >srcs/hello  cat srcs/bonjour  cat srcs/hello
+# # echo hey > srcs/hello >srcs/bonjour <whatever >srcs/hello  cat srcs/bonjour  cat srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello rm srcs/bonjour srcs/hello >srcs/bonjour <prout >srcs/hello  ls srcs cat srcs/bonjour
+# # echo hey > srcs/hello rm srcs/bonjour srcs/hello >srcs/bonjour <whatever >srcs/hello  ls srcs cat srcs/bonjour
 # # echo hola > ../bonjour
-# # echo hey > ../hello >../bonjour >../hello <prout cat ../bonjour ../hello
+# # echo hey > ../hello >../bonjour >../hello <whatever cat ../bonjour ../hello
 # # echo hola > ../bonjour
-# # echo hey > ../hello rm ../bonjour ../hello >../bonjour >../hello <prout ls .. cat ../bonjour ../hello
+# # echo hey > ../hello rm ../bonjour ../hello >../bonjour >../hello <whatever ls .. cat ../bonjour ../hello
 # # echo hola > ../bonjour
-# # echo hey > ../hello >../bonjour <prout >../hello  cat ../bonjour  cat ../hello
+# # echo hey > ../hello >../bonjour <whatever >../hello  cat ../bonjour  cat ../hello
 # # echo hola > ../bonjour
-# # echo hey > ../hello rm ../bonjour ../hello >../bonjour <prout >../hello  ls .. cat ../bonjour
+# # echo hey > ../hello rm ../bonjour ../hello >../bonjour <whatever >../hello  ls .. cat ../bonjour
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello >srcs/bonjour >>srcs/hello <prout cat srcs/bonjour  cat srcs/hello
+# # echo hey > srcs/hello >srcs/bonjour >>srcs/hello <whatever cat srcs/bonjour  cat srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello >>srcs/bonjour >srcs/hello <prout cat srcs/bonjour  cat srcs/hello
+# # echo hey > srcs/hello >>srcs/bonjour >srcs/hello <whatever cat srcs/bonjour  cat srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello >>srcs/bonjour >>srcs/hello <prout cat srcs/bonjour  cat srcs/hello
+# # echo hey > srcs/hello >>srcs/bonjour >>srcs/hello <whatever cat srcs/bonjour  cat srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello >srcs/bonjour <prout >>srcs/hello cat srcs/bonjour  cat srcs/hello
+# # echo hey > srcs/hello >srcs/bonjour <whatever >>srcs/hello cat srcs/bonjour  cat srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello >>srcs/bonjour <prout >srcs/hello cat srcs/bonjour  cat srcs/hello
+# # echo hey > srcs/hello >>srcs/bonjour <whatever >srcs/hello cat srcs/bonjour  cat srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello >>srcs/bonjour <prout >>srcs/hello cat srcs/bonjour  cat srcs/hello
+# # echo hey > srcs/hello >>srcs/bonjour <whatever >>srcs/hello cat srcs/bonjour  cat srcs/hello
 # # echo hola > srcs/bonjour
-# # echo hey > srcs/hello <prout >>srcs/bonjour >>srcs/hello cat srcs/bonjour  cat srcs/hello
+# # echo hey > srcs/hello <whatever >>srcs/bonjour >>srcs/hello cat srcs/bonjour  cat srcs/hello
 # # echo hola > bonjour
 # # echo hey > hello <bonjour >hello cat bonjour  cat hello
 # # echo hola > bonjour
-# # echo hey > hello >bonjour >hello < prout cat bonjour  cat hello
+# # echo hey > hello >bonjour >hello < whatever cat bonjour  cat hello
 # # echo hola > bonjour
-# # echo hey > hello rm bonjour hello >bonjour >hello < prout cat bonjour  cat hello
+# # echo hey > hello rm bonjour hello >bonjour >hello < whatever cat bonjour  cat hello
 # # echo hola > bonjour
-# # echo hey > hello >bonjour <prout hello cat bonjour  cat hello
+# # echo hey > hello >bonjour <whatever hello cat bonjour  cat hello
 # # echo hola > bonjour
-# # echo hey > hello rm bonjour hello >bonjour <prout hello cat bonjour
+# # echo hey > hello rm bonjour hello >bonjour <whatever hello cat bonjour
 # # echo hola > bonjour <bonjour cat | wc > bonjour cat bonjour
 # # rm -f bonjour rm bonjour > bonjour ls -l bonjour
 # # export HOLA="bonjour hello" >$HOLA
@@ -555,7 +555,7 @@ ls -z || (cd ../../..&&pwd)
 # # ls
 # # export HOLA="bonjour hello" >hey>$HOLA>hey>hey
 # # ls
-# # export A=hey export A B=Hola D E C="Que Tal" echo $PROUT$B$C > /tmp/a > /tmp/b > /tmp/c cat /tmp/a cat /tmp/b cat /tmp/c
+# # export A=hey export A B=Hola D E C="Que Tal" echo $whatever$B$C > /tmp/a > /tmp/b > /tmp/c cat /tmp/a cat /tmp/b cat /tmp/c
 
 # # <a cat <b <c
 
@@ -607,8 +607,8 @@ ls -z || (cd ../../..&&pwd)
 # # << hola
 # # <<hola
 # # cat <<
-# # cat << prout << lol << koala
-# # prout << lol << cat << koala
+# # cat << whatever << lol << koala
+# # whatever << lol << cat << koala
 # # << $hola
 # # << $"hola"$"b"
 # # << $"$hola"$$"b"

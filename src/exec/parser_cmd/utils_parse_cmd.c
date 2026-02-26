@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 19:36:03 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 09:41:18 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,29 @@ int	is_builtin(char *cmd, t_shell *sh, char **args)
 	return (0);
 }
 
-int	is_builtin_main(char *cmd, t_shell *sh, char **args)
+int	is_builtin_main(t_shell *sh, t_ast *node, char *cmd, char **args)
 {
 	if (!cmd)
 		return (0);
 	if (!ft_strncmp(cmd, "exit", 5))
-		return (ft_exit(args, sh), 1);
+	{
+		node->status = ft_exit(args, sh);
+		return (1);
+	}
 	if (!ft_strncmp(cmd, "cd", 3))
-		return (cd(sh, args), 1);
-	if (!ft_strncmp(cmd, "export", 7))
-		return (export(args, sh), 1);
+	{
+		node->status = cd(sh, args);
+		return (1);
+	}
+	if (!ft_strncmp(cmd, "export", 7) && !args[1])
+	{
+		node->status = export(args, sh);
+		return (1);
+	}
 	if (!ft_strncmp(cmd, "unset", 6))
-		return (unset(args, sh), 1);
+	{
+		node->status = unset(args, sh);
+		return (1);
+	}
 	return (0);
 }

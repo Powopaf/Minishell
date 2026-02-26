@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 15:57:28 by paf              ###   ########.fr       */
+/*   Updated: 2026/02/26 09:25:43 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static int	add_var(char **args, t_shell *sh)
 	return (EXIT_SUCCESS);
 }
 
-void	export(char **args, t_shell *sh)
+int	export(char **args, t_shell *sh)
 {
 	int		i;
 
@@ -133,11 +133,10 @@ void	export(char **args, t_shell *sh)
 	{
 		while (sh->envp && sh->envp[++i])
 			printf("export %s\n", sh->envp[i]);
-		sh->status = EXIT_SUCCESS;
-		return ;
+		return (SUCCESS);
 	}
 	if (add_var(args, sh) == EXIT_FAILURE)
-		sh->status = EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	else
-		sh->status = EXIT_SUCCESS;
+		return (EXIT_SUCCESS);
 }
