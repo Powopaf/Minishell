@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 19:52:10 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:34:33 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ static void	exec_sub(t_shell *sh, t_ast *node)
 	if (node->pid == 0)
 	{
 		setup_child_signals(sh);
+		if (!pipe_redir(sh, node))
+			exit(EXIT_FAILURE);
+		if (!redir(sh, node->redir))
+			exit(EXIT_FAILURE);
 		exec_root(sh, node->left);
 		clean_shell(sh);
 		exit(sh->status);
 	}
 	ignore_signals();
-	waitpid(node->pid, &node->status, 0);
+	sh->status = wait_pid(node);
 	setup_signals(sh);
-	if (WIFEXITED(node->status))
-		node->status = WEXITSTATUS(node->status);
-	else if (WIFSIGNALED(node->status))
-		node->status = WTERMSIG(node->status) + SIG_BASE;
 	return ;
 }
 
@@ -67,11 +67,7 @@ static void	exec_pipe(t_shell *sh, t_ast *node)
 	if (!setup_pipe(sh, node))
 		return ;
 	exec(sh, node->left);
-	if (sh->exit != -1)
-		return ;
 	exec(sh, node->right);
-	if (sh->exit != -1)
-		return ;
 	return ;
 }
 
@@ -81,8 +77,7 @@ static void	exec_logop(t_shell *sh, t_ast *node)
 		return ;
 	exec(sh, node->left);
 	sh->status = wait_ast(node->left);
-	if (sh->exit != -1)
-		return ;
+
 	if (node->astkw == AST_AND)
 	{
 		if (sh->status == EXIT_SUCCESS)

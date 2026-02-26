@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:54 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 12:46:32 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 21:53:40 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../../struct.h"
 
-int		ft_exit(char **args, t_shell *sh);
+void	ft_exit(char **args, t_shell *sh);
 int		echo(char **args, t_shell *sh);
 int		pwd(char **args, t_shell *sh);
 int		cd(t_shell *sh, char **args);
@@ -40,5 +40,7 @@ char	*create_entry(t_shell *sh, char *var, char *value);
 int		is_valid_var_name(t_shell *sh, char *s);
 
 int		printout_env_line(t_shell *sh, char *s);
+
+char	*export_err_var(char *s);
 
 #endif

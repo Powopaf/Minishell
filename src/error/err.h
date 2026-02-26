@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 10:01:41 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 22:33:17 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	quote_error(t_shell *sh, char *c);
  * @param {int} exitno - Exit status to set.
  */
 void	syntax_error(t_shell *sh, t_token_kw kw, int exitno);
+
+void	syntax_error_word(t_shell *sh, char *word, int exitno);
 
 /**
  * Reports an error with context and updates shell status.

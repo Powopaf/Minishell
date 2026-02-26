@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 19:36:01 by flomulle          #+#    #+#             */
-/*   Updated: 2025/11/12 18:38:16 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:52:32 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,21 @@ char	*ft_itoa(int n)
 
 	temp = n;
 	len = ft_ilength(temp);
-	if (n < 0)
-		temp = -temp;
-	s = (char *)malloc((len + 1) * sizeof(*s));
+	s = (char *)malloc((len + 1) * sizeof(char));
 	if (!s)
 		return (NULL);
 	s[len] = '\0';
-	while (len > 0 && temp > 0)
+	if (temp == 0)
+		s[0] = '0';
+	if (temp < 0)
 	{
-		s[--len] = temp % 10 + '0';
+		s[0] = '-';
+		temp = -temp;
+	}
+	while (temp > 0)
+	{
+		s[--len] = (temp % 10) + '0';
 		temp /= 10;
 	}
-	if (n < 0)
-		s[0] = '-';
-	if (n == 0)
-		s[0] = '0';
 	return (s);
 }

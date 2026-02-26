@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 13:51:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/26 18:55:47 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,33 +53,6 @@ int	restore_std(t_shell *sh)
 		return (0);
 	}
 	return (1);
-}
-
-int	wait_ast(t_ast *node)
-{
-	int	status;
-	int	exit_status;
-
-	exit_status = node->shell->status;
-	if (!node)
-		return (exit_status);
-	if (node->left && node)
-		status = wait_ast(node->left);
-	if (node->right)
-		status = wait_ast(node->right);
-	if (node->astkw == AST_SUBSHELL)
-		exit_status = node->status;
-	else if (node->astkw == AST_CMD && node->pid == -1)
-		exit_status = node->status;
-	if (node->pid > 0)
-	{
-			waitpid(node->pid, &status, 0);
-			if (WIFEXITED(status))
-				exit_status = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				exit_status = WTERMSIG(status) + SIG_BASE;
-	}
-	return (exit_status);
 }
 
 int	is_dir(char *path)

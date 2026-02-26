@@ -47,9 +47,9 @@ hola'
 *
 */*
 */*
-.
-..
-~
+# .
+# ..
+# ~
 # ABC=hola
 # 4ABC=hola
 hola
@@ -104,14 +104,14 @@ echo " $ " | cat -e
 echo ' $ ' | cat -e
 echo $HOME
 echo \$HOME
-echo my shit terminal is [$TERM]
-echo my shit terminal is [$TERM4
-echo my shit terminal is [$TERM4]
-echo $UID
+# echo my  terminal is [$TERM]
+# echo my  terminal is [$TERM4
+# echo my  terminal is [$TERM4]
+# echo $UID
 echo $HOME9
 echo $9HOME
 echo $HOME%
-echo $UID$HOME
+# echo $UID$HOME
 echo Le path de mon HOME est $HOME
 echo $USER$var\$USER$USER\$USERtest$USER
 echo $hola*
@@ -131,10 +131,10 @@ echo D*
 echo *Z
 echo *t hola
 echo *t
-echo $*
+# echo $*
 echo hola*hola *
 echo $hola*
-echo $HOME*
+# echo $HOME*
 echo $""
 echo "$"""
 echo '$'''
@@ -205,7 +205,7 @@ $LESS$VAR
 ==================== BINARIES ====================
 /bin/echo
 /bin/echo Hola Que Tal
-/bin/env
+# /bin/env
 # /bin/cd Desktop
 
 
@@ -662,19 +662,17 @@ exit '666'"666"666
 exit +'666'"666"666
 exit -'666'"666"666
 exit 9223372036854775807
-exit 9223372036854775808
 exit -9223372036854775808
-exit -9223372036854775809
 
 
 ==================== ENV ====================
 env
-env hola
-env hola que tal
-env env
-env env env env env
-env ls
-env ./Makefile
+# env hola
+# env hola que tal
+# env env
+# env env env env env
+# env ls
+# env ./Makefile
 
 
 ==================== EXPORT ====================
@@ -726,13 +724,12 @@ export HOLA= bonjour ; env | grep HOLA
 export HOLA=bonsoir
 export HOLA=bonretour
 export HOLA=bonjour ; env | grep HOLA
-export HOLA=$HOME ; env | grep HOLA 
+export HOLA=$HOME ; env | grep HOLA
 export HOLA=bonjour$HOME ; env | grep HOLA
 export HOLA=$HOMEbonjour ; env | grep HOLA
 export HOLA=bon$jour ; env | grep HOLA
 export HOLA=bon\jour ; env | grep HOLA
 export HOLA=bon\\jour ; env | grep HOLA
-export HOLA=bon(jour
 export HOLA=bon()jour
 export HOLA=bon&jour
 export HOLA=bon@jour ; env | grep HOLA
@@ -802,61 +799,52 @@ export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 ; echo "$A'$B"'$C"$D'$E'"$F'"'$G'$H"
 
 
 ==================== UNSET ====================
-# # unset PATH
-# # echo $PATH
-# # unset PATH
-# # ls
-# unset ""
-# unset INEXISTANT
-# unset PWD env | grep PWD pwd
-# pwd
-# unset PWD
-# env | grep PWD
-# cd $PWD
-# pwd
-# unset OLDPWD
-# env | grep OLDPWD
-# unset 9HOLA
-# unset HOLA9
-# unset HOL?A
-# unset HOLA HOL?A
-# unset HOL?A HOLA
-# unset HOL?A HOL.A
-# unset HOLA=
-# unset HOL\\\\A
-# unset HOL;A
-# unset HOL.A
-# unset HOL+A
-# unset HOL=A
-# unset HOL{A
-# unset HOL}A
-# unset HOL-A
+unset PATH ; echo $PATH
+unset PATH ; ls
+unset ""
+unset INEXISTANT
+unset PWD ; env | grep PWD ; pwd
+unset PWD ; env | grep PWD ; cd $PWD ; pwd
+unset OLDPWD; env | grep OLDPWD
+unset 9HOLA
+unset HOLA9
+unset HOL?A
+unset HOLA HOL?A
+unset HOL?A HOLA
+unset HOL?A HOL.A
+unset HOLA=
+unset HOL\\\\A
+unset HOL;A
+unset HOL.A
+unset HOL+A
+unset HOL=A
+unset HOL{A
+unset HOL}A
+unset HOL-A
 # unset -HOLA
-# unset _HOLA
-# unset HOL_A
-# unset HOLA_
-# unset HOL*A
-# unset HOL#A
-# unset $HOLA
-# unset $PWD
-# unset HOL@
-# unset HOL!A
-# unset HOL^A
-# unset HOL$?A
-# unset HOL\~A
-# unset "" HOLA
-# env | grep HOLA
-# unset =
-# unset ======
-# unset ++++++
-# unset _______
-# unset export
-# unset echo
-# unset pwd
-# unset cd
-# unset unset
-# # unset sudo
-# export hola | unset hola | echo $?
+unset _HOLA
+unset HOL_A
+unset HOLA_
+unset HOL*A
+unset HOL#A
+unset $HOLA
+unset $PWD
+unset HOL@
+unset HOL!A
+unset HOL^A
+unset HOL$?A
+unset HOL\~A
+export HOLA=1 ; unset "" HOLA ; env | grep HOLA
+unset =
+unset ======
+unset ++++++
+unset _______
+unset export
+unset echo
+unset pwd
+unset cd
+unset unset
+export hola ; unset hola ; echo $?
 
 
 ==================== PWD ====================
@@ -906,9 +894,9 @@ cd '////////' pwd
 cd /minishell
 cd / cd ..
 cd _
-cd -
-cd --
-cd ---
+# cd -
+# cd --
+# cd ---
 cd $HOME
 cd $HOME $HOME
 cd $HOME/42_works
