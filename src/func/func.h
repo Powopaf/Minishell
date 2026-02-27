@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:54 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 21:53:40 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/27 12:02:40 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,9 @@ int		is_valid_var_name(t_shell *sh, char *s);
 int		printout_env_line(t_shell *sh, char *s);
 
 char	*export_err_var(char *s);
+
+int		append_env_var(t_shell *sh, char *arg);
+
+int		new_entry_to_env(t_shell *sh, char *var, char *value);
 
 #endif

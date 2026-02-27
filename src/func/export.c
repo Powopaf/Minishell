@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 13:44:40 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/27 10:41:29 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	add_env_var(t_shell *sh, char *arg)
 	int		status;
 
 	equal = ft_strchr(arg, '=');
+	if (equal && equal != arg && *(equal - 1) == '+')
+		return (append_env_var(sh, arg));
 	if (!equal)
 	{
 		var = ft_strdup(arg);

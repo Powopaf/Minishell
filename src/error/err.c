@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:08:41 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 10:01:55 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/27 12:15:29 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,6 @@ static char	*sanitize(char **context)
 	tmp = malloc(ft_strlen(*context) + count + 3 + 1);
 	sanitize_copy(context, &tmp, count);
 	return (tmp);
-}
-
-void	export_msg(t_shell *sh, char *context)
-{
-	char	*tmp;
-	char	*suffix;
-
-	tmp = ft_strjoin("`", context);
-	if (!tmp)
-		return (error(sh, "malloc", strerror(errno), EXIT_FAILURE));
-	suffix = "': not a valid identifier";
-	tmp = ft_strjoin_free(&tmp, &suffix, 1);
-	if (!tmp)
-		return (error(sh, "malloc", strerror(errno), EXIT_FAILURE));
-	error(sh, "export", tmp, EXIT_FAILURE);
-	free(tmp);
 }
 
 void	error(t_shell *shell, char *context, char *why, int exitno)

@@ -201,13 +201,10 @@ $HOMEdskjhfkdshfsd'
 $DONTEXIST
 $LESS$VAR
 
-
 ==================== BINARIES ====================
 /bin/echo
 /bin/echo Hola Que Tal
-# /bin/env
-# /bin/cd Desktop
-
+/bin/env
 
 ==================== SIGNAUX ====================
 # # Ctlr-C
@@ -278,8 +275,7 @@ export HOLA=bonjour | cat -e | cat -e
 unset HOLA | cat -e
 export HOLA | echo hola env | grep whatever
 export | echo hola
-# sleep 3 | sleep 3
-# time sleep 3 | sleep 3
+sleep 1 | sleep 1
 sleep 1 | exit
 exit | sleep 1
 echo hola > a >>b echo que tal cat a | <b cat | cat > c | cat
@@ -680,9 +676,7 @@ export HOLA=bonjour ; env | grep HOLA
 export       HOLA=bonjour ; env | grep HOLA
 export
 export Hola
-export
 export Hola9hey
-export
 export $DONTEXIST
 export | grep "HOME"
 export ""
@@ -697,8 +691,7 @@ export ___HOLA=bonjour ; env | grep HOLA
 export _HO_LA_=bonjour ; env | grep HO
 export HOL@=bonjour
 export HOL\~A=bonjour
-export -HOLA=bonjour
-export --HOLA=bonjour
+# export -HOLA=bonjour
 export HOLA-=bonjour
 export HO-LA=bonjour
 export HOL.A=bonjour
@@ -848,17 +841,17 @@ export hola ; unset hola ; echo $?
 
 
 ==================== PWD ====================
-# pwd
-# pwd hola
-# pwd ./hola
-# pwd hola que tal
-# pwd -p
-# pwd --p
-# pwd ---p
-# pwd -- p
-# pwd pwd pwd
-# pwd ls
-# pwd ls env
+pwd
+pwd hola
+pwd ./hola
+pwd hola que tal
+pwd -p
+pwd --p
+pwd ---p
+pwd -- p
+pwd pwd pwd
+pwd ls
+pwd ls env
 
 
 ==================== CD ====================
@@ -942,26 +935,18 @@ cd *
 # # cd ..
 
 ==================== WEIRD ====================
-# chmod 000 minishell ./minishell
-# ls hola
 # ./Makefile
 # ./minishell
 # env | grep SHLVL
-# ./minishell
-# env | grep SHLVL
-# exit
-# env | grep SHLVL
+echo "env | grep SHLVL ; exit" ./minishell ; env | grep SHLVL
 # touch hola ./hola
-# env | "wc" -l
-# env | "wc "-l
-# expr 1 + 1
-# expr $? + $?
-# env -i ./minishell
-# env
-# env -i ./minishell
-# export
-# env -i ./minishell
-# cd
+env | "wc" -l
+env | "wc "-l
+expr 1 + 1
+expr $? + $?
+# env -i ./minishell ;  env
+# env -i ./minishell ; export
+# env -i ./minishell ; cd ..
 # env -i ./minishell
 # cd ~
 

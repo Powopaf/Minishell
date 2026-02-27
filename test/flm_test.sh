@@ -75,12 +75,12 @@ test_command() {
 	<<<"$cmd" bash --posix >"$bash_stdout_tmp" 2>"$bash_stderr_tmp"
 	expected_code=$?
 	expected_stdout=$(cat "$bash_stdout_tmp")
-	expected_stderr=$(head -n 1 "$bash_stderr_tmp" | sed 's/^bash: line [0-9]*: //')
+	expected_stderr=$(cat "$bash_stderr_tmp" | sed 's/^bash: //')       #head -n 1 "$bash_stderr_tmp" | sed 's/^bash: line [0-9]*: //')
 
 	<<<"$cmd" "$MINISHELL" >"$mini_stdout_tmp" 2>"$mini_stderr_tmp"
 	exit_code=$?
 	actual_stdout=$(cat "$mini_stdout_tmp")
-	actual_stderr=$(head -n 1 "$mini_stderr_tmp" | sed 's/^minishell: line [0-9]*: //')
+	actual_stderr=$(cat "$mini_stderr_tmp" | sed 's/^minishell: //') #head -n 1 "$mini_stderr_tmp" | sed 's/^minishell: line [0-9]*: //')
 
 	#expected_stderr_clean=$(echo "$expected_stderr" | sed 's/^bash: line [0-9]*: //')
 

@@ -45,6 +45,7 @@ SRC = 	./minishell.c \
 		./src/func/env.c \
 		./src/func/exit.c \
 		./src/func/export.c \
+		./src/func/export_append.c \
 		./src/func/export_utils.c \
 		./src/func/pwd.c \
 		./src/func/unset.c \
