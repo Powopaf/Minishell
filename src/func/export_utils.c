@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 12:43:23 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 18:24:07 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/27 12:10:45 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ char	*create_entry(t_shell *sh, char *var, char *value)
 	char	*tmp;
 	char	*entry;
 
-	tmp = ft_strjoin(var, "=\"");
+	tmp = ft_strjoin(var, "=");
 	if (!tmp)
 		return (error(sh, "export", strerror(errno), -FAIL), NULL);
 	entry = ft_strjoin(tmp, value);
-	entry = ft_strjoin_char(entry, '\"', 1, 1);
 	free(tmp);
 	return (entry);
 }
@@ -50,44 +49,56 @@ char	*export_err_var(char *s)
 
 	tmp = ft_strjoin("`", s);
 	err = ft_strjoin(tmp, "\'");
-	free(tmp);
+	if (tmp)
+		free(tmp);
 	return (err);
 }
 
 int	is_valid_var_name(t_shell *sh, char *s)
 {
 	size_t	i;
+	char	*err1;
+	char	*err2;
 
+	err1 = export_err_var(s);
+	err2 = error_mess("export", err1);
 	if (!s)
 		return (0);
 	if (!ft_isalpha(*s) && *s != '_')
 	{
-		error(sh, error_mess("export", export_err_var(s)),
-			"not a valid identifier", -FAIL);
-		return (0);
+		error(sh, err2, "not a valid identifier", -FAIL);
+		return (free(err1), free(err2), 0);
 	}
 	i = 1;
 	while (s[i] && s[i] != '=')
 	{
 		if (!ft_isalnum(s[i]) && s[i] != '_')
 		{
-			error(sh, error_mess("export", export_err_var(s)),
-				"not a valid identifier", -FAIL);
-			return (0);
+			error(sh, err2, "not a valid identifier", -FAIL);
+			return (free(err1), free(err2), 0);
 		}
 		i++;
 	}
-	return (1);
+	return (free(err1), free(err2), 1);
 }
 
 int	printout_env_line(t_shell *sh, char *s)
 {
 	char	*line;
 	char	*tmp;
+	char	*var_eq;
+	char	*value;
 
-	tmp = ft_strjoin("export ", s);
+	value = ft_strdup(ft_strchr(s, '=') + 1);
+	var_eq = ft_strndup(s, ft_strchr(s, '=') - s + 1);
+	tmp = ft_strjoin("export ", var_eq);
+	if (var_eq)
+		free(var_eq);
 	if (!tmp)
 		return (error(sh, "export", strerror(errno), -FAIL), 0);
+	tmp = ft_strjoin_char(tmp, '\"', 1, 1);
+	tmp = ft_strjoin_free(&tmp, &value, 3);
+	tmp = ft_strjoin_char(tmp, '\"', 1, 1);
 	line = ft_strjoin(tmp, "\n");
 	free(tmp);
 	if (!line)

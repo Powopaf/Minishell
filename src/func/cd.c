@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:59:55 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 08:55:00 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/27 11:46:17 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static int	update_envp(t_shell *sh, char *new_wd)
 	}
 	if (!ft_addstr_arr(&sh->envp, entry))
 		return (free(entry), 0);
+	free(entry);
 	return (1);
 }
 static int	replace_oldpwd(t_shell *sh, char *wd)
