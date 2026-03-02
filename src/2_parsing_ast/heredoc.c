@@ -1,0 +1,116 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/28 09:36:17 by flomulle          #+#    #+#             */
+/*   Updated: 2026/03/02 01:39:47 by flomulle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "./libft/libft.h"
+#include "./src/2_parsing_ast/heredoc.h"
+#include "./src/3_execution/3_1_expansion/expand.h"
+#include "./src/5_signal_handling/signal_handling.h"
+#include "./src/7_error_handling/err.h"
+#include <errno.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+static void	expand_hd_line(t_shell *sh, t_redir *redir, char **line)
+{
+	char	*expand;
+
+	if (!redir->quoted)
+	{
+		expand = expand_str(sh, *line);
+		if (expand)
+		{
+			free(*line);
+			*line = expand;
+		}
+	}
+}
+
+static int	write_heredoc(t_shell *sh, t_redir *redir, int fd)
+{
+	char	*line;
+	size_t	len;
+
+	setup_heredoc_signals();
+	while (1)
+	{
+		ft_putstr_fd(PROMPT_HD, 1);
+		line = ft_get_next_line(sh->stdin_fd);
+		if (!line)
+		{
+			warning_hd(sh);
+			break ;
+		}
+		len = ft_strlen(line);
+		if (len > 0 && !ft_strncmp(line, redir->eofkw, ft_strlen(redir->eofkw))
+			&& line[ft_strlen(redir->eofkw)] == '\n')
+		{
+			free(line);
+			break ;
+		}
+		expand_hd_line(sh, redir, &line);
+		write(fd, line, ft_strlen(line));
+		free(line);
+	}
+	return (setup_signals(sh), close(fd), 1);
+}
+
+static int	heredoc(t_shell *sh, t_redir *redir)
+{
+	int		fd;
+	char	*hdfile;
+	char	*id;
+
+	id = ft_ptoa(redir->eofkw);
+	if (!id)
+		return (error(sh, "malloc", strerror(errno), -FAIL), 0);
+	hdfile = ft_strjoin(HEREDOC, id);
+	free(id);
+	if (!hdfile)
+		return (error(sh, "malloc", strerror(errno), -FAIL), 0);
+	fd = open(hdfile, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (fd < 0)
+		return (free(hdfile), error(sh, "here_doc", strerror(errno), -FAIL), 0);
+	redir->fd_in = open(hdfile, O_RDONLY);
+	if (redir->fd_in < 0)
+		return (free(hdfile), error(sh, "here_doc", strerror(errno), -FAIL), 0);
+	unlink(hdfile);
+	free(hdfile);
+	if (!write_heredoc(sh, redir, fd))
+		return (0);
+	setup_signals(sh);
+	return (1);
+}
+
+void	collect_heredocs(t_shell *sh, t_redir *redir)
+{
+	while (redir)
+	{
+		if (redir->kw == REDIR_HD)
+		{
+			ft_close_fd(&redir->fd_in);
+			heredoc(sh, redir);
+		}
+		redir = redir->next;
+	}
+}
+
+void	handle_heredocs(t_shell *sh, t_ast *current_node)
+{
+	if (!current_node)
+		return ;
+	if (current_node->astkw == AST_CMD && current_node->args)
+	{
+		collect_heredocs(sh, current_node->redir);
+	}
+}

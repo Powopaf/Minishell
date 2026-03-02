@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 23:01:47 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/02 00:46:38 by flomulle         ###   ########.fr       */
+/*   Created: 2026/02/12 17:18:30 by flomulle          #+#    #+#             */
+/*   Updated: 2026/03/02 01:39:23 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef HEREDOC_H
+# define HEREDOC_H
+
+# define SUCCESS 0
+# define FAIL 1
+# define PROMPT_HD "> "
+# define HEREDOC "/tmp/minishell_heredoc"
 
 # include "./struct.h"
-/**
- * Builds an AST from the token list.
- * @param {t_shell *} sh - Shell context.
- * @param {t_token **} tokens - Pointer to token list.
- * @returns {t_ast*} Root of the AST or NULL on failure.
- */
-t_ast	*parser(t_shell *sh, t_token **tokens);
 
-int		is_logop(t_token *token);
+/**
+ * Check all nodes to collect sequentially heredocs
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_ast *} node - if node is a command, then check if there is a
+ * heredoc redir entry to collect.
+ */
+void	handle_heredocs(t_shell *sh, t_ast *current_node);
+
+void	collect_heredocs(t_shell *sh, t_redir *redir);
 
 #endif

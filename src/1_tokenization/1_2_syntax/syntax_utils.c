@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   syntax_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 07:41:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:35:10 by flomulle         ###   ########.fr       */
+/*   Created: 2026/02/23 13:50:55 by flomulle          #+#    #+#             */
+/*   Updated: 2026/03/02 01:00:42 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./src/2_parsing_ast/parsing.h"
+#include "./src/1_tokenization/1_2_syntax/syntax.h"
 
-int	is_logop(t_token *token)
+int	is_redir(t_token *token)
 {
-	if (token && (token->kw == AND || token->kw == OR
-			|| token->kw == SEMICOLON))
+	if (!token)
+		return (0);
+	if (token->kw == REDIR_IN || token->kw == REDIR_HD || token->kw == REDIR_OUT
+		|| token->kw == REDIR_APP)
 		return (1);
 	return (0);
 }

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paf <paf@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:38:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 13:50:51 by paf              ###   ########.fr       */
+/*   Updated: 2026/03/02 01:05:01 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "./src/2_parsing_ast/ast.h"
+#include "./src/2_parsing_ast/parser_utils.h"
+#include "./src/2_parsing_ast/parsing.h"
 #include <stddef.h>
-#include "ast/ast.h"
-#include "parser_utils.h"
 
 static t_ast	*parse_pipelines(t_shell *sh, t_token **tokens);
 

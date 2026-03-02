@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_cmd.c                                      :+:      :+:    :+:   */
+/*   ast_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/19 12:30:03 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:01:41 by flomulle         ###   ########.fr       */
+/*   Created: 2026/01/16 08:05:36 by flomulle          #+#    #+#             */
+/*   Updated: 2026/03/02 00:53:09 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/libft.h"
-#include "./src/2_parsing_ast/parser_utils.h"
+#include "./src/2_parsing_ast/ast.h"
 #include "./src/7_error_handling/err.h"
+#include <stdlib.h>
+#include <unistd.h>
 
-static int	add_arg(t_shell *sh, t_ast *node, char *arg)
+t_ast	*create_ast_node(t_shell *sh, t_ast_node_type astkw)
 {
-	char	**tmp;
+	t_ast	*node;
 
-	if (!arg)
-		return (1);
-	tmp = ft_add_str_array(node->args, arg);
-	node->args = tmp;
-	if (!node->args)
+	node = malloc(sizeof(*node));
+	if (!node)
 	{
 		error(sh, "malloc", strerror(errno), -FAIL);
-		return (0);
+		return (NULL);
 	}
-	return (1);
-}
-
-int	parse_command_args(t_shell *sh, t_ast *node, t_token **tokens)
-{
-	while (*tokens && (*tokens)->kw == WORD)
-	{
-		if (!add_arg(sh, node, (*tokens)->token))
-			return (0);
-		(*tokens) = (*tokens)->next;
-	}
-	return (1);
+	node->astkw = astkw;
+	node->args = NULL;
+	node->redir = NULL;
+	node->fd_in = -1;
+	node->fd_out = -1;
+	node->pid = -1;
+	node->status = -1;
+	node->left = NULL;
+	node->right = NULL;
+	node->parent = NULL;
+	node->shell = sh;
+	return (node);
 }

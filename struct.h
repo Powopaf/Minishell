@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/25 11:05:37 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/01 22:27:02 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,26 @@ typedef enum e_token_kw
 	WORD
 }	t_token_kw;
 
+typedef struct s_token
+{
+	t_token_kw		kw;
+	char			*token;
+	struct s_token	*prev;
+	struct s_token	*next;
+}					t_token;
+
+typedef struct s_redir
+{
+	t_token_kw		kw;
+	char			*file;
+	char			*eofkw;
+	int				quoted;
+	int				fd_in;
+	int				fd_out;
+	struct s_redir	*prev;
+	struct s_redir	*next;
+}	t_redir;
+
 typedef enum e_ast_node
 {
 	AST_CMD,
@@ -61,14 +81,6 @@ typedef struct s_ast
 	struct s_ast	*parent;
 	t_shell			*shell;
 }					t_ast;
-
-typedef struct s_token
-{
-	t_token_kw		kw;
-	char			*token;
-	struct s_token	*prev;
-	struct s_token	*next;
-}					t_token;
 
 typedef struct s_shell
 {

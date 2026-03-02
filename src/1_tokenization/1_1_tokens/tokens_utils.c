@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 07:41:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:35:10 by flomulle         ###   ########.fr       */
+/*   Created: 2026/01/15 11:09:24 by flomulle          #+#    #+#             */
+/*   Updated: 2026/03/02 00:44:06 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./src/2_parsing_ast/parsing.h"
+#include "./src/1_tokenization/1_1_tokens/token_utils.h"
 
-int	is_logop(t_token *token)
+int	isshspace(char c)
 {
-	if (token && (token->kw == AND || token->kw == OR
-			|| token->kw == SEMICOLON))
+	if (c == ' ' || c == '\t')
+		return (1);
+	return (0);
+}
+
+int	isshbreak(char c)
+{
+	if (c == '\n')
+		return (1);
+	return (0);
+}
+
+int	isshellkw(char c)
+{
+	if (c == '|' || c == '&' || c == '<' || c == '>' || c == '(' || c == ')'
+		|| c == ';')
 		return (1);
 	return (0);
 }
