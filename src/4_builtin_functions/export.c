@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 09:26:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/02 01:07:44 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 14:17:54 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	add_env_var(t_shell *sh, char *arg)
 	else if (equal)
 		status = !add_to_env(sh, var, value);
 	else
-		status = !add_to_env(sh, var, NULL);
+		status = !add_no_eq_to_env(sh, var);
 	return (free(var), free(value), status);
 }
 

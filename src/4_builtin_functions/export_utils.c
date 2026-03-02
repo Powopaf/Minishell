@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 12:43:23 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:07:39 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 14:32:34 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	printout_env_line(t_shell *sh, char *s)
 	char	*var_eq;
 	char	*value;
 
+	if (!ft_strchr(s, '='))
+		printout_env_line_no_eq(sh, s);
 	value = ft_strdup(ft_strchr(s, '=') + 1);
 	var_eq = ft_strndup(s, ft_strchr(s, '=') - s + 1);
 	tmp = ft_strjoin("export ", var_eq);

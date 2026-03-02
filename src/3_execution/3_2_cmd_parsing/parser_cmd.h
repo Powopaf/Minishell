@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 13:32:12 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/02 01:02:34 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 14:05:21 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ char	*get_env(t_shell *sh, char *var_name);
  * that may need it.
  * @returns: 1 if the command is a builtin, 0 otherwise
  */
-int		is_builtin(char *cmd, t_shell *sh, char **args);
+int		is_builtin(t_shell *sh, t_ast *node, char **args, char *cmd);
 
-int		is_builtin_main(t_shell *sh, t_ast *node, char *cmd, char **args);
+int		is_builtin_main(t_shell *sh, t_ast *node, char **args, char *cmd);
 
 #endif

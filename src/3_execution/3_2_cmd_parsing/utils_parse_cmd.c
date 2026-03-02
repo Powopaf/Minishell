@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:02:37 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:08:05 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,14 @@ static int	is_builtin_p2(char *cmd, t_shell *sh, char **args)
 	return (0);
 }
 
-int	is_builtin(char *cmd, t_shell *sh, char **args)
+int	is_builtin(t_shell *sh, t_ast *node, char **args, char *cmd)
 {
 	if (!cmd)
 		return (0);
-	if (!ft_strncmp(cmd, "exit", 5))
+	if (!ft_strncmp(cmd, "exit", 5) && node->parent->astkw == AST_PIPE)
 	{
-		ft_exit(args, sh);
+		ft_exit(sh, args);
+		return (1);
 	}
 	if (!ft_strncmp(cmd, "echo", 5))
 	{
@@ -86,13 +87,14 @@ int	is_builtin(char *cmd, t_shell *sh, char **args)
 	return (is_builtin_p2(cmd, sh, args));
 }
 
-int	is_builtin_main(t_shell *sh, t_ast *node, char *cmd, char **args)
+int	is_builtin_main(t_shell *sh, t_ast *node, char **args, char *cmd)
 {
 	if (!cmd)
 		return (0);
 	if (!ft_strncmp(cmd, "exit", 5))
 	{
-		ft_exit(args, sh);
+		ft_exit(sh, args);
+		return (1);
 	}
 	if (!ft_strncmp(cmd, "cd", 3))
 	{

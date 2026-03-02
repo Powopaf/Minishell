@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:02:15 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:51:01 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 15:52:26 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ static char	**parse_path(t_shell *sh, t_ast *node)
 	char	**paths;
 
 	path = get_env(sh, "PATH");
-	if (!path)
-		error(sh, node->args[0], strerror(errno), CMD_NOT_FND);
+	if (!path || !*path)
+		if (access(node->args[0], F_OK))
+			error(sh, node->args[0], strerror(errno), CMD_NOT_FND);
 	paths = ft_split(path, ':');
 	free(path);
 	if (!paths)
