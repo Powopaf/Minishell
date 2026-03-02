@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:23:05 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 14:05:28 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 16:08:05 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	is_builtin(t_shell *sh, t_ast *node, char **args, char *cmd)
 	if (!ft_strncmp(cmd, "exit", 5) && node->parent->astkw == AST_PIPE)
 	{
 		ft_exit(sh, args);
+		return (1);
 	}
 	if (!ft_strncmp(cmd, "echo", 5))
 	{
@@ -93,6 +94,7 @@ int	is_builtin_main(t_shell *sh, t_ast *node, char **args, char *cmd)
 	if (!ft_strncmp(cmd, "exit", 5))
 	{
 		ft_exit(sh, args);
+		return (1);
 	}
 	if (!ft_strncmp(cmd, "cd", 3))
 	{

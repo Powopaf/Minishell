@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:06:39 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/02 00:46:38 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 17:06:50 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define ISDIR "Is a directory"
 # define SIG_BASE 128
 # define WARNING "warning: "
+# define SIGQUIT_STATUS 131
+# define SIGSEGV_STATUS 139
 
 /**
  * Reports a syntax quote error and updates shell status.
