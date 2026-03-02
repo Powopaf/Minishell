@@ -45,6 +45,7 @@ SRC = 	./minishell.c \
 		./src/4_builtin_functions/env.c \
 		./src/4_builtin_functions/exit.c \
 		./src/4_builtin_functions/export_append.c \
+		./src/4_builtin_functions/export_no_eq.c \
 		./src/4_builtin_functions/export_utils.c \
 		./src/4_builtin_functions/export.c \
 		./src/4_builtin_functions/func_utils.c \

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 09:36:17 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:39:47 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 14:55:59 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,5 @@ void	handle_heredocs(t_shell *sh, t_ast *current_node)
 {
 	if (!current_node)
 		return ;
-	if (current_node->astkw == AST_CMD && current_node->args)
-	{
-		collect_heredocs(sh, current_node->redir);
-	}
+	collect_heredocs(sh, current_node->redir);
 }

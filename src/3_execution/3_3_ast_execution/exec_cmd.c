@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:39:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 14:57:19 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	exec_bin(t_shell *sh, t_ast *node)
 	if (!envp)
 		return (error(sh, "malloc", strerror(errno), -FAIL),
 			clean_exit_forked_cmd(node, cmd, args, envp));
-	if (is_builtin(cmd, sh, args) > 0)
+	if (is_builtin(sh, node, args, cmd) > 0)
 		clean_exit_forked_cmd(node, cmd, args, envp);
 	clean_shell(sh);
 	execve(cmd, args, envp);
@@ -87,7 +87,7 @@ void	exec_cmd(t_shell *sh, t_ast *node)
 	if (node->args && node->args[0] && (!node->parent
 			|| node->parent->astkw != AST_PIPE))
 	{
-		if (is_builtin_main(sh, node, node->args[0], node->args))
+		if (is_builtin_main(sh, node, node->args, node->args[0]))
 			return (ft_close_fd(&node->fd_in), ft_close_fd(&node->fd_out));
 	}
 	node->pid = try_fork(sh);

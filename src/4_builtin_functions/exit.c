@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 12:23:56 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/02 01:03:22 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 13:57:01 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,29 @@ int	ft_isnumber(char *s)
 	return (1);
 }
 
-void	ft_exit(char **args, t_shell *sh)
+void	ft_exit(t_shell *sh, char **args)
 {
 	unsigned int	exitno;
 
+	exitno = SUCCESS;
+	if (isatty(STDIN_FILENO) && isatty(STDOUT_FILENO))
+		write(STDERR_FILENO, "exit\n", 5);
 	if (args && args[1] && !ft_isnumber(args[1]))
 	{
 		error(sh, error_mess("exit", args[1]), "numeric argument required",
 			MISUSE);
 	}
 	else if (args && args[1] && args[2])
-		error(sh, "exit", "too many arguments", FAIL);
+	{
+		error(sh, "exit", "too many arguments", -FAIL);
+		return ;
+	}
 	else if (args && args[1])
 	{
 		exitno = ft_atoi(args[1]) % 256;
 	}
 	else
 		exitno = sh->status;
-	if (sh->tty)
-		write(STDOUT_FILENO, "exit\n", 5);
 	clean_shell(sh);
 	close_std_fds();
 	exit(exitno);
