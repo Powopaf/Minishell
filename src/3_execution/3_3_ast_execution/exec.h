@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/24 07:41:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:35:10 by flomulle         ###   ########.fr       */
+/*   Created: 2026/02/05 23:08:20 by pifourni          #+#    #+#             */
+/*   Updated: 2026/03/02 00:46:38 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./src/2_parsing_ast/parsing.h"
+#ifndef EXEC_H
+# define EXEC_H
 
-int	is_logop(t_token *token)
-{
-	if (token && (token->kw == AND || token->kw == OR
-			|| token->kw == SEMICOLON))
-		return (1);
-	return (0);
-}
+# include "./struct.h"
+
+/**
+ * Executes the AST starting at the root node.
+ * @param {t_shell *} sh - Shell context.
+ * @param {t_ast *} node - AST root node.
+ * @returns {int} Exit status of the executed pipeline.
+ */
+void	exec_root(t_shell *sh, t_ast *node);
+
+void	clean_exit_forked_cmd(t_ast *node, char *cmd, char **args, char **envp);
+
+#endif

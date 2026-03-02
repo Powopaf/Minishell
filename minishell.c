@@ -6,19 +6,20 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/26 23:47:39 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:25:50 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/libft.h"
-#include "signal.h"
-#include "src/0_init/init_shell.h"
-#include "src/1_tokenization/syntax/syntax.h"
-#include "src/1_tokenization/tokens.h"
-#include "src/2_parsing_ast/parsing.h"
-#include "src/clean/clean_shell.h"
-#include "src/exec/exec.h"
-#include "src/signal/signal_handling.h"
+#include "./src/0_initialization/init_shell.h"
+#include "./src/1_tokenization/1_1_tokens/tokens.h"
+#include "./src/1_tokenization/1_2_syntax/syntax.h"
+#include "./src/2_parsing_ast/parsing.h"
+#include "./src/3_execution/3_3_ast_execution/exec.h"
+#include "./src/5_signal_handling/signal_handling.h"
+#include "./src/6_cleaning/clean_shell.h"
+//#include "signal.h"
+#include "./struct.h"
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stdio.h>

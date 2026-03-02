@@ -1,0 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/27 15:07:25 by flomulle          #+#    #+#             */
+/*   Updated: 2026/03/02 01:39:04 by flomulle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "./src/3_execution/3_3_ast_execution/exec_utils.h"
+#include "./src/7_error_handling/err.h"
+#include <errno.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+pid_t	try_fork(t_shell *sh)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+	{
+		error(sh, "fork", strerror(errno), -FAIL);
+	}
+	return (pid);
+}
+
+int	try_pipe(t_shell *sh, int fd[2])
+{
+	if (pipe(fd) < 0)
+	{
+		error(sh, "pipe", strerror(errno), -FAIL);
+		return (0);
+	}
+	return (1);
+}
+
+int	restore_std(t_shell *sh)
+{
+	if (dup2(sh->stdin_fd, STDIN_FILENO) < 0)
+	{
+		error(sh, "dup2", strerror(errno), -FAIL);
+		return (0);
+	}
+	if (dup2(sh->stdout_fd, STDOUT_FILENO) < 0)
+	{
+		error(sh, "dup2", strerror(errno), -FAIL);
+		return (0);
+	}
+	return (1);
+}
+
+int	is_dir(char *path)
+{
+	struct stat	status;
+
+	if (!path)
+		return (0);
+	if (stat(path, &status) == -1)
+		return (0);
+	return (S_ISDIR(status.st_mode));
+}

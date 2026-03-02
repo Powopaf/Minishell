@@ -6,14 +6,14 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:57:30 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/25 10:38:21 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:35:04 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser_utils.h"
-#include "../error/err.h"
-#include "../../redir.h"
-#include "../../libft/libft.h"
+#include "./libft/libft.h"
+#include "./src/2_parsing_ast/heredoc.h"
+#include "./src/2_parsing_ast/parser_utils.h"
+#include "./src/7_error_handling/err.h"
 #include <stdlib.h>
 
 static void	rediradd_back(t_redir **redir, t_redir *newredir)

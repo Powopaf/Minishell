@@ -70,12 +70,17 @@ test_command() {
 	bash_stderr_tmp=$(mktemp)
 	mini_stderr_tmp=$(mktemp)
 
+	# valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --trace-children=yes --track-fds=all --supressions=readline.supp
+
+
 	<<<"$cmd" bash --posix >"$bash_stdout_tmp" 2>"$bash_stderr_tmp"
+
 	expected_code=$?
 	expected_stdout=$(cat "$bash_stdout_tmp")
 	expected_stderr=$(cat "$bash_stderr_tmp" | sed 's/^bash: //')
 
 	<<<"$cmd" "$MINISHELL" >"$mini_stdout_tmp" 2>"$mini_stderr_tmp"
+
 	exit_code=$?
 	actual_stdout=$(cat "$mini_stdout_tmp")
 	actual_stderr=$(cat "$mini_stderr_tmp" | sed 's/^minishell: //')

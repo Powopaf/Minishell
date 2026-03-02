@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 23:01:47 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/02 00:46:38 by flomulle         ###   ########.fr       */
+/*   Created: 2026/02/05 23:05:35 by pifourni          #+#    #+#             */
+/*   Updated: 2026/03/02 01:39:23 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef TOKENS_H
+# define TOKENS_H
 
 # include "./struct.h"
-/**
- * Builds an AST from the token list.
- * @param {t_shell *} sh - Shell context.
- * @param {t_token **} tokens - Pointer to token list.
- * @returns {t_ast*} Root of the AST or NULL on failure.
- */
-t_ast	*parser(t_shell *sh, t_token **tokens);
 
-int		is_logop(t_token *token);
+# define FAIL 1
+# define SUCCESS 0
+
+/**
+ * Tokenizes the current input line into a token list.
+ * @param {t_shell *} sh - Shell context.
+ * @returns {int} SUCCESS or FAIL.
+ */
+int		tokenization(t_shell *sh);
+
+/**
+ * Converts a token kind to its string representation.
+ * @param {t_token_kw} kw - Token kind.
+ * @returns {char*} Static string representation.
+ */
+char	*ft_token_to_char(t_token_kw kw);
 
 #endif
