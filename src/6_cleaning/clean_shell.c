@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 17:12:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:50:50 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 14:51:31 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,5 @@ void	clean_prompt(t_shell *shell)
 	tokens_clear(&shell->tokens, clean_token);
 	ast_clear(&shell->ast, clean_ast);
 }
+
+//
