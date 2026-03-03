@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 09:09:22 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:01:58 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 09:28:01 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	handle_quotes(char *s, size_t *i)
 
 	squote = 0;
 	dquote = 0;
-	if (s[*i] == '\'')
+	if (s[*i] == '\'' && !is_backslashed(s, *i))
 		squote++;
-	if (s[*i] == '\"')
+	if (s[*i] == '\"' && !is_backslashed(s, *i))
 		dquote++;
 	(*i)++;
 	while (s[*i] && ((squote && s[*i] != '\'') || (dquote && s[*i] != '\"')))
@@ -47,7 +47,7 @@ static int	ft_count_words(char *s)
 			count++;
 		while (s[i] && s[i] != ' ' && s[i] != '\n' && s[i] != '\t')
 		{
-			if (s[i] == '\'' || s[i] == '\"')
+			if ((s[i] == '\'' || s[i] == '\"') && !is_backslashed(s, i))
 				handle_quotes(s, &i);
 			i++;
 		}
@@ -62,7 +62,7 @@ static size_t	ft_lenbnext(char *s, size_t n)
 	i = 0;
 	while (s[n + i] && s[n + i] != ' ' && s[n + i] != '\n' && s[n + i] != '\t')
 	{
-		if (s[n + i] == '\'' || s[n + i] == '\"')
+		if ((s[n + i] == '\'' || s[n + i] == '\"') && !is_backslashed(s, n + i))
 			handle_quotes(s + n, &i);
 		i++;
 	}

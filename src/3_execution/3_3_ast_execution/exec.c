@@ -6,10 +6,11 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/02 01:39:23 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 00:29:10 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./libft/libft.h"
 #include "./src/3_execution/3_3_ast_execution/exec.h"
 #include "./src/3_execution/3_3_ast_execution/exec_utils.h"
 #include "./src/5_signal_handling/signal_handling.h"
@@ -52,8 +53,11 @@ static void	exec_sub(t_shell *sh, t_ast *node)
 			exit(FAIL);
 		exec_root(sh, node->left);
 		clean_shell(sh);
+		close_std_fds();
 		exit(sh->status);
 	}
+	ft_close_fd(&node->fd_in);
+	ft_close_fd(&node->fd_out);
 	ignore_signals();
 	sh->status = wait_pid(node);
 	setup_signals(sh);

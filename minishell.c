@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 17:20:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 08:41:02 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include "./src/3_execution/3_3_ast_execution/exec.h"
 #include "./src/5_signal_handling/signal_handling.h"
 #include "./src/6_cleaning/clean_shell.h"
-//#include "signal.h"
 #include "./src/7_error_handling/err.h"
 #include "./struct.h"
 #include <readline/history.h>

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/15 16:18:16 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:00:33 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 11:05:08 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ int	check_syntax(t_shell *sh)
 {
 	t_token	*current;
 
-	if (!sh->tokens)
-		return (0);
-	if (!parenth_syntax_count(sh))
+	if (!sh->tokens || !parenth_syntax_count(sh))
 		return (0);
 	current = sh->tokens;
 	while (current)

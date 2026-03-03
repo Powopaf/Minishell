@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:47:19 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:18:13 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 09:07:12 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static int	quote_status(char *s, size_t pos)
 	dquote = 0;
 	while (i < pos)
 	{
-		if (s[i] == '\'' && !dquote && (!i || s[i - 1] != '\\'))
+		if (s[i] == '\'' && !dquote && !is_backslashed(s, i))
 			squote = !squote;
-		if (s[i] == '\"' && !squote && (!i || s[i - 1] != '\\'))
+		if (s[i] == '\"' && !squote && !is_backslashed(s, i))
 			dquote = !dquote;
 		i++;
 	}
@@ -59,7 +59,7 @@ static char	*strdup_rm_backslash(char *s)
 	j = 0;
 	while (i < ft_strlen(s))
 	{
-		if (s[i] == '\\' && (!i || s[i - 1] != '\\') && !quote_status(s, i))
+		if (s[i] == '\\' && !is_backslashed(s, i) && !quote_status(s, i))
 			;
 		else
 		{

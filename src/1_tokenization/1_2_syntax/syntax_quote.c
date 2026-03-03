@@ -6,13 +6,14 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 10:14:12 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:00:39 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 09:04:31 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/libft.h"
 #include "./src/1_tokenization/1_2_syntax/syntax.h"
 #include "./src/2_parsing_ast/heredoc.h"
+#include "./src/3_execution/3_1_expansion/expand.h"
 #include "./src/5_signal_handling/signal_handling.h"
 #include "./src/7_error_handling/err.h"
 
@@ -67,7 +68,7 @@ static int	search_next_quote(t_shell *sh, size_t *squote, size_t *dquote,
 {
 	if (*squote)
 	{
-		while (sh->line[*i] != '\'' && sh->line[*i - 1] != '\\')
+		while (sh->line[*i] != '\'' && !is_backslashed(sh->line, *i))
 		{
 			if (!sh->line[*i] || !sh->line[*i + 1])
 				return (missing_quote(sh, *squote, *dquote));
@@ -78,7 +79,7 @@ static int	search_next_quote(t_shell *sh, size_t *squote, size_t *dquote,
 	}
 	if (*dquote)
 	{
-		while (sh->line[*i] != '\"' && sh->line[*i - 1] != '\\')
+		while (sh->line[*i] != '\"' && !is_backslashed(sh->line, *i))
 		{
 			if (!sh->line[*i] || !sh->line[*i + 1])
 				return (missing_quote(sh, *squote, *dquote));
@@ -101,14 +102,14 @@ int	quote_syntax(t_shell *sh)
 	i = -1;
 	while (sh->line && sh->line[++i])
 	{
-		if (sh->line[i] == '\'' && (!i || sh->line[i - 1] != '\\') && !dquote)
+		if (sh->line[i] == '\'' && !is_backslashed(sh->line, i) && !dquote)
 		{
 			squote = !squote;
 			i++;
 			if (squote && !search_next_quote(sh, &squote, &dquote, &i))
 				return (0);
 		}
-		if (sh->line[i] == '\"' && (!i || sh->line[i - 1] != '\\') && !squote)
+		if (sh->line[i] == '\"' && !is_backslashed(sh->line, i) && !squote)
 		{
 			dquote = !dquote;
 			i++;

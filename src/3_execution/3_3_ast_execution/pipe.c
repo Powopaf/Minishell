@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/04 12:22:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:39:04 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 23:43:40 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	pipe_right(t_shell *sh, t_ast *node, int fd)
 
 	(void)sh;
 	tmp = node->right;
-	while (tmp->astkw != AST_CMD)
+	while (tmp->astkw != AST_CMD && tmp->astkw != AST_SUBSHELL)
 	{
 		if (tmp->left)
 		{
@@ -48,7 +48,7 @@ static int	pipe_left(t_shell *sh, t_ast *node, int fd)
 
 	(void)sh;
 	tmp = node->left;
-	while (tmp->astkw != AST_CMD)
+	while (tmp->astkw != AST_CMD && tmp->astkw != AST_SUBSHELL)
 	{
 		if (tmp->right)
 		{

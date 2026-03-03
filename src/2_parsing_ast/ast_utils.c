@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 08:05:36 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:53:09 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 23:29:30 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_ast	*create_ast_node(t_shell *sh, t_ast_node_type astkw)
 	node->redir = NULL;
 	node->fd_in = -1;
 	node->fd_out = -1;
+	node->ko = 0;
 	node->pid = -1;
 	node->status = -1;
 	node->left = NULL;

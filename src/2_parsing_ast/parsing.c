@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:38:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:05:01 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 08:41:54 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "./src/2_parsing_ast/parser_utils.h"
 #include "./src/2_parsing_ast/parsing.h"
 #include <stddef.h>
+#include "./src/2_parsing_ast/heredoc.h"
+#include "./src/3_execution/3_1_expansion/expand.h"
 
 static t_ast	*parse_pipelines(t_shell *sh, t_token **tokens);
 

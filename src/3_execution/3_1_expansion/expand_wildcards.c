@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 13:40:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:18:13 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 09:33:15 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,10 @@ int	expand_wildcard_redir_file(t_shell *sh, t_redir *current_redir)
 	{
 		tmp = expand_wildcards_str(sh, current_redir->file, &count);
 		if (count > 1)
-			return (error(sh, current_redir->file, AMB_REDIR, -FAIL),
-				ft_empty_array_strs(tmp), 0);
+		{
+			ft_empty_array_strs(tmp);
+			return (error(sh, current_redir->file, AMB_REDIR, -FAIL), 0);
+		}
 		else
 		{
 			free(current_redir->file);
