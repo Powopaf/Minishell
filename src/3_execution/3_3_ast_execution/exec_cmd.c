@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/03 08:20:41 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 13:53:07 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ static void	exec_forked(t_shell *sh, t_ast *node)
 		exit(FAIL);
 	if (!redir(sh, node->redir))
 		exit(FAIL);
+	if (!ft_strcmp(node->args[0], "."))
+		error(sh, ".", "not implemented in minishell", FAIL);
 	exec_bin(sh, node);
 }
 
