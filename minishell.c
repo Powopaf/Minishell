@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:25:50 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 17:20:04 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "./src/5_signal_handling/signal_handling.h"
 #include "./src/6_cleaning/clean_shell.h"
 //#include "signal.h"
+#include "./src/7_error_handling/err.h"
 #include "./struct.h"
 #include <readline/history.h>
 #include <readline/readline.h>
@@ -47,6 +48,10 @@ static int	process_line(t_shell *shell, char *line)
 	if (!shell->ast)
 		return (clean_prompt(shell), 1);
 	exec_root(shell, shell->ast);
+	if (shell->status == SIGQUIT_STATUS)
+		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
+	else if (shell->status == SIGSEGV_STATUS)
+		write(STDERR_FILENO, "Segmentation fault (core dumped)\n", 33);
 	clean_prompt(shell);
 	return (1);
 }
