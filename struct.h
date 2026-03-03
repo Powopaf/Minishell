@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 15:21:03 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/01 22:27:02 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 23:28:33 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct s_ast
 	struct s_redir	*redir;
 	int				fd_in;
 	int				fd_out;
+	int				ko;
 	pid_t			pid;
 	int				status;
 	struct s_ast	*left;

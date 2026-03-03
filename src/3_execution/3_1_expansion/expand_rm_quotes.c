@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 17:47:19 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:18:13 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 09:29:23 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	is_quoted(char *s)
 		return (0);
 	while (i < ft_strlen(s))
 	{
-		if (s[i] == '\'' && !dquote)
+		if (s[i] == '\'' && !is_backslashed(s, i) && !dquote)
 			squote++;
-		else if (s[i] == '\"' && !squote)
+		else if (s[i] == '\"' && !is_backslashed(s, i) && !squote)
 			dquote++;
 		i++;
 	}
@@ -63,9 +63,9 @@ char	*strdup_rm_quotes(char *s)
 	j = 0;
 	while (i < ft_strlen(s))
 	{
-		if (s[i] == '\'' && !dquote)
+		if (s[i] == '\'' && !is_backslashed(s, i) && !dquote)
 			squote = !squote;
-		else if (s[i] == '\"' && !squote)
+		else if (s[i] == '\"' && !is_backslashed(s, i) && !squote)
 			dquote = !dquote;
 		else
 			dup[j++] = s[i];

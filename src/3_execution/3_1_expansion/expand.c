@@ -6,12 +6,13 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 00:32:48 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 23:31:11 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./src/3_execution/3_1_expansion/expand.h"
 #include "./src/3_execution/3_1_expansion/expand_custom_split.h"
+#include "./src/6_cleaning/clean_shell.h"
 
 static void	expand_redirs_hd(t_shell *sh, t_redir *redir)
 {
@@ -92,14 +93,19 @@ static int	expand_args(t_shell *sh, t_ast *current_node)
 
 int	expand_cmd(t_shell *sh, t_ast *current_node)
 {
-	if (current_node && current_node->astkw == AST_CMD)
+	if (current_node && (current_node->astkw == AST_CMD
+			|| current_node->astkw == AST_SUBSHELL))
 	{
 		if (current_node->args)
 			expand_args(sh, current_node);
 		if (current_node->redir)
 		{
 			if (!expand_redirs_files(sh, current_node->redir))
+			{
+				redir_clear(&current_node->redir, clean_redir);
+				current_node->ko = 1;
 				return (0);
+			}
 			expand_redirs_hd(sh, current_node->redir);
 		}
 	}

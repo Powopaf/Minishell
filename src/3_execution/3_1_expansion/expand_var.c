@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 01:02:15 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 11:04:18 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ static char	*expand_var(t_shell *sh, char *s, char *expand)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '$' && (!i || s[i - 1] != '\\') && s[i + 1] == '?'
+		if (s[i] == '$' && !is_backslashed(s, i) && s[i + 1] == '?'
 			&& !is_squoted(s, i))
 			expand = expand_status(sh, expand, &i);
-		else if (s[i] == '$' && (!i || s[i - 1] != '\\') && !is_squoted(s, i)
+		else if (s[i] == '$' && !is_backslashed(s, i) && !is_squoted(s, i)
 			&& !is_dquoted(s, i) && (s[i + 1] == '\"' || s[i + 1] == '\''))
 			;
-		else if (s[i] == '$' && (!i || s[i - 1] != '\\') && (ft_isalnum(s[i
-					+ 1]) || s[i + 1] == '_') && !is_squoted(s, i))
+		else if (s[i] == '$' && !is_backslashed(s, i) && (ft_isalnum(s[i + 1])
+				|| s[i + 1] == '_') && !is_squoted(s, i))
 			expand = expand_env_var(sh, s, expand, &i);
 		else
 			expand = ft_strjoin_char(expand, s[i], 1, 1);
