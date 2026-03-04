@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/03 13:53:07 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:37:37 by pifourni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	exec_forked(t_shell *sh, t_ast *node)
 		exit(FAIL);
 	if (!redir(sh, node->redir))
 		exit(FAIL);
-	if (!ft_strcmp(node->args[0], "."))
+	if (node && node->args && !ft_strcmp(node->args[0], "."))
 		error(sh, ".", "not implemented in minishell", FAIL);
 	exec_bin(sh, node);
 }
