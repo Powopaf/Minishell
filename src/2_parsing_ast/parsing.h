@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:01:47 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/02 00:46:38 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/06 16:08:39 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@
 t_ast	*parser(t_shell *sh, t_token **tokens);
 
 int		is_logop(t_token *token);
+
+int		expand_and_heredoc(t_shell *sh, t_ast *node);
 
 #endif

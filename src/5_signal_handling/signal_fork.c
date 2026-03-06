@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 11:30:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/02/27 21:08:46 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/06 15:38:42 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	heredoc_signal_handler(int sig)
 	(void)sig;
 	g_signal = SIGINT;
 	write(STDOUT_FILENO, "^C\n", 3);
-	exit(SIGINT_STATUS);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 void	setup_heredoc_signals(void)
@@ -33,7 +35,7 @@ void	setup_heredoc_signals(void)
 	sigemptyset(&sa_quit.sa_mask);
 	sa_quit.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &sa_quit, NULL);
-	disable_echoctl();
+	// disable_echoctl();
 }
 
 void	setup_child_signals(t_shell *shell)
