@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 11:11:19 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/03 10:47:38 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/07 11:56:43 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	setup_signals(t_shell *sh)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
+	struct termios		term;
 
 	if (!sh->tty)
 		return ;
@@ -49,4 +50,7 @@ void	setup_signals(t_shell *sh)
 	sa_quit.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &sa_quit, NULL);
 	restore_terminal_settings(sh);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_cc[VQUIT] = _POSIX_VDISABLE;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
