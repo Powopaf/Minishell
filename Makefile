@@ -1,7 +1,7 @@
 .PHONY: all clean fclean re
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -MMD -MP
+CFLAGS = -Wall -Wextra -Werror -MMD -MP -g
 LIB = libft/libft.a -lreadline
 SRC = 	./minishell.c \
 		./src/0_initialization/init_shell.c \
