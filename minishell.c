@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 10:12:40 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/07 13:41:34 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/03 08:41:02 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,17 @@
 
 volatile sig_atomic_t	g_signal = 0;
 
-static void	signal_reset(t_shell *shell)
-{
-	if (g_signal == SIGINT)
-	{
-		shell->status = SIGINT_STATUS;
-		g_signal = 0;
-	}
-}
-
 static int	process_line(t_shell *shell, char *line)
 {
 	t_token	*tokens;
 
 	if (!*line)
 		return (1);
-	signal_reset(shell);
+	if (g_signal == SIGINT)
+	{
+		shell->status = SIGINT_STATUS;
+		g_signal = 0;
+	}
 	shell->line = line;
 	if (!tokenization(shell))
 		return (clean_prompt(shell), 1);
@@ -49,7 +44,7 @@ static int	process_line(t_shell *shell, char *line)
 		return (clean_prompt(shell), 1);
 	tokens = shell->tokens;
 	shell->ast = parser(shell, &tokens);
-	if (!shell->ast || g_signal == SIGINT)
+	if (!shell->ast)
 		return (clean_prompt(shell), 1);
 	exec_root(shell, shell->ast);
 	if (shell->status == SIGQUIT_STATUS)

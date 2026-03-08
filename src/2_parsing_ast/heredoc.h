@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 17:18:30 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/07 09:46:17 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:39:23 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@
  * heredoc redir entry to collect.
  */
 void	handle_heredocs(t_shell *sh, t_ast *current_node);
+
+void	collect_heredocs(t_shell *sh, t_redir *redir);
 
 #endif

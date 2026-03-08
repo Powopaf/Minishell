@@ -5,7 +5,11 @@ minishell
 *.supp
 *.vscode
 *tester*
-trash
+a
+b
+c
+bonjour
+hola
 
 *.pdf
 

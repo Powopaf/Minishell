@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 10:34:35 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/07 14:12:49 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/02 01:39:23 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	unset(char **args, t_shell *sh)
 	size_t	i;
 	int		status;
 
-	if (!args[1] || (!args[1][0] && !args[2]))
+	if (!args[1] || !args[1][0])
 		return (SUCCESS);
 	status = SUCCESS;
 	i = 1;
