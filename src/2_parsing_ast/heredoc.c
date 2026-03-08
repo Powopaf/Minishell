@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 09:36:17 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 14:55:59 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/07 13:24:59 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,49 @@ static void	expand_hd_line(t_shell *sh, t_redir *redir, char **line)
 	}
 }
 
+static int	heredoc_null(t_shell *sh, char *line, int *block_null)
+{
+	size_t	len;
+
+	len = ft_strlen(line);
+	if (line && len > 0 && line[len - 1] == '\n')
+	{
+		(*block_null) = 0;
+		return (0);
+	}
+	if (line && len > 0 && line[len - 1] != '\n')
+	{
+		(*block_null) = 1;
+		return (0);
+	}
+	if (!line && (*block_null))
+		return (2);
+	if (!line && !(*block_null))
+	{
+		if (g_signal != SIGINT)
+			warning_hd(sh);
+		return (1);
+	}
+	return (0);
+}
+
 static int	write_heredoc(t_shell *sh, t_redir *redir, int fd)
 {
 	char	*line;
-	size_t	len;
+	int		block_null;
 
-	setup_heredoc_signals();
+	block_null = 0;
 	while (1)
 	{
-		ft_putstr_fd(PROMPT_HD, 1);
+		if (!block_null)
+			ft_putstr_fd(PROMPT_HD, 1);
 		line = ft_get_next_line(sh->stdin_fd);
-		if (!line)
-		{
-			warning_hd(sh);
+		if (heredoc_null(sh, line, &block_null) == 1)
 			break ;
-		}
-		len = ft_strlen(line);
-		if (len > 0 && !ft_strncmp(line, redir->eofkw, ft_strlen(redir->eofkw))
+		if (heredoc_null(sh, line, &block_null) == 2)
+			continue ;
+		if (ft_strlen(line) > 0 && !ft_strncmp(line, redir->eofkw,
+				ft_strlen(redir->eofkw))
 			&& line[ft_strlen(redir->eofkw)] == '\n')
 		{
 			free(line);
@@ -62,7 +88,7 @@ static int	write_heredoc(t_shell *sh, t_redir *redir, int fd)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	return (setup_signals(sh), close(fd), 1);
+	return (close(fd), 1);
 }
 
 static int	heredoc(t_shell *sh, t_redir *redir)
@@ -86,28 +112,28 @@ static int	heredoc(t_shell *sh, t_redir *redir)
 		return (free(hdfile), error(sh, "here_doc", strerror(errno), -FAIL), 0);
 	unlink(hdfile);
 	free(hdfile);
-	if (!write_heredoc(sh, redir, fd))
-		return (0);
+	setup_heredoc_signals();
+	write_heredoc(sh, redir, fd);
 	setup_signals(sh);
 	return (1);
 }
 
-void	collect_heredocs(t_shell *sh, t_redir *redir)
+void	handle_heredocs(t_shell *sh, t_ast *current_node)
 {
+	t_redir	*redir;
+
+	if (!current_node)
+		return ;
+	redir = current_node->redir;
 	while (redir)
 	{
 		if (redir->kw == REDIR_HD)
 		{
 			ft_close_fd(&redir->fd_in);
 			heredoc(sh, redir);
+			if (g_signal == SIGINT)
+				break ;
 		}
 		redir = redir->next;
 	}
-}
-
-void	handle_heredocs(t_shell *sh, t_ast *current_node)
-{
-	if (!current_node)
-		return ;
-	collect_heredocs(sh, current_node->redir);
 }

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:45:07 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/03 11:04:18 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/08 08:40:43 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,23 @@ char	*expand_str(t_shell *sh, char *s)
 	if (!expand)
 		return (error(sh, "malloc", strerror(errno), -FAIL), NULL);
 	expand = expand_var(sh, s, expand);
+	return (expand);
+}
+
+char	*expand_redir_str(t_shell *sh, t_redir *redir, char *s)
+{
+	char	*expand;
+
+	expand = ft_strdup("");
+	if (!expand)
+		return (error(sh, "malloc", strerror(errno), -FAIL), NULL);
+	expand = expand_var(sh, s, expand);
+	if (expand && !*expand)
+	{
+		free(expand);
+		error(sh, s, AMB_REDIR, -FAIL);
+		redir->kw = EOFKW;
+		return (NULL);
+	}
 	return (expand);
 }
