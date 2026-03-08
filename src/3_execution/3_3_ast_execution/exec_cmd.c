@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/07 09:26:45 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/08 10:28:29 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	exec_cmd(t_shell *sh, t_ast *node)
 {
 	if (!node)
 		return ;
-	// expand_cmd(sh, node);
-	// handle_heredocs(sh, node);
 	if (node->args && node->args[0] && (!node->parent
 			|| node->parent->astkw != AST_PIPE))
 	{

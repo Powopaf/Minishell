@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:38:52 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/08 10:01:05 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/08 10:29:20 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ int		ft_isalnum(int c);
  * @param {int} fd - File descriptor to read from.
 
 
-	* @returns {char*} Pointer to a newly allocated string containing the next line,
+* @returns {char*} Pointer to a newly allocated string containing the next line,
  * including the newline character if present. Returns NULL on EOF or error.
  * The caller is responsible for freeing the returned string.
  */

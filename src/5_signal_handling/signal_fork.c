@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 11:30:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/07 11:39:19 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/08 10:28:39 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	heredoc_signal_handler(int sig)
 	write(STDOUT_FILENO, "^C\n", 3);
 	rl_on_new_line();
 	rl_replace_line("", 0);
-	// rl_redisplay();
 }
 
 void	setup_heredoc_signals(void)
