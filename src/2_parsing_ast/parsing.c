@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/16 15:38:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/03 08:41:54 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/07 13:39:10 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,7 @@ t_ast	*parser(t_shell *sh, t_token **tokens)
 	node = parse_logical_operators(sh, tokens);
 	if (!node || (*tokens && (*tokens)->kw != EOFKW))
 		return (NULL);
+	if (!expand_and_heredoc(sh, node))
+		return (node);
 	return (node);
 }

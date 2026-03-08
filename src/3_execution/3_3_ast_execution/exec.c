@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:08:31 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/03 00:29:10 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/07 09:17:20 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	exec(t_shell *sh, t_ast *node)
 
 static void	exec_sub(t_shell *sh, t_ast *node)
 {
+	ignore_signals();
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
 		return ;
@@ -58,7 +59,6 @@ static void	exec_sub(t_shell *sh, t_ast *node)
 	}
 	ft_close_fd(&node->fd_in);
 	ft_close_fd(&node->fd_out);
-	ignore_signals();
 	sh->status = wait_pid(node);
 	setup_signals(sh);
 	return ;

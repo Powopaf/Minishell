@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 23:03:22 by pifourni          #+#    #+#             */
-/*   Updated: 2026/03/03 08:51:08 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/08 08:35:05 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,7 @@ int		is_dquoted(char *s, size_t pos);
 int		is_squoted(char *s, size_t pos);
 
 int		is_backslashed(char *s, size_t pos);
+
+char	*expand_redir_str(t_shell *sh, t_redir *redir, char *s);
 
 #endif

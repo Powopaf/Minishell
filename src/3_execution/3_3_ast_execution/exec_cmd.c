@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pifourni <pifourni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 17:43:29 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/04 10:37:37 by pifourni         ###   ########.fr       */
+/*   Updated: 2026/03/08 10:28:29 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,18 @@ void	exec_cmd(t_shell *sh, t_ast *node)
 {
 	if (!node)
 		return ;
-	expand_cmd(sh, node);
-	handle_heredocs(sh, node);
 	if (node->args && node->args[0] && (!node->parent
 			|| node->parent->astkw != AST_PIPE))
 	{
 		if (is_builtin_main(sh, node, node->args, node->args[0]))
 			return (ft_close_fd(&node->fd_in), ft_close_fd(&node->fd_out));
 	}
+	ignore_signals();
 	node->pid = try_fork(sh);
 	if (node->pid < 0)
 		return ;
 	if (node->pid == 0)
 		exec_forked(sh, node);
-	return (ignore_signals(), ft_close_fd(&node->fd_in),
+	return (ft_close_fd(&node->fd_in),
 		ft_close_fd(&node->fd_out));
 }

@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 10:10:21 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/02 23:31:11 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/08 08:38:17 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	expand_redirs_files(t_shell *sh, t_redir *redir)
 	{
 		if (redir->file)
 		{
-			expand = expand_str(sh, redir->file);
+			expand = expand_redir_str(sh, redir, redir->file);
 			if (expand)
 			{
 				free(redir->file);
