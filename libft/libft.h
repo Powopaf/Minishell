@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:38:52 by pifourni          #+#    #+#             */
-/*   Updated: 2026/02/26 12:09:19 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/08 10:01:05 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,5 +277,7 @@ int		ft_strlendouble(char **tab);
 size_t	ft_strslen(char **s);
 
 int		ft_isalpha(int c);
+
+void	*ft_memset(void *s, int c, size_t n);
 
 #endif

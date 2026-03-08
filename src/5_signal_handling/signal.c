@@ -6,10 +6,11 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 11:11:19 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/07 11:56:43 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/03/08 10:03:31 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "./libft/libft.h"
 #include "signal_handling.h"
 
 void	ignore_signals(void)
@@ -50,7 +51,10 @@ void	setup_signals(t_shell *sh)
 	sa_quit.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &sa_quit, NULL);
 	restore_terminal_settings(sh);
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_cc[VQUIT] = _POSIX_VDISABLE;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	ft_memset(&term, 0, sizeof(struct termios));
+	if (tcgetattr(STDIN_FILENO, &term) == 0)
+	{
+		term.c_cc[VQUIT] = _POSIX_VDISABLE;
+		tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	}
 }
