@@ -6,7 +6,7 @@
 /*   By: flomulle <flomulle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 11:30:02 by flomulle          #+#    #+#             */
-/*   Updated: 2026/03/08 10:28:39 by flomulle         ###   ########.fr       */
+/*   Updated: 2026/02/27 21:08:46 by flomulle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@ void	heredoc_signal_handler(int sig)
 	(void)sig;
 	g_signal = SIGINT;
 	write(STDOUT_FILENO, "^C\n", 3);
-	rl_on_new_line();
-	rl_replace_line("", 0);
+	exit(SIGINT_STATUS);
 }
 
 void	setup_heredoc_signals(void)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
-	struct termios		term;
 
 	sa_int.sa_handler = heredoc_signal_handler;
 	sigemptyset(&sa_int.sa_mask);
@@ -36,9 +34,6 @@ void	setup_heredoc_signals(void)
 	sa_quit.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &sa_quit, NULL);
 	disable_echoctl();
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_cc[VQUIT] = _POSIX_VDISABLE;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
 void	setup_child_signals(t_shell *shell)
@@ -46,7 +41,6 @@ void	setup_child_signals(t_shell *shell)
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
 
-	restore_terminal_settings(shell);
 	sa_int.sa_handler = SIG_DFL;
 	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_flags = SA_RESTART;
@@ -55,4 +49,5 @@ void	setup_child_signals(t_shell *shell)
 	sigemptyset(&sa_quit.sa_mask);
 	sa_quit.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &sa_quit, NULL);
+	restore_terminal_settings(shell);
 }

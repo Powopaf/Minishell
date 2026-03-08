@@ -72,7 +72,6 @@ No shell options: Commands like set, or configuration variables that change pars
 Signals in non‑interactive mode: Minishellduo uses default process signal behavior (no custom handlers), which can differ slightly from bash run in a script mode for certain edge cases.
 Readline behavior: Prompt redraw and line clearing are designed to resemble bash, but details (e.g. multiline history, special keybindings) depend on system readline configuration and may differ.
 Exit codes and status propagation: Foreground commands and pipelines return 128 + signal when killed, and logical operators &&/|| follow those statuses. Some rare or deeply nested combinations might not be exactly identical to bash behavior but follow the project spec and POSIX guidelines as much as practical.
-Heredoc: in non-quoted heredoc, we decided to maintain the general logic that single quoted environment variables should not be expanded. This alloc to have an heredoc be interpreted as '$PATH'=/usr/bin for instance, which is not possible in posix bash.
 
 **Resource and implementation limits**
 No built‑in memory limit management, beyond what the OS provides.
